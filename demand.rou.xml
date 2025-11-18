@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SUMO Traffic Demand/Flow Definitions for A3 Highway Network -->
+<!-- Time Period: Morning Peak Hour (07:00 - 08:00) -->
+<!-- Duration: 3600 seconds (1 hour) -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <!-- ========================================= -->
+    <!-- FLOW DEFINITIONS                          -->
+    <!-- Format: vehsPerHour (vehicles/hour)       -->
+    <!-- Time: begin="0" end="3600" (1 hour)       -->
+    <!-- ========================================= -->
+
+    <!-- ============================================== -->
+    <!-- HIGHWAY THROUGH-TRAFFIC FLOWS                  -->
+    <!-- ============================================== -->
+
+    <!-- Route 1: A3_Start to A3_End (Full highway) -->
+    <!-- Cars on full highway route -->
+    <flow id="flow_A3_full_car" type="car" route="route_A3_full"
+          begin="0" end="3600" vehsPerHour="1360" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks on full highway route -->
+    <flow id="flow_A3_full_truck" type="truck" route="route_A3_full"
+          begin="0" end="3600" vehsPerHour="50" departLane="best" departSpeed="max"/>
+
+    <!-- Route 2: A3_Start to WAED exit -->
+    <!-- Cars exiting at WAED -->
+    <flow id="flow_A3_to_WAED_car" type="car" route="route_A3_to_WAED"
+          begin="0" end="3600" vehsPerHour="770" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks exiting at WAED -->
+    <flow id="flow_A3_to_WAED_truck" type="truck" route="route_A3_to_WAED"
+          begin="0" end="3600" vehsPerHour="20" departLane="best" departSpeed="max"/>
+
+    <!-- Route 3: A3_Start to HOR exit -->
+    <!-- Cars exiting at HOR -->
+    <flow id="flow_A3_to_HOR_car" type="car" route="route_A3_to_HOR"
+          begin="0" end="3600" vehsPerHour="730" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks exiting at HOR -->
+    <flow id="flow_A3_to_HOR_truck" type="truck" route="route_A3_to_HOR"
+          begin="0" end="3600" vehsPerHour="20" departLane="best" departSpeed="max"/>
+
+    <!-- Route 4: A3_Start to THA exit -->
+    <!-- Cars exiting at THA -->
+    <flow id="flow_A3_to_THA_car" type="car" route="route_A3_to_THA"
+          begin="0" end="3600" vehsPerHour="1100" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks exiting at THA -->
+    <flow id="flow_A3_to_THA_truck" type="truck" route="route_A3_to_THA"
+          begin="0" end="3600" vehsPerHour="30" departLane="best" departSpeed="max"/>
+
+    <!-- ============================================== -->
+    <!-- ENTRY RAMP FLOWS                               -->
+    <!-- ============================================== -->
+
+    <!-- Route 5: WAED entry to A3_End -->
+    <!-- Cars entering at WAED -->
+    <flow id="flow_WAED_to_A3_car" type="car" route="route_WAED_to_A3"
+          begin="0" end="3600" vehsPerHour="780" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks entering at WAED -->
+    <flow id="flow_WAED_to_A3_truck" type="truck" route="route_WAED_to_A3"
+          begin="0" end="3600" vehsPerHour="20" departLane="best" departSpeed="max"/>
+
+    <!-- Route 6: HOR entry to A3_End -->
+    <!-- Cars entering at HOR -->
+    <flow id="flow_HOR_to_A3_car" type="car" route="route_HOR_to_A3"
+          begin="0" end="3600" vehsPerHour="690" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks entering at HOR -->
+    <flow id="flow_HOR_to_A3_truck" type="truck" route="route_HOR_to_A3"
+          begin="0" end="3600" vehsPerHour="20" departLane="best" departSpeed="max"/>
+
+    <!-- Route 7: THA entry to A3_End -->
+    <!-- Cars entering at THA -->
+    <flow id="flow_THA_to_A3_car" type="car" route="route_THA_to_A3"
+          begin="0" end="3600" vehsPerHour="1000" departLane="best" departSpeed="max"/>
+
+    <!-- Trucks entering at THA -->
+    <flow id="flow_THA_to_A3_truck" type="truck" route="route_THA_to_A3"
+          begin="0" end="3600" vehsPerHour="30" departLane="best" departSpeed="max"/>
+
+    <!-- ============================================== -->
+    <!-- DEMAND SUMMARY - ACTUAL DATA                   -->
+    <!-- ============================================== -->
+    <!--
+    Total vehicles per hour (Morning Peak 07:00-08:00):
+
+    HIGHWAY THROUGH-TRAFFIC:
+    - A3_full:      1360 cars +  50 trucks = 1410 veh/h
+    - A3_to_WAED:    770 cars +  20 trucks =  790 veh/h
+    - A3_to_HOR:     730 cars +  20 trucks =  750 veh/h
+    - A3_to_THA:    1100 cars +  30 trucks = 1130 veh/h
+
+    ENTRY RAMPS:
+    - WAED_to_A3:    780 cars +  20 trucks =  800 veh/h
+    - HOR_to_A3:     690 cars +  20 trucks =  710 veh/h
+    - THA_to_A3:    1000 cars +  30 trucks = 1030 veh/h
+
+    GRAND TOTAL:    6430 cars + 190 trucks = 6620 veh/h
+    -->
+
+</routes>
