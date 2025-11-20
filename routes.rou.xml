@@ -41,12 +41,12 @@
     <!-- ============================================== -->
 
     <!-- Route 5: WAED entry to A3_End -->
-    <route id="route_WAED_to_A3" edges="E36_WAED A3_WAED_MERG A3_HOR_S A3_HOR_MID A3_HOR_MERG A3_THA_S A3_THA_MID A3_THA_MERG A3_THA_N"/>
+    <route id="route_WAED_to_A3" edges="E36_WAED E36_WAED_ACC A3_WAED_MERG A3_HOR_S A3_HOR_MID A3_HOR_MERG A3_THA_S A3_THA_MID A3_THA_MERG A3_THA_N"/>
 
     <!-- Route 6: HOR entry to A3_End -->
-    <route id="route_HOR_to_A3" edges="E35_HOR A3_HOR_MERG A3_THA_S A3_THA_MID A3_THA_MERG A3_THA_N"/>
+    <route id="route_HOR_to_A3" edges="E35_HOR E35_HOR_ACC A3_HOR_MERG A3_THA_S A3_THA_MID A3_THA_MERG A3_THA_N"/>
 
     <!-- Route 7: THA entry to A3_End -->
-    <route id="route_THA_to_A3" edges="E34_THA A3_THA_MERG A3_THA_N"/>
+    <route id="route_THA_to_A3" edges="E34_THA E34_THA_ACC A3_THA_MERG A3_THA_N"/>
 
 </routes>
