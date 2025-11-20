@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-19 14:16:56 by Eclipse SUMO netedit Version 1.24.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="SENS_A3_HOR_MID0" lane="A3_HOR_MID_0" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_HOR_MID0.xml"/>
+    <inductionLoop id="SENS_A3_HOR_MID1" lane="A3_HOR_MID_1" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_HOR_MID1.xml"/>
+    <inductionLoop id="SENS_A3_HOR_N0" lane="A3_THA_S_0" pos="10.00" period="300.00" file="output_detectors\SENS_A3_HOR_N0.xml"/>
+    <inductionLoop id="SENS_A3_HOR_N1" lane="A3_THA_S_1" pos="10.00" period="300.00" file="output_detectors\SENS_A3_HOR_N1.xml"/>
+    <inductionLoop id="SENS_A3_THA_MID0" lane="A3_THA_MID_0" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_THA_MID0.xml"/>
+    <inductionLoop id="SENS_A3_THA_MID1" lane="A3_THA_MID_1" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_THA_MID1.xml"/>
+    <inductionLoop id="SENS_A3_THA_N0" lane="A3_THA_N_0" pos="10.00" period="300.00" file="output_detectors\SENS_A3_THA_N.xml"/>
+    <inductionLoop id="SENS_A3_THA_N1" lane="A3_THA_N_1" pos="10.00" period="300.00" file="output_detectors\SENS_A3_THA_N_L.xml"/>
+    <inductionLoop id="SENS_A3_WAE_MID0" lane="A3_WAED_MID_0" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_WAE_MID0.xml"/>
+    <inductionLoop id="SENS_A3_WAE_MID1" lane="A3_WAED_MID_1" pos="-10.00" period="300.00" file="output_detectors\SENS_A3_WAE_MID1.xml"/>
+    <inductionLoop id="SENS_A3_WAE_N0" lane="A3_HOR_S_0" pos="10.00" period="300.00" file="output_detectors\SENS_A3_WAE_N0.xml"/>
+    <inductionLoop id="SENS_A3_WAE_N1" lane="A3_HOR_S_1" pos="10.00" period="300.00" file="output_detectors\SENS_A3_WAE_N1.xml"/>
+    <laneAreaDetector id="SENS_E_WAE" lane="E36_WAED_0" pos="0.00" length="400.08" period="300.00" file="output_detectors\SENS_E_WAE.xml" friendlyPos="1"/>
+    <laneAreaDetector id="SENS_E_HOR" lane="E35_HOR_0" pos="0.00" length="714.96" period="300.00" file="output_detectors\SENS_E_HOR.xml" friendlyPos="1"/>
+    <laneAreaDetector id="SENS_E_THA" lane="E34_THA_0" pos="0.00" length="300.67" period="300.00" file="output_detectors\SENS_E_THA.xml" friendlyPos="1"/>
+</additional>
