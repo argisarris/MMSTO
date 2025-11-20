@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SUMO Configuration for A3 Highway Network -->
+<!-- Author: asarris -->
+<!-- Generated on 2025-11-19, Updated 2025-11-20 -->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Network.net.xml"/>
+        <route-files value="routes.rou.xml,demand.rou.xml"/>
+        <gui-settings-file value="viewsettings_asarris_eth.xml"/>
+        <additional-files value="detectors.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="output_fcd.xml"/>
+        <emission-output value="output_emissions.xml"/>
+        <summary-output value="output_summary.xml"/>
+        <tripinfo-output value="output_tripinfo.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+</sumoConfiguration>
