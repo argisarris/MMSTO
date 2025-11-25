@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SUMO Traffic Demand/Flow Definitions for A3 Highway Network -->
-<!-- Time Period: Morning Peak Hour (07:00 - 08:00) -->
-<!-- Duration: 3600 seconds (1 hour) -->
+<!-- Time Period: Extended Peak Period -->
+<!-- Duration: 4500 seconds (75 minutes) -->
 <!-- Aggressiveness Distribution: 5 levels, 20% each -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -15,7 +15,7 @@
     <!-- ========================================= -->
     <!-- FLOW DEFINITIONS                          -->
     <!-- Format: vehsPerHour (vehicles/hour)       -->
-    <!-- Time: begin="0" end="3600" (1 hour)       -->
+    <!-- Time: begin="0" end="4500" (75 minutes)   -->
     <!-- Distribution: 20% per aggressiveness level-->
     <!-- ========================================= -->
 
@@ -26,106 +26,106 @@
     <!-- Route 1: A3_Start to A3_End (Full highway) - CARS -->
     <!-- Total: 1360 cars/h = 272 cars/h per aggressiveness level -->
     <flow id="flow_A3_full_car_aggr1" type="car_aggr1" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="272" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="272" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_car_aggr2" type="car_aggr2" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="272" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="272" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_car_aggr3" type="car_aggr3" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="272" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="272" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_car_aggr4" type="car_aggr4" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="272" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="272" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_car_aggr5" type="car_aggr5" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="272" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="272" departLane="best" departSpeed="max"/>
 
     <!-- Route 1: A3_Start to A3_End (Full highway) - TRUCKS -->
     <!-- Total: 50 trucks/h = 10 trucks/h per aggressiveness level -->
     <flow id="flow_A3_full_truck_aggr1" type="truck_aggr1" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="10" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="10" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_truck_aggr2" type="truck_aggr2" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="10" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="10" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_truck_aggr3" type="truck_aggr3" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="10" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="10" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_truck_aggr4" type="truck_aggr4" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="10" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="10" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_full_truck_aggr5" type="truck_aggr5" route="route_A3_full"
-          begin="0" end="3600" vehsPerHour="10" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="10" departLane="best" departSpeed="max"/>
 
     <!-- Route 2: A3_Start to WAED exit - CARS -->
     <!-- Total: 770 cars/h = 154 cars/h per aggressiveness level -->
     <flow id="flow_A3_to_WAED_car_aggr1" type="car_aggr1" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="154" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="154" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_car_aggr2" type="car_aggr2" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="154" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="154" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_car_aggr3" type="car_aggr3" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="154" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="154" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_car_aggr4" type="car_aggr4" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="154" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="154" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_car_aggr5" type="car_aggr5" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="154" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="154" departLane="best" departSpeed="max"/>
 
     <!-- Route 2: A3_Start to WAED exit - TRUCKS -->
     <!-- Total: 20 trucks/h = 4 trucks/h per aggressiveness level -->
     <flow id="flow_A3_to_WAED_truck_aggr1" type="truck_aggr1" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_truck_aggr2" type="truck_aggr2" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_truck_aggr3" type="truck_aggr3" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_truck_aggr4" type="truck_aggr4" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_WAED_truck_aggr5" type="truck_aggr5" route="route_A3_to_WAED"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
 
     <!-- Route 3: A3_Start to HOR exit - CARS -->
     <!-- Total: 730 cars/h = 146 cars/h per aggressiveness level -->
     <flow id="flow_A3_to_HOR_car_aggr1" type="car_aggr1" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="146" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="146" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_car_aggr2" type="car_aggr2" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="146" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="146" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_car_aggr3" type="car_aggr3" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="146" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="146" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_car_aggr4" type="car_aggr4" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="146" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="146" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_car_aggr5" type="car_aggr5" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="146" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="146" departLane="best" departSpeed="max"/>
 
     <!-- Route 3: A3_Start to HOR exit - TRUCKS -->
     <!-- Total: 20 trucks/h = 4 trucks/h per aggressiveness level -->
     <flow id="flow_A3_to_HOR_truck_aggr1" type="truck_aggr1" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_truck_aggr2" type="truck_aggr2" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_truck_aggr3" type="truck_aggr3" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_truck_aggr4" type="truck_aggr4" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_HOR_truck_aggr5" type="truck_aggr5" route="route_A3_to_HOR"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
 
     <!-- Route 4: A3_Start to THA exit - CARS -->
     <!-- Total: 1100 cars/h = 220 cars/h per aggressiveness level -->
     <flow id="flow_A3_to_THA_car_aggr1" type="car_aggr1" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="220" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="220" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_car_aggr2" type="car_aggr2" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="220" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="220" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_car_aggr3" type="car_aggr3" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="220" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="220" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_car_aggr4" type="car_aggr4" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="220" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="220" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_car_aggr5" type="car_aggr5" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="220" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="220" departLane="best" departSpeed="max"/>
 
     <!-- Route 4: A3_Start to THA exit - TRUCKS -->
     <!-- Total: 30 trucks/h = 6 trucks/h per aggressiveness level -->
     <flow id="flow_A3_to_THA_truck_aggr1" type="truck_aggr1" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_truck_aggr2" type="truck_aggr2" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_truck_aggr3" type="truck_aggr3" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_truck_aggr4" type="truck_aggr4" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_A3_to_THA_truck_aggr5" type="truck_aggr5" route="route_A3_to_THA"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
 
     <!-- ============================================== -->
     <!-- ENTRY RAMP FLOWS (Using Aggressive Ramp Types)-->
@@ -134,80 +134,80 @@
     <!-- Route 5: WAED entry to A3_End - CARS -->
     <!-- Total: 780 cars/h = 156 cars/h per aggressiveness level -->
     <flow id="flow_WAED_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="156" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="156" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="156" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="156" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="156" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="156" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="156" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="156" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="156" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="156" departLane="best" departSpeed="max"/>
 
     <!-- Route 5: WAED entry to A3_End - TRUCKS -->
     <!-- Total: 20 trucks/h = 4 trucks/h per aggressiveness level -->
     <flow id="flow_WAED_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_WAED_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_WAED_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
 
     <!-- Route 6: HOR entry to A3_End - CARS -->
     <!-- Total: 690 cars/h = 138 cars/h per aggressiveness level -->
     <flow id="flow_HOR_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="138" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="138" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="138" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="138" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="138" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="138" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="138" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="138" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="138" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="138" departLane="best" departSpeed="max"/>
 
     <!-- Route 6: HOR entry to A3_End - TRUCKS -->
     <!-- Total: 20 trucks/h = 4 trucks/h per aggressiveness level -->
     <flow id="flow_HOR_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
     <flow id="flow_HOR_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_HOR_to_A3"
-          begin="0" end="3600" vehsPerHour="4" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="max"/>
 
     <!-- Route 7: THA entry to A3_End - CARS -->
     <!-- Total: 1000 cars/h = 200 cars/h per aggressiveness level -->
     <flow id="flow_THA_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="200" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="200" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="200" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="200" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="200" departLane="best" departSpeed="max"/>
 
     <!-- Route 7: THA entry to A3_End - TRUCKS -->
     <!-- Total: 30 trucks/h = 6 trucks/h per aggressiveness level -->
     <flow id="flow_THA_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
     <flow id="flow_THA_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_THA_to_A3"
-          begin="0" end="3600" vehsPerHour="6" departLane="best" departSpeed="max"/>
+          begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="max"/>
 
     <!-- ============================================== -->
     <!-- DEMAND SUMMARY - UPDATED WITH AGGRESSIVENESS  -->
