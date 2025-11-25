@@ -10,6 +10,9 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
+# Create plots directory if it doesn't exist
+os.makedirs('plots', exist_ok=True)
+
 #%%
 # ==========================
 # START SUMO
@@ -37,8 +40,9 @@ K_R = 5/60 # veh/sec
 OCCUPANCY_TARGET = 30.0  # %
 Q_MIN = 0       # veh/h
 Q_MAX = 1800    # veh/h
-QUEUE_MAX_LENGHT_RAMP = 5
-K_QUEUE = 0.2 # veh/sec
+QUEUE_MAX_LENGTH_RAMP_THA = 30 # veh
+QUEUE_MAX_LENGTH_RAMP_HOR = 30 # veh
+QUEUE_MAX_LENGTH_RAMP_WAE = 30 # veh
 
 
 # ==========================
@@ -49,13 +53,13 @@ traffic_light_THA = "RM_THA"
 ramp_HOR = "0"									#What is this needed for???
 traffic_light_HOR = "RM_HOR"
 ramp_WAE = "0"									#What is this needed for???
-traffic_light_WAE = "RM_WAE"
+traffic_light_WAE = "RM_WAED"
 
 
 # ==========================
 # RAMP ALINEA CONTROL FUNCTION
 # ==========================
-def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength):
+def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE_MAX_LENGTH_RAMP):
 	"""
 	ALINEA control logic for a single ramp.
 
@@ -63,25 +67,28 @@ def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength):
 	- ramp: The ramp ID.
 	- q_previous_rate: Previous ramp flow rate (veh/h).
 	- occupancy_measured: Measured occupancy (%).
+	- queuelength: Current queue length on the ramp (veh).
+	- QUEUE_MAX_LENGTH_RAMP: Maximum allowed queue length (veh).
 
 	Returns:
 	- q_rate: Updated flow rate (veh/h)
 	- metering_rate: Green share for ramp (0..1)
 	"""
 	# Compute new flow rate (ALINEA formula)
-	if queue_length > QUEUE_MAX_LENGHT_RAMP:
-		# Ramp queue too long, increase green
-		q_rate = q_previous_rate + K_QUEUE * (queue_length - QUEUE_MAX_LENGHT_RAMP)
-	else:
-		q_rate = q_previous_rate + K_R * (OCCUPANCY_TARGET - occupancy_measured)
-	
+	q_rate = q_previous_rate + K_R * (OCCUPANCY_TARGET - occupancy_measured)
+
 	# Bound flow rate
 	q_bounded = min(Q_MAX, max(q_rate, Q_MIN))
-	
+
 	# Compute metering rate as fraction of signal cycle
 	metering_rate = (q_bounded * VEHICLE_AV_ACC_TIME) / SIGNAL_CYCLE_DURATION
 	metering_rate = min(1.0, math.floor(metering_rate * 10) / 10)  # discretize
-	
+
+	# Queue override: if queue too long, set metering rate to full green
+	if queuelength > QUEUE_MAX_LENGTH_RAMP:
+		# Ramp queue too long, increase green to flush out queue
+		metering_rate = 1.0
+
 	return q_rate, metering_rate
 
 
@@ -100,11 +107,11 @@ meteringrateList_THA, meteringrateList_HOR, meteringrateList_WAE = [], [], []
 reddurationList_THA, reddurationList_HOR, reddurationList_WAE = [], [], []
 
 standingqueue_ramp1   = [], [], [], [], []
-for step in range(3500):            
+for step in range(4500):
 	traci.simulationStep()
-	
-	
-	if step > RECORDING_CONTROL_STATS_START_TIME and step % STEP_INTERVAL == 0:
+
+
+	if step > 1000 and step % STEP_INTERVAL == 0:
 		# get occupancies for ALINEA and append to list
 		occ_THA_0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID0")
 		occ_THA_1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID1")
@@ -138,20 +145,20 @@ for step in range(3500):
 
 		# Apply ALINEA control for THA
 		# ==============================
-		q_rate_prev_THA, metering_rate_THA = control_ALINEA(ramp_THA, q_rate_prev_THA, occ_THA, QUEUEstep_THA)
+		q_rate_prev_THA, metering_rate_THA = control_ALINEA(ramp_THA, q_rate_prev_THA, occ_THA, QUEUEstep_THA, QUEUE_MAX_LENGTH_RAMP_THA)
 		meteringrateList_THA.append(metering_rate_THA)
-		# Convert metering rate to red duration
-		green_duration = 2
-		red_duration_THA = (1-metering_rate_THA)*(18-2)
-		reddurationList_THA.append(red_duration_THA)       
+		# Convert metering rate to green duration
+		green_duration_THA = int(metering_rate_THA * SIGNAL_CYCLE_DURATION)
+		red_duration_THA = SIGNAL_CYCLE_DURATION - green_duration_THA
+		reddurationList_THA.append(red_duration_THA)
 		# Get current traffic light logic
 		traffic_light_logic_THA = traci.trafficlight.getAllProgramLogics(traffic_light_THA)[0]
 		# Apply new green duration to the ramp signal
 		for ph_id in range(len(traffic_light_logic_THA.phases)):
 			if ph_id == 0:  # green phase
-				traffic_light_logic_THA.phases[ph_id].minDur = green_duration
-				traffic_light_logic_THA.phases[ph_id].maxDur = green_duration
-				traffic_light_logic_THA.phases[ph_id].duration = green_duration
+				traffic_light_logic_THA.phases[ph_id].minDur = green_duration_THA
+				traffic_light_logic_THA.phases[ph_id].maxDur = green_duration_THA
+				traffic_light_logic_THA.phases[ph_id].duration = green_duration_THA
 			elif ph_id == 1:  # red phase
 				traffic_light_logic_THA.phases[ph_id].minDur = red_duration_THA
 				traffic_light_logic_THA.phases[ph_id].maxDur = red_duration_THA
@@ -163,20 +170,20 @@ for step in range(3500):
 
 		# Apply ALINEA control for HOR
 		# ==============================
-		q_rate_prev_HOR, metering_rate_HOR = control_ALINEA(ramp_HOR, q_rate_prev_HOR, occ_HOR, QUEUEstep_HOR)
+		q_rate_prev_HOR, metering_rate_HOR = control_ALINEA(ramp_HOR, q_rate_prev_HOR, occ_HOR, QUEUEstep_HOR, QUEUE_MAX_LENGTH_RAMP_HOR)
 		meteringrateList_HOR.append(metering_rate_HOR)
-		# Convert metering rate to red duration
-		green_duration = 2
-		red_duration_HOR = (1-metering_rate_HOR)*(18-2)
-		reddurationList_HOR.append(red_duration_HOR)       
+		# Convert metering rate to green duration
+		green_duration_HOR = int(metering_rate_HOR * SIGNAL_CYCLE_DURATION)
+		red_duration_HOR = SIGNAL_CYCLE_DURATION - green_duration_HOR
+		reddurationList_HOR.append(red_duration_HOR)
 		# Get current traffic light logic
 		traffic_light_logic_HOR = traci.trafficlight.getAllProgramLogics(traffic_light_HOR)[0]
 		# Apply new green duration to the ramp signal
 		for ph_id in range(len(traffic_light_logic_HOR.phases)):
 			if ph_id == 0:  # green phase
-				traffic_light_logic_HOR.phases[ph_id].minDur = green_duration
-				traffic_light_logic_HOR.phases[ph_id].maxDur = green_duration
-				traffic_light_logic_HOR.phases[ph_id].duration = green_duration
+				traffic_light_logic_HOR.phases[ph_id].minDur = green_duration_HOR
+				traffic_light_logic_HOR.phases[ph_id].maxDur = green_duration_HOR
+				traffic_light_logic_HOR.phases[ph_id].duration = green_duration_HOR
 			elif ph_id == 1:  # red phase
 				traffic_light_logic_HOR.phases[ph_id].minDur = red_duration_HOR
 				traffic_light_logic_HOR.phases[ph_id].maxDur = red_duration_HOR
@@ -188,20 +195,20 @@ for step in range(3500):
 
 		# Apply ALINEA control for WAE
 		# ==============================
-		q_rate_prev_WAE, metering_rate_WAE = control_ALINEA(ramp_WAE, q_rate_prev_WAE, occ_WAE, QUEUEstep_WAE)
+		q_rate_prev_WAE, metering_rate_WAE = control_ALINEA(ramp_WAE, q_rate_prev_WAE, occ_WAE, QUEUEstep_WAE, QUEUE_MAX_LENGTH_RAMP_WAE)
 		meteringrateList_WAE.append(metering_rate_WAE)
-		# Convert metering rate to red duration
-		green_duration = 2
-		red_duration_WAE = (1-metering_rate_WAE)*(18-2)
-		reddurationList_WAE.append(red_duration_WAE)       
+		# Convert metering rate to green duration
+		green_duration_WAE = int(metering_rate_WAE * SIGNAL_CYCLE_DURATION)
+		red_duration_WAE = SIGNAL_CYCLE_DURATION - green_duration_WAE
+		reddurationList_WAE.append(red_duration_WAE)
 		# Get current traffic light logic
 		traffic_light_logic_WAE = traci.trafficlight.getAllProgramLogics(traffic_light_WAE)[0]
 		# Apply new green duration to the ramp signal
 		for ph_id in range(len(traffic_light_logic_WAE.phases)):
 			if ph_id == 0:  # green phase
-				traffic_light_logic_WAE.phases[ph_id].minDur = green_duration
-				traffic_light_logic_WAE.phases[ph_id].maxDur = green_duration
-				traffic_light_logic_WAE.phases[ph_id].duration = green_duration
+				traffic_light_logic_WAE.phases[ph_id].minDur = green_duration_WAE
+				traffic_light_logic_WAE.phases[ph_id].maxDur = green_duration_WAE
+				traffic_light_logic_WAE.phases[ph_id].duration = green_duration_WAE
 			elif ph_id == 1:  # red phase
 				traffic_light_logic_WAE.phases[ph_id].minDur = red_duration_WAE
 				traffic_light_logic_WAE.phases[ph_id].maxDur = red_duration_WAE
@@ -245,6 +252,8 @@ ax2.legend(loc='upper right')
 
 plt.title('Ramp Metering Evolution over Simulation Steps for Thalwil')
 plt.tight_layout()
+plt.savefig('plots/Sit1_THA_ALINEA.png', dpi=300, bbox_inches='tight')
+print("Saved plot: plots/Sit1_THA_ALINEA.png")
 plt.show()
 
 #%%
@@ -275,6 +284,8 @@ ax2.legend(loc='upper right')
 
 plt.title('Ramp Metering Evolution over Simulation Steps for Horgen')
 plt.tight_layout()
+plt.savefig('plots/Sit1_HOR_ALINEA.png', dpi=300, bbox_inches='tight')
+print("Saved plot: plots/Sit1_HOR_ALINEA.png")
 plt.show()
 
 #%%
@@ -305,6 +316,8 @@ ax2.legend(loc='upper right')
 
 plt.title('Ramp Metering Evolution over Simulation Steps for Wädenswil')
 plt.tight_layout()
+plt.savefig('plots/Sit1_WAE_ALINEA.png', dpi=300, bbox_inches='tight')
+print("Saved plot: plots/Sit1_WAE_ALINEA.png")
 plt.show()
 
 # STOP SUMO

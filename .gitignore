@@ -1,0 +1,9 @@
+# Simulation outputs
+output_*.xml
+output_detectors/
+
+# Plots folder
+plots/
+
+# Simulation Leif folder
+Simulation_Leif/

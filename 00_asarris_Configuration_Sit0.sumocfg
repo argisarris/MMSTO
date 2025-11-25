@@ -2,12 +2,13 @@
 
 <!-- SUMO Configuration for A3 Highway Network -->
 <!-- Author: asarris -->
-<!-- Generated on 2025-11-19, Updated 2025-11-20 -->
+<!-- Situation 0: Baseline (No Control) -->
+<!-- Generated on 2025-11-25 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="Network_TL.net.xml"/>
+        <net-file value="Network.net.xml"/>
         <route-files value="demand.rou.xml"/>
         <gui-settings-file value="viewsettings_asarris_eth.xml"/>
         <additional-files value="detectors.add.xml"/>
