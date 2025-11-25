@@ -1,6 +1,8 @@
 # Simulation outputs
 output_*.xml
 output_detectors/
+*_cache.pkl
+*.log
 
 # Plots folder
 plots/
