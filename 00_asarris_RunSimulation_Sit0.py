@@ -22,7 +22,8 @@ if 'SUMO_HOME' in os.environ:
 	print(os.environ["SUMO_HOME"])
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 sumoConfigFile = r"C:\Users\ETH\Documents\GitHub\MMSTO\00_asarris_Configuration_Sit0.sumocfg"
-sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1"]
+sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1",
+           "--message-log", "sumo_messages.log", "--error-log", "sumo_errors.log", "-v"]
 traci.start(sumoCmd)
 
 # ==========================
@@ -42,13 +43,31 @@ QUEUEList_THA, QUEUEList_HOR, QUEUEList_WAE = [], [], []
 
 # Lists for mainline/merging section monitoring (to detect traffic jams)
 speedList_THA_MID, speedList_HOR_MID, speedList_WAE_MID = [], [], []
+speedList_THA_RAMP, speedList_HOR_RAMP, speedList_WAE_RAMP = [], [], []
 densityList_THA_MID, densityList_HOR_MID, densityList_WAE_MID = [], [], []
+
+# Lists for before-merging (upstream) occupancy
+occList_THA_BEFORE, occList_HOR_BEFORE, occList_WAE_BEFORE = [], [], []
 
 for step in range(4500):
 	traci.simulationStep()
 
 	if step > 1000 and step % STEP_INTERVAL == 0:
-		# Get occupancies on mainline (mid sections after each ramp)
+		# Get occupancies AFTER merging (downstream sensors)
+		occ_THA_N0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_N0")
+		occ_THA_N1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_N1")
+		occ_HOR_N0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_HOR_N0")
+		occ_HOR_N1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_HOR_N1")
+		occ_WAE_N0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_WAE_N0")
+		occ_WAE_N1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_WAE_N1")
+		occ_THA_before = occ_THA_N0 + occ_THA_N1
+		occ_HOR_before = occ_HOR_N0 + occ_HOR_N1
+		occ_WAE_before = occ_WAE_N0 + occ_WAE_N1
+		occList_THA_BEFORE.append(occ_THA_before)
+		occList_HOR_BEFORE.append(occ_HOR_before)
+		occList_WAE_BEFORE.append(occ_WAE_before)
+
+		# Get occupancies BEFORE merging (upstream sections before each ramp)
 		occ_THA_0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID0")
 		occ_THA_1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID1")
 		occ_HOR_0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_HOR_MID0")
@@ -62,7 +81,7 @@ for step in range(4500):
 		occList_HOR.append(occ_HOR)
 		occList_WAE.append(occ_WAE)
 
-		# Get average speed on mainline (indicator of congestion)
+		# Get average speed on mainline before merge (indicator of congestion)
 		speed_THA_0 = traci.inductionloop.getLastIntervalMeanSpeed("SENS_A3_THA_MID0")
 		speed_THA_1 = traci.inductionloop.getLastIntervalMeanSpeed("SENS_A3_THA_MID1")
 		speed_HOR_0 = traci.inductionloop.getLastIntervalMeanSpeed("SENS_A3_HOR_MID0")
@@ -76,18 +95,29 @@ for step in range(4500):
 		speedList_HOR_MID.append(avg_speed_HOR)
 		speedList_WAE_MID.append(avg_speed_WAE)
 
-		# Get number of vehicles on the ramp
-		numVEH_THA = traci.lanearea.getLastStepVehicleNumber("SENS_E_THA")
-		numVEH_HOR = traci.lanearea.getLastStepVehicleNumber("SENS_E_HOR")
-		numVEH_WAE = traci.lanearea.getLastStepVehicleNumber("SENS_E_WAE")
+		# Get average speed on ramps (calculate from individual vehicles)
+		VEH_THA = traci.lanearea.getLastStepVehicleIDs("SENS_E_THA")
+		VEH_HOR = traci.lanearea.getLastStepVehicleIDs("SENS_E_HOR")
+		VEH_WAE = traci.lanearea.getLastStepVehicleIDs("SENS_E_WAE")
+
+		# Calculate average speed for vehicles on ramp (avoid division by zero)
+		avg_speed_ramp_THA = np.mean([traci.vehicle.getSpeed(veh_id) for veh_id in VEH_THA]) if len(VEH_THA) > 0 else 0
+		avg_speed_ramp_HOR = np.mean([traci.vehicle.getSpeed(veh_id) for veh_id in VEH_HOR]) if len(VEH_HOR) > 0 else 0
+		avg_speed_ramp_WAE = np.mean([traci.vehicle.getSpeed(veh_id) for veh_id in VEH_WAE]) if len(VEH_WAE) > 0 else 0
+
+		speedList_THA_RAMP.append(avg_speed_ramp_THA)
+		speedList_HOR_RAMP.append(avg_speed_ramp_HOR)
+		speedList_WAE_RAMP.append(avg_speed_ramp_WAE)
+
+		# Get number of vehicles on the ramp (from already-collected vehicle IDs)
+		numVEH_THA = len(VEH_THA)
+		numVEH_HOR = len(VEH_HOR)
+		numVEH_WAE = len(VEH_WAE)
 		numVEHList_THA.append(numVEH_THA)
 		numVEHList_HOR.append(numVEH_HOR)
 		numVEHList_WAE.append(numVEH_WAE)
 
 		# Get number of vehicles standing on the ramp (queue length)
-		VEH_THA = traci.lanearea.getLastStepVehicleIDs("SENS_E_THA")
-		VEH_HOR = traci.lanearea.getLastStepVehicleIDs("SENS_E_HOR")
-		VEH_WAE = traci.lanearea.getLastStepVehicleIDs("SENS_E_WAE")
 		QUEUEstep_THA = sum(1 for veh_id in VEH_THA if traci.vehicle.getSpeed(veh_id) < 0.01)
 		QUEUEstep_HOR = sum(1 for veh_id in VEH_HOR if traci.vehicle.getSpeed(veh_id) < 0.01)
 		QUEUEstep_WAE = sum(1 for veh_id in VEH_WAE if traci.vehicle.getSpeed(veh_id) < 0.01)
@@ -103,18 +133,21 @@ traci.close()
 # ==========================
 # PLOTS FOR THALWIL (THA)
 # ==========================
-occPLOT_THA = np.array(occList_THA)
+occPLOT_THA_BEFORE = np.array(occList_THA_BEFORE)
+occPLOT_THA_AFTER = np.array(occList_THA)
 # Create time axis in seconds matching the actual number of data points collected
-time_steps = list(range(1000 + STEP_INTERVAL, 1000 + STEP_INTERVAL + len(occPLOT_THA) * STEP_INTERVAL, STEP_INTERVAL))
+time_steps = list(range(1000 + STEP_INTERVAL, 1000 + STEP_INTERVAL + len(occPLOT_THA_AFTER) * STEP_INTERVAL, STEP_INTERVAL))
 num_vehPLOT_THA = np.array(numVEHList_THA)
 queuePLOT_THA = np.array(QUEUEList_THA)
-speedPLOT_THA = np.array(speedList_THA_MID)
+speedPLOT_THA_MAINLINE = np.array(speedList_THA_MID) * 3.6  # Convert to km/h
+speedPLOT_THA_RAMP = np.array(speedList_THA_RAMP) * 3.6  # Convert to km/h
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-# Top plot: Occupancy, queue, vehicles on ramp
-ax1.plot(time_steps, occPLOT_THA, label='Occupancy on main line (%)', color='blue', linewidth=2)
-ax1.plot(time_steps, num_vehPLOT_THA, label='Number of vehicles on the ramp (# vehicles)', color='red', linewidth=2)
+# Top plot: Occupancy (before/after merge), queue, vehicles on ramp
+ax1.plot(time_steps, occPLOT_THA_BEFORE, label='Occupancy in A3_THA_N (after THA merge) (%)', color='blue', linewidth=2, linestyle='-')
+ax1.plot(time_steps, occPLOT_THA_AFTER, label='Occupancy in A3_THA_MID (before THA merge) (%)', color='cyan', linewidth=2, linestyle='-')
+ax1.plot(time_steps, num_vehPLOT_THA, label='Number of vehicles on ramp (# vehicles)', color='red', linewidth=2)
 ax1.plot(time_steps, queuePLOT_THA, label='Length of standing queue (# vehicles)', color='purple', linewidth=2)
 ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
@@ -122,37 +155,42 @@ ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
 ax1.set_title('Ramp and Mainline Metrics - Thalwil (Baseline - No Control)')
 
-# Bottom plot: Speed on mainline (traffic jam indicator)
-ax2.plot(time_steps, speedPLOT_THA, label='Average Speed on Mainline (m/s)', color='green', linewidth=2)
-ax2.axhline(y=13.89, color='orange', linestyle='--', linewidth=1, label='50 km/h threshold')
-ax2.axhline(y=8.33, color='red', linestyle='--', linewidth=1, label='30 km/h threshold (congestion)')
+# Bottom plot: Speed on mainline and ramp
+ax2.plot(time_steps, speedPLOT_THA_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
+ax2.plot(time_steps, speedPLOT_THA_RAMP, label='Speed on Ramp (km/h)', color='orange', linewidth=2)
+ax2.axhline(y=50, color='orange', linestyle='--', linewidth=1, alpha=0.5, label='50 km/h threshold')
+ax2.axhline(y=30, color='red', linestyle='--', linewidth=1, alpha=0.5, label='30 km/h threshold (congestion)')
 ax2.set_xlabel('Time (seconds)')
-ax2.set_ylabel('Speed (m/s)')
+ax2.set_ylabel('Speed (km/h)')
 ax2.legend(loc='upper left')
 ax2.grid(True, alpha=0.3)
-ax2.set_title('Mainline Speed - Traffic Jam Detection')
+ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plt.savefig('plots/Sit0_THA_baseline.png', dpi=300, bbox_inches='tight')
-print("Saved plot: plots/Sit0_THA_baseline.png")
-plt.show()
+plot_path = os.path.abspath('plots/Sit0_THA_baseline.png')
+if os.path.exists(plot_path):
+    os.remove(plot_path)
+plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+print(f"Saved plot: {plot_path}")
+plt.close()
 
 #%%
 # ==========================
 # PLOTS FOR HORGEN (HOR)
 # ==========================
-occPLOT_HOR = np.array(occList_HOR)
+occPLOT_HOR_BEFORE = np.array(occList_HOR_BEFORE)
+occPLOT_HOR_AFTER = np.array(occList_HOR)
 num_vehPLOT_HOR = np.array(numVEHList_HOR)
 queuePLOT_HOR = np.array(QUEUEList_HOR)
-speedPLOT_HOR = np.array(speedList_HOR_MID)
+speedPLOT_HOR_MAINLINE = np.array(speedList_HOR_MID) * 3.6  # Convert to km/h
+speedPLOT_HOR_RAMP = np.array(speedList_HOR_RAMP) * 3.6  # Convert to km/h
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-
-
-# Top plot: Occupancy, queue, vehicles on ramp
-ax1.plot(time_steps, occPLOT_HOR, label='Occupancy on main line (%)', color='blue', linewidth=2)
-ax1.plot(time_steps, num_vehPLOT_HOR, label='Number of vehicles on the ramp (# vehicles)', color='red', linewidth=2)
+# Top plot: Occupancy (before/after merge), queue, vehicles on ramp
+ax1.plot(time_steps, occPLOT_HOR_BEFORE, label='Occupancy in A3_THA_S (after HOR merge) (%)', color='blue', linewidth=2, linestyle='-')
+ax1.plot(time_steps, occPLOT_HOR_AFTER, label='Occupancy in A3_HOR_MID (before HOR merge) (%)', color='cyan', linewidth=2, linestyle='-')
+ax1.plot(time_steps, num_vehPLOT_HOR, label='Number of vehicles on ramp (# vehicles)', color='red', linewidth=2)
 ax1.plot(time_steps, queuePLOT_HOR, label='Length of standing queue (# vehicles)', color='purple', linewidth=2)
 ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
@@ -160,35 +198,42 @@ ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
 ax1.set_title('Ramp and Mainline Metrics - Horgen (Baseline - No Control)')
 
-# Bottom plot: Speed on mainline (traffic jam indicator)
-ax2.plot(time_steps, speedPLOT_HOR, label='Average Speed on Mainline (m/s)', color='green', linewidth=2)
-ax2.axhline(y=13.89, color='orange', linestyle='--', linewidth=1, label='50 km/h threshold')
-ax2.axhline(y=8.33, color='red', linestyle='--', linewidth=1, label='30 km/h threshold (congestion)')
+# Bottom plot: Speed on mainline and ramp
+ax2.plot(time_steps, speedPLOT_HOR_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
+ax2.plot(time_steps, speedPLOT_HOR_RAMP, label='Speed on Ramp (km/h)', color='orange', linewidth=2)
+ax2.axhline(y=50, color='orange', linestyle='--', linewidth=1, alpha=0.5, label='50 km/h threshold')
+ax2.axhline(y=30, color='red', linestyle='--', linewidth=1, alpha=0.5, label='30 km/h threshold (congestion)')
 ax2.set_xlabel('Time (seconds)')
-ax2.set_ylabel('Speed (m/s)')
+ax2.set_ylabel('Speed (km/h)')
 ax2.legend(loc='upper left')
 ax2.grid(True, alpha=0.3)
-ax2.set_title('Mainline Speed - Traffic Jam Detection')
+ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plt.savefig('plots/Sit0_HOR_baseline.png', dpi=300, bbox_inches='tight')
-print("Saved plot: plots/Sit0_HOR_baseline.png")
-plt.show()
+plot_path = os.path.abspath('plots/Sit0_HOR_baseline.png')
+if os.path.exists(plot_path):
+    os.remove(plot_path)
+plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+print(f"Saved plot: {plot_path}")
+plt.close()
 
 #%%
 # ==========================
 # PLOTS FOR WÄDENSWIL (WAE)
 # ==========================
-occPLOT_WAE = np.array(occList_WAE)
+occPLOT_WAE_BEFORE = np.array(occList_WAE_BEFORE)
+occPLOT_WAE_AFTER = np.array(occList_WAE)
 num_vehPLOT_WAE = np.array(numVEHList_WAE)
 queuePLOT_WAE = np.array(QUEUEList_WAE)
-speedPLOT_WAE = np.array(speedList_WAE_MID)
+speedPLOT_WAE_MAINLINE = np.array(speedList_WAE_MID) * 3.6  # Convert to km/h
+speedPLOT_WAE_RAMP = np.array(speedList_WAE_RAMP) * 3.6  # Convert to km/h
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
-# Top plot: Occupancy, queue, vehicles on ramp
-ax1.plot(time_steps, occPLOT_WAE, label='Occupancy on main line (%)', color='blue', linewidth=2)
-ax1.plot(time_steps, num_vehPLOT_WAE, label='Number of vehicles on the ramp (# vehicles)', color='red', linewidth=2)
+# Top plot: Occupancy (before/after merge), queue, vehicles on ramp
+ax1.plot(time_steps, occPLOT_WAE_BEFORE, label='Occupancy in A3_HOR_S (after WAE merge) (%)', color='blue', linewidth=2, linestyle='-')
+ax1.plot(time_steps, occPLOT_WAE_AFTER, label='Occupancy in A3_WAED_MID (before WAE merge) (%)', color='cyan', linewidth=2, linestyle='-')
+ax1.plot(time_steps, num_vehPLOT_WAE, label='Number of vehicles on ramp (# vehicles)', color='red', linewidth=2)
 ax1.plot(time_steps, queuePLOT_WAE, label='Length of standing queue (# vehicles)', color='purple', linewidth=2)
 ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
@@ -196,20 +241,24 @@ ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
 ax1.set_title('Ramp and Mainline Metrics - Wädenswil (Baseline - No Control)')
 
-# Bottom plot: Speed on mainline (traffic jam indicator)
-ax2.plot(time_steps, speedPLOT_WAE, label='Average Speed on Mainline (m/s)', color='green', linewidth=2)
-ax2.axhline(y=13.89, color='orange', linestyle='--', linewidth=1, label='50 km/h threshold')
-ax2.axhline(y=8.33, color='red', linestyle='--', linewidth=1, label='30 km/h threshold (congestion)')
+# Bottom plot: Speed on mainline and ramp
+ax2.plot(time_steps, speedPLOT_WAE_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
+ax2.plot(time_steps, speedPLOT_WAE_RAMP, label='Speed on Ramp (km/h)', color='orange', linewidth=2)
+ax2.axhline(y=50, color='orange', linestyle='--', linewidth=1, alpha=0.5, label='50 km/h threshold')
+ax2.axhline(y=30, color='red', linestyle='--', linewidth=1, alpha=0.5, label='30 km/h threshold (congestion)')
 ax2.set_xlabel('Time (seconds)')
-ax2.set_ylabel('Speed (m/s)')
+ax2.set_ylabel('Speed (km/h)')
 ax2.legend(loc='upper left')
 ax2.grid(True, alpha=0.3)
-ax2.set_title('Mainline Speed - Traffic Jam Detection')
+ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plt.savefig('plots/Sit0_WAE_baseline.png', dpi=300, bbox_inches='tight')
-print("Saved plot: plots/Sit0_WAE_baseline.png")
-plt.show()
+plot_path = os.path.abspath('plots/Sit0_WAE_baseline.png')
+if os.path.exists(plot_path):
+    os.remove(plot_path)
+plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+print(f"Saved plot: {plot_path}")
+plt.close()
 
 #%%
 # ==========================
@@ -219,20 +268,26 @@ print("=" * 60)
 print("BASELINE SIMULATION SUMMARY (No Control)")
 print("=" * 60)
 print(f"\nThalwil (THA):")
-print(f"  Average Mainline Occupancy: {np.mean(occPLOT_THA):.2f}%")
-print(f"  Average Mainline Speed: {np.mean(speedPLOT_THA):.2f} m/s ({np.mean(speedPLOT_THA)*3.6:.2f} km/h)")
+print(f"  Average Occupancy (A3_THA_N - after THA merge): {np.mean(occPLOT_THA_BEFORE):.2f}%")
+print(f"  Average Occupancy (A3_THA_MID - before THA merge): {np.mean(occPLOT_THA_AFTER):.2f}%")
+print(f"  Average Mainline Speed: {np.mean(speedPLOT_THA_MAINLINE):.2f} km/h")
+print(f"  Average Ramp Speed: {np.mean(speedPLOT_THA_RAMP):.2f} km/h")
 print(f"  Max Queue Length: {np.max(queuePLOT_THA):.0f} vehicles")
 print(f"  Average Queue Length: {np.mean(queuePLOT_THA):.2f} vehicles")
 
 print(f"\nHorgen (HOR):")
-print(f"  Average Mainline Occupancy: {np.mean(occPLOT_HOR):.2f}%")
-print(f"  Average Mainline Speed: {np.mean(speedPLOT_HOR):.2f} m/s ({np.mean(speedPLOT_HOR)*3.6:.2f} km/h)")
+print(f"  Average Occupancy (A3_THA_S - after HOR merge): {np.mean(occPLOT_HOR_BEFORE):.2f}%")
+print(f"  Average Occupancy (A3_HOR_MID - before HOR merge): {np.mean(occPLOT_HOR_AFTER):.2f}%")
+print(f"  Average Mainline Speed: {np.mean(speedPLOT_HOR_MAINLINE):.2f} km/h")
+print(f"  Average Ramp Speed: {np.mean(speedPLOT_HOR_RAMP):.2f} km/h")
 print(f"  Max Queue Length: {np.max(queuePLOT_HOR):.0f} vehicles")
 print(f"  Average Queue Length: {np.mean(queuePLOT_HOR):.2f} vehicles")
 
 print(f"\nWädenswil (WAE):")
-print(f"  Average Mainline Occupancy: {np.mean(occPLOT_WAE):.2f}%")
-print(f"  Average Mainline Speed: {np.mean(speedPLOT_WAE):.2f} m/s ({np.mean(speedPLOT_WAE)*3.6:.2f} km/h)")
+print(f"  Average Occupancy (A3_HOR_S - after WAE merge): {np.mean(occPLOT_WAE_BEFORE):.2f}%")
+print(f"  Average Occupancy (A3_WAED_MID - before WAE merge): {np.mean(occPLOT_WAE_AFTER):.2f}%")
+print(f"  Average Mainline Speed: {np.mean(speedPLOT_WAE_MAINLINE):.2f} km/h")
+print(f"  Average Ramp Speed: {np.mean(speedPLOT_WAE_RAMP):.2f} km/h")
 print(f"  Max Queue Length: {np.max(queuePLOT_WAE):.0f} vehicles")
 print(f"  Average Queue Length: {np.mean(queuePLOT_WAE):.2f} vehicles")
 
@@ -241,16 +296,16 @@ print("OVERALL NETWORK PERFORMANCE")
 print("=" * 60)
 
 # Calculate overall average speed across all 3 measurement points
-all_speeds = np.concatenate([speedPLOT_THA, speedPLOT_HOR, speedPLOT_WAE])
+all_speeds = np.concatenate([speedPLOT_THA_MAINLINE, speedPLOT_HOR_MAINLINE, speedPLOT_WAE_MAINLINE])
 overall_avg_speed = np.mean(all_speeds)
-print(f"  Overall Average Mainline Speed: {overall_avg_speed:.2f} m/s ({overall_avg_speed*3.6:.2f} km/h)")
+print(f"  Overall Average Mainline Speed: {overall_avg_speed:.2f} km/h")
 
-# Calculate congestion metrics (speed < 30 km/h = 8.33 m/s)
-congestion_threshold = 8.33  # m/s (30 km/h)
-congested_THA = np.sum(speedPLOT_THA < congestion_threshold)
-congested_HOR = np.sum(speedPLOT_HOR < congestion_threshold)
-congested_WAE = np.sum(speedPLOT_WAE < congestion_threshold)
-total_measurements = len(speedPLOT_THA)
+# Calculate congestion metrics (speed < 30 km/h)
+congestion_threshold = 30  # km/h
+congested_THA = np.sum(speedPLOT_THA_MAINLINE < congestion_threshold)
+congested_HOR = np.sum(speedPLOT_HOR_MAINLINE < congestion_threshold)
+congested_WAE = np.sum(speedPLOT_WAE_MAINLINE < congestion_threshold)
+total_measurements = len(speedPLOT_THA_MAINLINE)
 
 pct_congested_THA = (congested_THA / total_measurements) * 100
 pct_congested_HOR = (congested_HOR / total_measurements) * 100
@@ -262,19 +317,19 @@ print(f"  HOR: {pct_congested_HOR:.1f}% of time congested ({congested_HOR}/{tota
 print(f"  WAE: {pct_congested_WAE:.1f}% of time congested ({congested_WAE}/{total_measurements} measurements)")
 
 # Calculate min speeds (worst congestion)
-min_speed_THA = np.min(speedPLOT_THA)
-min_speed_HOR = np.min(speedPLOT_HOR)
-min_speed_WAE = np.min(speedPLOT_WAE)
+min_speed_THA = np.min(speedPLOT_THA_MAINLINE)
+min_speed_HOR = np.min(speedPLOT_HOR_MAINLINE)
+min_speed_WAE = np.min(speedPLOT_WAE_MAINLINE)
 print(f"\nMINIMUM SPEEDS (Worst Congestion):")
-print(f"  THA: {min_speed_THA:.2f} m/s ({min_speed_THA*3.6:.2f} km/h)")
-print(f"  HOR: {min_speed_HOR:.2f} m/s ({min_speed_HOR*3.6:.2f} km/h)")
-print(f"  WAE: {min_speed_WAE:.2f} m/s ({min_speed_WAE*3.6:.2f} km/h)")
+print(f"  THA: {min_speed_THA:.2f} km/h")
+print(f"  HOR: {min_speed_HOR:.2f} km/h")
+print(f"  WAE: {min_speed_WAE:.2f} km/h")
 
 print("\n" + "=" * 60)
 print("NOTE: Highway congestion occurs when speeds drop below:")
-print("  - 50 km/h (13.89 m/s): Moderate slowdown")
-print("  - 30 km/h (8.33 m/s): Severe congestion (stop-and-go traffic)")
-print("  - 10 km/h (2.78 m/s): Near-gridlock conditions")
+print("  - 50 km/h: Moderate slowdown")
+print("  - 30 km/h: Severe congestion (stop-and-go traffic)")
+print("  - 10 km/h: Near-gridlock conditions")
 print("=" * 60)
 
 # %%

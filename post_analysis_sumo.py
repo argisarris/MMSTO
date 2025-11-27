@@ -337,14 +337,29 @@ class XMLDataParser:
         """
         cache_file = fcd_file.replace('.xml', '_cache.pkl')
 
-        # Try to load from cache
+        # Try to load from cache (with timestamp validation)
         if use_cache and os.path.exists(cache_file):
-            self.logger.info(f"Loading FCD data from cache: {cache_file}")
-            try:
-                with open(cache_file, 'rb') as f:
-                    return pickle.load(f)
-            except Exception as e:
-                self.logger.warning(f"Failed to load cache: {e}. Parsing from XML...")
+            # Check if cache is stale by comparing modification times
+            cache_mtime = os.path.getmtime(cache_file)
+            source_mtime = os.path.getmtime(fcd_file)
+
+            if cache_mtime < source_mtime:
+                self.logger.warning(
+                    f"Cache is outdated (cache: {cache_mtime:.0f}, source: {source_mtime:.0f}). "
+                    f"Deleting stale cache and re-parsing XML..."
+                )
+                try:
+                    os.remove(cache_file)
+                    self.logger.info(f"Deleted stale cache: {cache_file}")
+                except Exception as e:
+                    self.logger.warning(f"Failed to delete cache: {e}")
+            else:
+                self.logger.info(f"Loading FCD data from cache: {cache_file}")
+                try:
+                    with open(cache_file, 'rb') as f:
+                        return pickle.load(f)
+                except Exception as e:
+                    self.logger.warning(f"Failed to load cache: {e}. Parsing from XML...")
 
         self.logger.info(f"Parsing FCD file: {fcd_file} (this may take 2-3 minutes)")
 
@@ -654,6 +669,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_G_multi_metric_dashboard.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -739,6 +756,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_A_time_space_diagram.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -803,6 +822,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_B_fundamental_diagram.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -900,6 +921,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_C_travel_time_analysis.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -995,6 +1018,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_D_spatial_heatmap.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -1065,6 +1090,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_E_cumulative_curves.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -1166,6 +1193,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  f'{scenario}_F_level_of_service.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -1268,6 +1297,8 @@ class VisualizationEngine:
         plt.tight_layout()
         plot_path = os.path.join(self.file_manager.plot_dir,
                                  'H_before_after_comparison.png')
+        if os.path.exists(plot_path):
+            os.remove(plot_path)
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         self.logger.info(f"Saved: {plot_path}")
         plt.close()
@@ -1383,6 +1414,9 @@ Examples:
   # Analyze both scenarios and generate comparison
   python post_analysis_sumo.py --scenario both --compare
 
+  # Clear cache and re-analyze (forces fresh data parsing)
+  python post_analysis_sumo.py --scenario Sit0 --clear-cache
+
   # Generate only comparison plot
   python post_analysis_sumo.py --plots H
         """
@@ -1411,6 +1445,11 @@ Examples:
         action='store_true',
         help='Generate before/after comparison (Plot H)'
     )
+    parser.add_argument(
+        '--clear-cache',
+        action='store_true',
+        help='Delete all cache files before running analysis'
+    )
 
     args = parser.parse_args()
 
@@ -1420,6 +1459,21 @@ Examples:
     logger.info("=" * 60)
     logger.info("SUMO Traffic Simulation Post-Processing Analysis")
     logger.info("=" * 60)
+
+    # Clear cache if requested
+    if args.clear_cache:
+        import glob
+        cache_files = glob.glob(os.path.join(args.base_dir, '*_cache.pkl'))
+        if cache_files:
+            logger.info(f"Clearing {len(cache_files)} cache file(s)...")
+            for cache_file in cache_files:
+                try:
+                    os.remove(cache_file)
+                    logger.info(f"Deleted: {cache_file}")
+                except Exception as e:
+                    logger.warning(f"Failed to delete {cache_file}: {e}")
+        else:
+            logger.info("No cache files found to delete")
 
     # Initialize processor
     processor = SUMOPostProcessor(base_dir=args.base_dir)

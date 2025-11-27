@@ -1,0 +1,37 @@
+<viewsettings>
+    <!-- Thalwil intersection -->
+    <decal file="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Base Data\E34_Thalwil.png" 
+           centerX="0" 
+           centerY="0" 
+           width="707.25" 
+           height="453.25"
+           layer="0"
+           rot="0"/>
+    
+    <!-- Horgen intersection North -->
+    <decal file="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Base Data\E35_Horgen_Nord.png" 
+           centerX="1353.625" 
+           centerY="0" 
+           width="707.25" 
+           height="453.25"
+           layer="0"
+           rot="0"/>
+    
+    <!-- Horgen intersection South -->
+    <decal file="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Base Data\E35_Horgen_Süd.png" 
+           centerX="2060.875" 
+           centerY="0" 
+           width="707.25" 
+           height="453.25"
+           layer="0"
+           rot="0"/>
+    
+    <!-- Wädenswil intersection -->
+    <decal file="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Base Data\E36_Wädenswil.png" 
+           centerX="3000" 
+           centerY="0" 
+           width="707.25" 
+           height="453.25"
+           layer="0"
+           rot="0"/>
+</viewsettings>

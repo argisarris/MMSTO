@@ -1,291 +1,250 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on 2025-11-19 20:08:48 by Eclipse SUMO netedit Version 1.24.0
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Network.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\ETH\ETH Zurich\Microscopic Modelling and Simulation of Traffic Operations - Documents\05 Code\Network.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.avoid-overlap value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
-
-</neteditConfiguration>
--->
-
-<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
-
-    <location netOffset="0.00,0.00" convBoundary="-479.63,-85.15,3449.49,111.76" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
-
+<?xml version='1.0' encoding='UTF-8'?>
+<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-479.63,-85.15,3449.49,111.76" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!" />
     <edge id=":EN34_THA_0" function="internal">
-        <lane id=":EN34_THA_0_0" index="0" speed="66.94" length="9.14" shape="-42.42,10.69 -45.12,10.41 -46.97,10.37 -48.83,10.44 -51.54,10.50"/>
+        <lane id=":EN34_THA_0_0" index="0" speed="33.33" length="9.14" shape="-42.42,10.69 -45.12,10.41 -46.97,10.37 -48.83,10.44 -51.54,10.50" />
     </edge>
     <edge id=":EN34_THA_1" function="internal">
-        <lane id=":EN34_THA_1_0" index="0" speed="120.00" length="3.19" shape="-48.47,6.48 -49.40,6.62 -50.01,6.90 -50.62,7.17 -51.55,7.30"/>
-        <lane id=":EN34_THA_1_1" index="1" speed="120.00" length="3.19" shape="-48.54,3.28 -49.45,3.42 -50.05,3.70 -50.64,3.97 -51.56,4.10"/>
+        <lane id=":EN34_THA_1_0" index="0" speed="33.33" length="3.19" shape="-48.47,6.48 -49.40,6.62 -50.01,6.90 -50.62,7.17 -51.55,7.30" />
+        <lane id=":EN34_THA_1_1" index="1" speed="33.33" length="3.19" shape="-48.54,3.28 -49.45,3.42 -50.05,3.70 -50.64,3.97 -51.56,4.10" />
     </edge>
     <edge id=":EN35_HOR_0" function="internal">
-        <lane id=":EN35_HOR_0_0" index="0" speed="66.94" length="3.25" shape="1350.60,-7.05 1349.63,-7.10 1348.97,-7.13 1348.31,-7.12 1347.35,-7.10"/>
+        <lane id=":EN35_HOR_0_0" index="0" speed="33.33" length="3.25" shape="1350.60,-7.05 1349.63,-7.10 1348.97,-7.13 1348.31,-7.12 1347.35,-7.10" />
     </edge>
     <edge id=":EN35_HOR_1" function="internal">
-        <lane id=":EN35_HOR_1_0" index="0" speed="120.00" length="3.39" shape="1350.64,-10.38 1347.25,-10.30"/>
-        <lane id=":EN35_HOR_1_1" index="1" speed="120.00" length="3.39" shape="1350.54,-13.58 1347.15,-13.49"/>
+        <lane id=":EN35_HOR_1_0" index="0" speed="33.33" length="3.39" shape="1350.64,-10.38 1347.25,-10.30" />
+        <lane id=":EN35_HOR_1_1" index="1" speed="33.33" length="3.39" shape="1350.54,-13.58 1347.15,-13.49" />
     </edge>
     <edge id=":EN36_WAED_0" function="internal">
-        <lane id=":EN36_WAED_0_0" index="0" speed="66.94" length="14.43" shape="2921.38,-29.71 2918.02,-29.66 2914.98,-29.67 2911.54,-29.50 2906.99,-28.93"/>
+        <lane id=":EN36_WAED_0_0" index="0" speed="33.33" length="14.43" shape="2921.38,-29.71 2918.02,-29.66 2914.98,-29.67 2911.54,-29.50 2906.99,-28.93" />
     </edge>
     <edge id=":EN36_WAED_1" function="internal">
-        <lane id=":EN36_WAED_1_0" index="0" speed="120.00" length="14.66" shape="2921.08,-33.04 2906.48,-32.09"/>
-        <lane id=":EN36_WAED_1_1" index="1" speed="120.00" length="14.66" shape="2920.63,-36.21 2905.97,-35.25"/>
+        <lane id=":EN36_WAED_1_0" index="0" speed="33.33" length="14.66" shape="2921.08,-33.04 2906.48,-32.09" />
+        <lane id=":EN36_WAED_1_1" index="1" speed="33.33" length="14.66" shape="2920.63,-36.21 2905.97,-35.25" />
     </edge>
     <edge id=":EX35_HOR_0" function="internal">
-        <lane id=":EX35_HOR_0_0" index="0" speed="66.94" length="44.93" shape="2307.09,-40.31 2296.59,-39.49 2282.88,-37.91 2270.11,-36.28 2262.45,-35.28"/>
+        <lane id=":EX35_HOR_0_0" index="0" speed="33.33" length="44.93" shape="2307.09,-40.31 2296.59,-39.49 2282.88,-37.91 2270.11,-36.28 2262.45,-35.28" />
     </edge>
     <edge id=":EX35_HOR_1" function="internal">
-        <lane id=":EX35_HOR_1_0" index="0" speed="120.00" length="44.94" shape="2307.09,-40.31 2262.18,-38.82"/>
-        <lane id=":EX35_HOR_1_1" index="1" speed="120.00" length="44.94" shape="2307.00,-43.51 2262.08,-42.02"/>
+        <lane id=":EX35_HOR_1_0" index="0" speed="33.33" length="44.94" shape="2307.09,-40.31 2262.18,-38.82" />
+        <lane id=":EX35_HOR_1_1" index="1" speed="33.33" length="44.94" shape="2307.00,-43.51 2262.08,-42.02" />
     </edge>
     <edge id=":EX35_THA_0" function="internal">
-        <lane id=":EX35_THA_0_0" index="0" speed="66.94" length="25.24" shape="250.02,-8.03 225.19,-3.51"/>
+        <lane id=":EX35_THA_0_0" index="0" speed="33.33" length="25.24" shape="250.02,-8.03 225.19,-3.51" />
     </edge>
     <edge id=":EX35_THA_1" function="internal">
-        <lane id=":EX35_THA_1_0" index="0" speed="120.00" length="25.30" shape="250.02,-8.03 224.69,-7.10"/>
-        <lane id=":EX35_THA_1_1" index="1" speed="120.00" length="25.30" shape="249.65,-11.21 224.42,-10.29"/>
+        <lane id=":EX35_THA_1_0" index="0" speed="33.33" length="25.30" shape="250.02,-8.03 224.69,-7.10" />
+        <lane id=":EX35_THA_1_1" index="1" speed="33.33" length="25.30" shape="249.65,-11.21 224.42,-10.29" />
     </edge>
     <edge id=":EX36_WAED_0" function="internal">
-        <lane id=":EX36_WAED_0_0" index="0" speed="66.94" length="31.55" shape="3244.28,-61.79 3213.14,-56.71"/>
+        <lane id=":EX36_WAED_0_0" index="0" speed="33.33" length="31.55" shape="3244.28,-61.79 3213.14,-56.71" />
     </edge>
     <edge id=":EX36_WAED_1" function="internal">
-        <lane id=":EX36_WAED_1_0" index="0" speed="120.00" length="31.57" shape="3244.28,-61.79 3212.71,-60.29"/>
-        <lane id=":EX36_WAED_1_1" index="1" speed="120.00" length="31.57" shape="3243.99,-64.98 3212.49,-63.48"/>
+        <lane id=":EX36_WAED_1_0" index="0" speed="33.33" length="31.57" shape="3244.28,-61.79 3212.71,-60.29" />
+        <lane id=":EX36_WAED_1_1" index="1" speed="33.33" length="31.57" shape="3243.99,-64.98 3212.49,-63.48" />
     </edge>
     <edge id=":HOR_Merge_0" function="internal">
-        <lane id=":HOR_Merge_0_0" index="0" speed="120.00" length="8.26" shape="1129.34,-0.23 1126.86,-0.65 1125.29,-1.71 1123.72,-2.78 1121.24,-3.23"/>
-        <lane id=":HOR_Merge_0_1" index="1" speed="120.00" length="8.26" shape="1129.24,-3.43 1121.24,-3.23"/>
-        <lane id=":HOR_Merge_0_2" index="2" speed="120.00" length="8.26" shape="1129.14,-6.63 1121.19,-6.43"/>
+        <lane id=":HOR_Merge_0_0" index="0" speed="33.33" length="8.26" shape="1129.34,-0.23 1126.86,-0.65 1125.29,-1.71 1123.72,-2.78 1121.24,-3.23" />
+        <lane id=":HOR_Merge_0_1" index="1" speed="33.33" length="8.26" shape="1129.24,-3.43 1121.24,-3.23" />
+        <lane id=":HOR_Merge_0_2" index="2" speed="33.33" length="8.26" shape="1129.14,-6.63 1121.19,-6.43" />
     </edge>
     <edge id=":RM_HOR_0" function="internal">
-        <lane id=":RM_HOR_0_0" index="0" speed="13.89" length="0.30" shape="1492.60,1.09 1492.30,1.07"/>
+        <lane id=":RM_HOR_0_0" index="0" speed="13.89" length="0.30" shape="1492.60,1.09 1492.30,1.07" />
     </edge>
     <edge id=":RM_THA_0" function="internal">
-        <lane id=":RM_THA_0_0" index="0" speed="13.89" length="0.45" shape="30.06,30.65 29.96,30.57 29.89,30.51 29.81,30.47 29.69,30.41"/>
+        <lane id=":RM_THA_0_0" index="0" speed="13.89" length="0.45" shape="30.06,30.65 29.96,30.57 29.89,30.51 29.81,30.47 29.69,30.41" />
     </edge>
     <edge id=":RM_WAED_0" function="internal">
-        <lane id=":RM_WAED_0_0" index="0" speed="13.89" length="0.39" shape="3023.18,-18.40 3023.09,-18.47 3023.02,-18.52 3022.95,-18.56 3022.85,-18.62"/>
+        <lane id=":RM_WAED_0_0" index="0" speed="13.89" length="0.39" shape="3023.18,-18.40 3023.09,-18.47 3023.02,-18.52 3022.95,-18.56 3022.85,-18.62" />
     </edge>
     <edge id=":THA_Merge_0" function="internal">
-        <lane id=":THA_Merge_0_0" index="0" speed="120.00" length="8.25" shape="-319.50,5.21 -321.94,4.61 -323.43,3.43 -324.91,2.25 -327.35,1.59"/>
-        <lane id=":THA_Merge_0_1" index="1" speed="120.00" length="8.25" shape="-319.36,2.02 -327.35,1.59"/>
-        <lane id=":THA_Merge_0_2" index="2" speed="120.00" length="8.25" shape="-319.23,-1.18 -327.14,-1.60"/>
+        <lane id=":THA_Merge_0_0" index="0" speed="33.33" length="8.25" shape="-319.50,5.21 -321.94,4.61 -323.43,3.43 -324.91,2.25 -327.35,1.59" />
+        <lane id=":THA_Merge_0_1" index="1" speed="33.33" length="8.25" shape="-319.36,2.02 -327.35,1.59" />
+        <lane id=":THA_Merge_0_2" index="2" speed="33.33" length="8.25" shape="-319.23,-1.18 -327.14,-1.60" />
     </edge>
     <edge id=":WAED_Merge_0" function="internal">
-        <lane id=":WAED_Merge_0_0" index="0" speed="120.00" length="8.27" shape="2696.52,4.95 2694.01,4.85 2692.32,4.01 2690.62,3.17 2688.11,3.07"/>
-        <lane id=":WAED_Merge_0_1" index="1" speed="120.00" length="8.27" shape="2696.01,1.79 2688.11,3.07"/>
-        <lane id=":WAED_Merge_0_2" index="2" speed="120.00" length="8.27" shape="2695.50,-1.37 2687.61,-0.09"/>
+        <lane id=":WAED_Merge_0_0" index="0" speed="33.33" length="8.27" shape="2696.52,4.95 2694.01,4.85 2692.32,4.01 2690.62,3.17 2688.11,3.07" />
+        <lane id=":WAED_Merge_0_1" index="1" speed="33.33" length="8.27" shape="2696.01,1.79 2688.11,3.07" />
+        <lane id=":WAED_Merge_0_2" index="2" speed="33.33" length="8.27" shape="2695.50,-1.37 2687.61,-0.09" />
     </edge>
-
     <edge id="A34_THA" from="EX35_THA" to="THA_End" priority="-1" shape="286.86,-17.15 223.29,-4.77 168.09,0.15 128.33,4.10 104.96,14.08 90.41,32.54 85.50,49.51 89.46,71.73 102.58,90.03 127.83,102.84 155.00,105.79 172.23,103.68">
-        <lane id="A34_THA_0" index="0" speed="13.89" length="276.68" shape="225.19,-3.51 223.51,-3.18 168.24,1.74 128.73,5.67 105.96,15.39 91.86,33.28 87.14,49.60 90.97,71.09 103.65,88.78 128.29,101.28 154.99,104.18 172.04,102.09"/>
+        <lane id="A34_THA_0" index="0" speed="13.89" length="345.00" shape="225.19,-3.51 223.51,-3.18 168.24,1.74 128.73,5.67 105.96,15.39 91.86,33.28 87.14,49.60 90.97,71.09 103.65,88.78 128.29,101.28 154.99,104.18 172.04,102.09" />
     </edge>
     <edge id="A35_HOR" from="EX35_HOR" to="HOR_End" priority="-1" shape="2337.41,-45.97 2250.33,-35.42 2142.73,-30.57 2069.54,-18.89 2000.54,-5.99 1940.74,7.70 1900.41,16.53 1873.90,14.37 1849.22,-3.65">
-        <lane id="A35_HOR_0" index="0" speed="13.89" length="425.05" shape="2262.45,-35.28 2250.46,-33.82 2142.89,-28.98 2069.81,-17.31 2000.87,-4.42 1941.09,9.26 1900.52,18.14 1873.32,15.93 1848.28,-2.36"/>
+        <lane id="A35_HOR_0" index="0" speed="13.89" length="505.00" shape="2262.45,-35.28 2250.46,-33.82 2142.89,-28.98 2069.81,-17.31 2000.87,-4.42 1941.09,9.26 1900.52,18.14 1873.32,15.93 1848.28,-2.36" />
     </edge>
     <edge id="A36_WAED" from="EX36_WAED" to="WAED_End" priority="-1" shape="3278.35,-69.69 3204.74,-56.87 3147.53,-51.54 3100.49,-46.50 3076.07,-31.74 3063.42,-9.66 3060.92,15.95 3068.69,43.27 3081.28,70.69">
-        <lane id="A36_WAED_0" index="0" speed="13.89" length="248.33" shape="3213.14,-56.71 3204.95,-55.28 3147.69,-49.95 3101.01,-44.95 3077.25,-30.59 3064.98,-9.16 3062.54,15.80 3070.20,42.71 3082.73,70.02"/>
+        <lane id="A36_WAED_0" index="0" speed="13.89" length="325.00" shape="3213.14,-56.71 3204.95,-55.28 3147.69,-49.95 3101.01,-44.95 3077.25,-30.59 3064.98,-9.16 3062.54,15.80 3070.20,42.71 3082.73,70.02" />
     </edge>
     <edge id="A3_HOR_MERG" from="EN35_HOR" to="HOR_Merge" priority="-1">
-        <lane id="A3_HOR_MERG_0" index="0" speed="120.00" length="218.12" acceleration="1" shape="1347.35,-7.10 1129.34,-0.23"/>
-        <lane id="A3_HOR_MERG_1" index="1" speed="120.00" length="218.12" shape="1347.25,-10.30 1129.24,-3.43"/>
-        <lane id="A3_HOR_MERG_2" index="2" speed="120.00" length="218.12" shape="1347.15,-13.49 1129.14,-6.63"/>
+        <lane id="A3_HOR_MERG_0" index="0" speed="33.33" length="162.00" acceleration="1" shape="1347.35,-7.10 1129.34,-0.23" />
+        <lane id="A3_HOR_MERG_1" index="1" speed="33.33" length="162.00" shape="1347.25,-10.30 1129.24,-3.43" />
+        <lane id="A3_HOR_MERG_2" index="2" speed="33.33" length="162.00" shape="1347.15,-13.49 1129.14,-6.63" />
     </edge>
     <edge id="A3_HOR_MID" from="EX35_HOR" to="EN35_HOR" priority="-1">
-        <lane id="A3_HOR_MID_0" index="0" speed="120.00" length="911.98" shape="2262.18,-38.82 1350.64,-10.38"/>
-        <lane id="A3_HOR_MID_1" index="1" speed="120.00" length="911.98" shape="2262.08,-42.02 1350.54,-13.58"/>
+        <lane id="A3_HOR_MID_0" index="0" speed="33.33" length="1050.00" shape="2262.18,-38.82 1350.64,-10.38" />
+        <lane id="A3_HOR_MID_1" index="1" speed="33.33" length="1050.00" shape="2262.08,-42.02 1350.54,-13.58" />
     </edge>
     <edge id="A3_HOR_S" from="WAED_Merge" to="EX35_HOR" priority="-1" shape="2691.30,-2.31 2616.80,9.69 2546.71,6.46 2511.12,-9.43 2476.06,-33.60 2423.68,-48.42 2337.41,-45.97">
-        <lane id="A3_HOR_S_0" index="0" speed="120.00" length="394.82" shape="2688.11,3.07 2617.07,14.51 2545.58,11.21 2508.76,-5.23 2473.99,-29.20 2423.08,-43.60 2307.09,-40.31"/>
-        <lane id="A3_HOR_S_1" index="1" speed="120.00" length="394.82" shape="2687.61,-0.09 2616.89,11.30 2546.33,8.04 2510.33,-8.03 2475.37,-32.13 2423.48,-46.81 2307.00,-43.51"/>
+        <lane id="A3_HOR_S_0" index="0" speed="33.33" length="1180.00" shape="2688.11,3.07 2617.07,14.51 2545.58,11.21 2508.76,-5.23 2473.99,-29.20 2423.08,-43.60 2307.09,-40.31" />
+        <lane id="A3_HOR_S_1" index="1" speed="33.33" length="1180.00" shape="2687.61,-0.09 2616.89,11.30 2546.33,8.04 2510.33,-8.03 2475.37,-32.13 2423.48,-46.81 2307.00,-43.51" />
     </edge>
     <edge id="A3_THA_MERG" from="EN34_THA" to="THA_Merge" priority="-1" shape="-92.81,2.58 -190.06,2.77 -323.11,-2.95">
-        <lane id="A3_THA_MERG_0" index="0" speed="120.00" length="267.93" acceleration="1" shape="-51.54,10.50 -190.22,10.77 -319.50,5.21"/>
-        <lane id="A3_THA_MERG_1" index="1" speed="120.00" length="267.93" shape="-51.55,7.30 -190.16,7.57 -319.36,2.02"/>
-        <lane id="A3_THA_MERG_2" index="2" speed="120.00" length="267.93" shape="-51.56,4.10 -190.09,4.37 -319.23,-1.18"/>
+        <lane id="A3_THA_MERG_0" index="0" speed="33.33" length="230.00" acceleration="1" shape="-51.54,10.50 -190.22,10.77 -319.50,5.21" />
+        <lane id="A3_THA_MERG_1" index="1" speed="33.33" length="230.00" shape="-51.55,7.30 -190.16,7.57 -319.36,2.02" />
+        <lane id="A3_THA_MERG_2" index="2" speed="33.33" length="230.00" shape="-51.56,4.10 -190.09,4.37 -319.23,-1.18" />
     </edge>
     <edge id="A3_THA_MID" from="EX35_THA" to="EN34_THA" priority="-1" shape="286.86,-17.15 223.49,-11.82 116.13,-4.18 10.74,0.47 -92.81,2.58">
-        <lane id="A3_THA_MID_0" index="0" speed="120.00" length="273.45" shape="224.69,-7.10 223.86,-7.03 116.41,0.61 10.89,5.27 -48.47,6.48"/>
-        <lane id="A3_THA_MID_1" index="1" speed="120.00" length="273.45" shape="224.42,-10.29 223.61,-10.22 116.22,-2.58 10.79,2.07 -48.54,3.28"/>
+        <lane id="A3_THA_MID_0" index="0" speed="33.33" length="380.00" shape="224.69,-7.10 223.86,-7.03 116.41,0.61 10.89,5.27 -48.47,6.48" />
+        <lane id="A3_THA_MID_1" index="1" speed="33.33" length="380.00" shape="224.42,-10.29 223.61,-10.22 116.22,-2.58 10.79,2.07 -48.54,3.28" />
     </edge>
     <edge id="A3_THA_N" from="THA_Merge" to="A3_End" priority="-1">
-        <lane id="A3_THA_N_0" index="0" speed="120.00" length="152.90" shape="-327.35,1.59 -479.94,-8.15"/>
-        <lane id="A3_THA_N_1" index="1" speed="120.00" length="152.90" shape="-327.14,-1.60 -479.73,-11.34"/>
+        <lane id="A3_THA_N_0" index="0" speed="33.33" length="200.00" shape="-327.35,1.59 -479.94,-8.15" />
+        <lane id="A3_THA_N_1" index="1" speed="33.33" length="200.00" shape="-327.14,-1.60 -479.73,-11.34" />
     </edge>
     <edge id="A3_THA_S" from="HOR_Merge" to="EX35_THA" priority="-1" shape="1125.12,-8.10 912.46,-4.44 799.98,-6.27 726.36,-14.89 656.57,-26.94 553.43,-36.18 435.15,-34.41 286.86,-17.15">
-        <lane id="A3_THA_S_0" index="0" speed="120.00" length="874.64" shape="1121.24,-3.23 912.46,0.36 799.66,-1.47 725.67,-10.14 655.95,-22.18 553.25,-31.38 435.46,-29.61 250.02,-8.03"/>
-        <lane id="A3_THA_S_1" index="1" speed="120.00" length="874.64" shape="1121.19,-6.43 912.46,-2.84 799.87,-4.67 726.13,-13.31 656.36,-25.35 553.37,-34.58 435.25,-32.81 249.65,-11.21"/>
+        <lane id="A3_THA_S_0" index="0" speed="33.33" length="7600.00" shape="1121.24,-3.23 912.46,0.36 799.66,-1.47 725.67,-10.14 655.95,-22.18 553.25,-31.38 435.46,-29.61 250.02,-8.03" />
+        <lane id="A3_THA_S_1" index="1" speed="33.33" length="7600.00" shape="1121.19,-6.43 912.46,-2.84 799.87,-4.67 726.13,-13.31 656.36,-25.35 553.37,-34.58 435.25,-32.81 249.65,-11.21" />
     </edge>
     <edge id="A3_WAED_MERG" from="EN36_WAED" to="WAED_Merge" priority="-1">
-        <lane id="A3_WAED_MERG_0" index="0" speed="120.00" length="213.18" acceleration="1" shape="2906.99,-28.93 2696.52,4.95"/>
-        <lane id="A3_WAED_MERG_1" index="1" speed="120.00" length="213.18" shape="2906.48,-32.09 2696.01,1.79"/>
-        <lane id="A3_WAED_MERG_2" index="2" speed="120.00" length="213.18" shape="2905.97,-35.25 2695.50,-1.37"/>
+        <lane id="A3_WAED_MERG_0" index="0" speed="33.33" length="190.00" acceleration="1" shape="2906.99,-28.93 2696.52,4.95" />
+        <lane id="A3_WAED_MERG_1" index="1" speed="33.33" length="190.00" shape="2906.48,-32.09 2696.01,1.79" />
+        <lane id="A3_WAED_MERG_2" index="2" speed="33.33" length="190.00" shape="2905.97,-35.25 2695.50,-1.37" />
     </edge>
     <edge id="A3_WAED_MID" from="EX36_WAED" to="EN36_WAED" priority="-1" shape="3278.35,-69.69 3196.53,-63.97 3060.00,-52.87 2941.37,-40.72 2854.31,-28.55">
-        <lane id="A3_WAED_MID_0" index="0" speed="120.00" length="293.05" shape="3212.71,-60.29 3196.89,-59.18 3060.44,-48.09 2941.95,-35.95 2921.08,-33.04"/>
-        <lane id="A3_WAED_MID_1" index="1" speed="120.00" length="293.05" shape="3212.49,-63.48 3196.65,-62.37 3060.15,-51.28 2941.56,-39.13 2920.63,-36.21"/>
+        <lane id="A3_WAED_MID_0" index="0" speed="33.33" length="425.00" shape="3212.71,-60.29 3196.89,-59.18 3060.44,-48.09 2941.95,-35.95 2921.08,-33.04" />
+        <lane id="A3_WAED_MID_1" index="1" speed="33.33" length="425.00" shape="3212.49,-63.48 3196.65,-62.37 3060.15,-51.28 2941.56,-39.13 2920.63,-36.21" />
     </edge>
     <edge id="A3_WAED_S" from="A3_Start" to="EX36_WAED" priority="-1">
-        <lane id="A3_WAED_S_0" index="0" speed="120.00" length="206.48" shape="3449.92,-80.37 3244.28,-61.79"/>
-        <lane id="A3_WAED_S_1" index="1" speed="120.00" length="206.48" shape="3449.63,-83.56 3243.99,-64.98"/>
+        <lane id="A3_WAED_S_0" index="0" speed="33.33" length="200.00" shape="3449.92,-80.37 3244.28,-61.79" />
+        <lane id="A3_WAED_S_1" index="1" speed="33.33" length="200.00" shape="3449.63,-83.56 3243.99,-64.98" />
     </edge>
     <edge id="E34_THA" from="THA_Start" to="RM_THA" priority="-1" length="173.82" shape="172.86,111.76 144.22,108.40 121.63,105.23 102.77,97.59 85.50,85.02 60.35,54.83 30.77,29.15">
-        <lane id="E34_THA_0" index="0" speed="13.89" length="173.82" shape="172.67,113.35 144.02,109.99 121.21,106.79 101.99,99.00 84.40,86.20 59.20,55.95 30.06,30.65"/>
+        <lane id="E34_THA_0" index="0" speed="13.89" length="175.00" shape="172.67,113.35 144.02,109.99 121.21,106.79 101.99,99.00 84.40,86.20 59.20,55.95 30.06,30.65" />
     </edge>
     <edge id="E34_THA_ACC" from="RM_THA" to="EN34_THA" priority="-1" length="125.00" shape="30.77,29.15 4.53,16.94 -30.22,10.65 -92.81,2.58">
-        <lane id="E34_THA_ACC_0" index="0" speed="13.89" length="125.00" shape="29.69,30.41 4.04,18.48 -30.46,12.23 -42.42,10.69"/>
+        <lane id="E34_THA_ACC_0" index="0" speed="33.33" length="125.00" shape="29.69,30.41 4.04,18.48 -30.46,12.23 -42.42,10.69" />
     </edge>
     <edge id="E35_HOR" from="HOR_Start" to="RM_HOR" priority="-1" length="265.00" shape="1746.16,32.86 1740.26,20.05 1728.66,13.70 1693.78,11.54 1492.54,-0.52">
-        <lane id="E35_HOR_0" index="0" speed="13.89" length="265.00" shape="1744.71,33.53 1739.03,21.20 1728.20,15.27 1693.68,13.14 1492.60,1.09"/>
+        <lane id="E35_HOR_0" index="0" speed="13.89" length="255.00" shape="1744.71,33.53 1739.03,21.20 1728.20,15.27 1693.68,13.14 1492.60,1.09" />
     </edge>
     <edge id="E35_HOR_ACC" from="RM_HOR" to="EN35_HOR" priority="-1" length="215.00">
-        <lane id="E35_HOR_ACC_0" index="0" speed="13.89" length="215.00" shape="1492.30,1.07 1350.60,-7.05"/>
+        <lane id="E35_HOR_ACC_0" index="0" speed="33.33" length="215.00" shape="1492.30,1.07 1350.60,-7.05" />
     </edge>
     <edge id="E36_WAED" from="WAED_Start" to="RM_WAED" priority="-1" shape="3070.38,73.87 3061.12,38.41 3052.94,12.19 3039.75,-6.26 3023.92,-19.87">
-        <lane id="E36_WAED_0" index="0" speed="13.89" length="106.30" shape="3068.83,74.27 3059.58,38.85 3051.49,12.91 3038.56,-5.17 3023.18,-18.40"/>
+        <lane id="E36_WAED_0" index="0" speed="13.89" length="165.00" shape="3068.83,74.27 3059.58,38.85 3051.49,12.91 3038.56,-5.17 3023.18,-18.40" />
     </edge>
     <edge id="E36_WAED_ACC" from="RM_WAED" to="EN36_WAED" priority="-1" length="104.00" shape="3023.92,-19.87 3006.87,-28.40 2979.29,-32.45 2935.51,-31.89 2854.31,-28.55">
-        <lane id="E36_WAED_ACC_0" index="0" speed="13.89" length="104.00" shape="3022.85,-18.62 3006.38,-26.85 2979.18,-30.85 2935.55,-30.29 2921.38,-29.71"/>
+        <lane id="E36_WAED_ACC_0" index="0" speed="33.33" length="105.00" shape="3022.85,-18.62 3006.38,-26.85 2979.18,-30.85 2935.55,-30.29 2921.38,-29.71" />
     </edge>
-
-    <junction id="A3_End" type="dead_end" x="-479.63" y="-12.94" incLanes="A3_THA_N_0 A3_THA_N_1" intLanes="" shape="-480.04,-6.55 -479.63,-12.94"/>
-    <junction id="A3_Start" type="dead_end" x="3449.49" y="-85.15" incLanes="" intLanes="" shape="3449.49,-85.15 3450.07,-78.78"/>
+    <junction id="A3_End" type="dead_end" x="-479.63" y="-12.94" incLanes="A3_THA_N_0 A3_THA_N_1" intLanes="" shape="-480.04,-6.55 -479.63,-12.94" />
+    <junction id="A3_Start" type="dead_end" x="3449.49" y="-85.15" incLanes="" intLanes="" shape="3449.49,-85.15 3450.07,-78.78" />
     <junction id="EN34_THA" type="priority" x="-92.81" y="2.58" incLanes="E34_THA_ACC_0 A3_THA_MID_0 A3_THA_MID_1" intLanes=":EN34_THA_0_0 :EN34_THA_1_0 :EN34_THA_1_1" shape="-42.63,12.28 -42.22,9.10 -44.54,8.80 -46.34,8.55 -47.63,8.35 -48.41,8.20 -48.68,8.11 -48.44,8.08 -48.57,1.68 -49.69,1.90 -50.06,2.10 -50.44,2.29 -50.91,2.44 -51.56,2.50 -51.54,12.10 -48.23,12.01 -47.07,11.97 -45.91,11.98 -44.51,12.07">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
     <junction id="EN35_HOR" type="priority" x="1276.84" y="-12.88" incLanes="E35_HOR_ACC_0 A3_HOR_MID_0 A3_HOR_MID_1" intLanes=":EN35_HOR_0_0 :EN35_HOR_1_0 :EN35_HOR_1_1" shape="1350.50,-5.45 1350.69,-8.65 1350.69,-8.78 1350.49,-15.18 1347.10,-15.09 1347.40,-5.50 1348.55,-5.53 1348.95,-5.53 1349.36,-5.52 1349.84,-5.49">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
     <junction id="EN36_WAED" type="priority" x="2854.31" y="-28.55" incLanes="E36_WAED_ACC_0 A3_WAED_MID_0 A3_WAED_MID_1" intLanes=":EN36_WAED_0_0 :EN36_WAED_1_0 :EN36_WAED_1_1" shape="2921.44,-28.11 2921.31,-31.31 2921.30,-31.45 2920.41,-37.79 2905.72,-36.83 2907.24,-27.35 2910.24,-27.78 2912.47,-27.98 2914.31,-28.04 2916.16,-28.03 2918.41,-28.03">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
     <junction id="EX35_HOR" type="priority" x="2337.41" y="-45.97" incLanes="A3_HOR_S_0 A3_HOR_S_1" intLanes=":EX35_HOR_0_0 :EX35_HOR_1_0 :EX35_HOR_1_1" shape="2307.13,-38.71 2306.95,-45.10 2262.03,-43.62 2262.23,-37.22 2262.26,-36.86 2262.64,-33.69 2272.10,-34.95 2279.08,-36.04 2284.83,-36.97 2290.59,-37.72 2297.61,-38.30">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
     <junction id="EX35_THA" type="priority" x="286.86" y="-17.15" incLanes="A3_THA_S_0 A3_THA_S_1" intLanes=":EX35_THA_0_0 :EX35_THA_1_0 :EX35_THA_1_1" shape="250.21,-6.44 249.47,-12.80 224.29,-11.89 224.82,-5.51 224.88,-5.08 225.49,-1.94">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
     <junction id="EX36_WAED" type="priority" x="3278.35" y="-69.69" incLanes="A3_WAED_S_0 A3_WAED_S_1" intLanes=":EX36_WAED_0_0 :EX36_WAED_1_0 :EX36_WAED_1_1" shape="3244.42,-60.20 3243.85,-66.57 3212.37,-65.08 3212.82,-58.69 3212.87,-58.29 3213.42,-55.13">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+        <request index="0" response="000" foes="000" cont="0" />
+        <request index="1" response="000" foes="000" cont="0" />
+        <request index="2" response="000" foes="000" cont="0" />
     </junction>
-    <junction id="HOR_End" type="dead_end" x="1849.22" y="-3.65" incLanes="A35_HOR_0" intLanes="" shape="1847.33,-1.07 1849.22,-3.65"/>
-    <junction id="HOR_Merge" type="unregulated" x="1125.12" y="-8.10" incLanes="A3_HOR_MERG_0 A3_HOR_MERG_1 A3_HOR_MERG_2" intLanes=":HOR_Merge_0_0 :HOR_Merge_0_1 :HOR_Merge_0_2" shape="1129.39,1.37 1129.09,-8.23 1121.16,-8.03 1121.27,-1.63 1124.34,-0.86 1125.33,-0.11 1126.33,0.64 1127.59,1.19"/>
-    <junction id="HOR_Start" type="dead_end" x="1746.16" y="32.86" incLanes="" intLanes="" shape="1746.16,32.86 1743.25,34.20"/>
+    <junction id="HOR_End" type="dead_end" x="1849.22" y="-3.65" incLanes="A35_HOR_0" intLanes="" shape="1847.33,-1.07 1849.22,-3.65" />
+    <junction id="HOR_Merge" type="unregulated" x="1125.12" y="-8.10" incLanes="A3_HOR_MERG_0 A3_HOR_MERG_1 A3_HOR_MERG_2" intLanes=":HOR_Merge_0_0 :HOR_Merge_0_1 :HOR_Merge_0_2" shape="1129.39,1.37 1129.09,-8.23 1121.16,-8.03 1121.27,-1.63 1124.34,-0.86 1125.33,-0.11 1126.33,0.64 1127.59,1.19" />
+    <junction id="HOR_Start" type="dead_end" x="1746.16" y="32.86" incLanes="" intLanes="" shape="1746.16,32.86 1743.25,34.20" />
     <junction id="RM_HOR" type="priority" x="1492.54" y="-0.52" incLanes="E35_HOR_0" intLanes=":RM_HOR_0_0" shape="1492.50,2.68 1492.69,-0.51 1492.39,-0.53 1492.21,2.67">
-        <request index="0" response="0" foes="0" cont="0"/>
+        <request index="0" response="0" foes="0" cont="0" />
     </junction>
     <junction id="RM_THA" type="priority" x="30.77" y="29.15" incLanes="E34_THA_0" intLanes=":RM_THA_0_0" shape="29.01,31.86 31.11,29.45 30.86,29.23 30.76,29.16 30.66,29.10 30.53,29.04 30.36,28.96">
-        <request index="0" response="0" foes="0" cont="0"/>
+        <request index="0" response="0" foes="0" cont="0" />
     </junction>
     <junction id="RM_WAED" type="priority" x="3023.92" y="-19.87" incLanes="E36_WAED_0" intLanes=":RM_WAED_0_0" shape="3022.13,-17.19 3024.22,-19.61 3024.00,-19.80 3023.91,-19.86 3023.83,-19.91 3023.72,-19.97 3023.57,-20.05">
-        <request index="0" response="0" foes="0" cont="0"/>
+        <request index="0" response="0" foes="0" cont="0" />
     </junction>
-    <junction id="THA_End" type="dead_end" x="172.23" y="103.68" incLanes="A34_THA_0" intLanes="" shape="171.84,100.50 172.23,103.68"/>
-    <junction id="THA_Merge" type="unregulated" x="-323.11" y="-2.95" incLanes="A3_THA_MERG_0 A3_THA_MERG_1 A3_THA_MERG_2" intLanes=":THA_Merge_0_0 :THA_Merge_0_1 :THA_Merge_0_2" shape="-319.57,6.81 -319.16,-2.78 -327.04,-3.20 -327.45,3.19 -324.45,4.21 -323.51,5.03 -322.58,5.85 -321.36,6.50"/>
-    <junction id="THA_Start" type="dead_end" x="172.86" y="111.76" incLanes="" intLanes="" shape="172.86,111.76 172.49,114.94"/>
-    <junction id="WAED_End" type="dead_end" x="3081.28" y="70.69" incLanes="A36_WAED_0" intLanes="" shape="3084.19,69.35 3081.28,70.69"/>
-    <junction id="WAED_Merge" type="unregulated" x="2691.30" y="-2.31" incLanes="A3_WAED_MERG_0 A3_WAED_MERG_1 A3_WAED_MERG_2" intLanes=":WAED_Merge_0_0 :WAED_Merge_0_1 :WAED_Merge_0_2" shape="2696.78,6.53 2695.25,-2.95 2687.35,-1.67 2688.37,4.64 2691.49,4.98 2693.65,6.19 2694.97,6.58"/>
-    <junction id="WAED_Start" type="dead_end" x="3070.38" y="73.87" incLanes="" intLanes="" shape="3070.38,73.87 3067.28,74.68"/>
-
-    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="0" toLane="0" via=":HOR_Merge_0_0" dir="s" state="M"/>
-    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="1" toLane="0" keepClear="0" via=":HOR_Merge_0_1" dir="s" state="M"/>
-    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="2" toLane="1" keepClear="0" via=":HOR_Merge_0_2" dir="s" state="M"/>
-    <connection from="A3_HOR_MID" to="A3_HOR_MERG" fromLane="0" toLane="1" via=":EN35_HOR_1_0" dir="s" state="M"/>
-    <connection from="A3_HOR_MID" to="A3_HOR_MERG" fromLane="1" toLane="2" via=":EN35_HOR_1_1" dir="s" state="M"/>
-    <connection from="A3_HOR_S" to="A35_HOR" fromLane="0" toLane="0" via=":EX35_HOR_0_0" dir="s" state="M"/>
-    <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="0" toLane="0" via=":EX35_HOR_1_0" dir="s" state="M"/>
-    <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="1" toLane="1" via=":EX35_HOR_1_1" dir="s" state="M"/>
-    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="0" toLane="0" via=":THA_Merge_0_0" dir="s" state="M"/>
-    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="1" toLane="0" via=":THA_Merge_0_1" dir="s" state="M"/>
-    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="2" toLane="1" via=":THA_Merge_0_2" dir="s" state="M"/>
-    <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="0" toLane="1" via=":EN34_THA_1_0" dir="s" state="M"/>
-    <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="1" toLane="2" via=":EN34_THA_1_1" dir="s" state="M"/>
-    <connection from="A3_THA_S" to="A34_THA" fromLane="0" toLane="0" via=":EX35_THA_0_0" dir="s" state="M"/>
-    <connection from="A3_THA_S" to="A3_THA_MID" fromLane="0" toLane="0" via=":EX35_THA_1_0" dir="s" state="M"/>
-    <connection from="A3_THA_S" to="A3_THA_MID" fromLane="1" toLane="1" via=":EX35_THA_1_1" dir="s" state="M"/>
-    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="0" toLane="0" via=":WAED_Merge_0_0" dir="s" state="M"/>
-    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="1" toLane="0" via=":WAED_Merge_0_1" dir="s" state="M"/>
-    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="2" toLane="1" via=":WAED_Merge_0_2" dir="s" state="M"/>
-    <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="0" toLane="1" via=":EN36_WAED_1_0" dir="s" state="M"/>
-    <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="1" toLane="2" via=":EN36_WAED_1_1" dir="s" state="M"/>
-    <connection from="A3_WAED_S" to="A36_WAED" fromLane="0" toLane="0" via=":EX36_WAED_0_0" dir="s" state="M"/>
-    <connection from="A3_WAED_S" to="A3_WAED_MID" fromLane="0" toLane="0" via=":EX36_WAED_1_0" dir="s" state="M"/>
-    <connection from="A3_WAED_S" to="A3_WAED_MID" fromLane="1" toLane="1" via=":EX36_WAED_1_1" dir="s" state="M"/>
-    <connection from="E34_THA" to="E34_THA_ACC" fromLane="0" toLane="0" via=":RM_THA_0_0" dir="s" state="M"/>
-    <connection from="E34_THA_ACC" to="A3_THA_MERG" fromLane="0" toLane="0" via=":EN34_THA_0_0" dir="s" state="M"/>
-    <connection from="E35_HOR" to="E35_HOR_ACC" fromLane="0" toLane="0" via=":RM_HOR_0_0" dir="s" state="M"/>
-    <connection from="E35_HOR_ACC" to="A3_HOR_MERG" fromLane="0" toLane="0" via=":EN35_HOR_0_0" dir="s" state="M"/>
-    <connection from="E36_WAED" to="E36_WAED_ACC" fromLane="0" toLane="0" via=":RM_WAED_0_0" dir="s" state="M"/>
-    <connection from="E36_WAED_ACC" to="A3_WAED_MERG" fromLane="0" toLane="0" via=":EN36_WAED_0_0" dir="s" state="M"/>
-
-    <connection from=":EN34_THA_0" to="A3_THA_MERG" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EN34_THA_1" to="A3_THA_MERG" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":EN34_THA_1" to="A3_THA_MERG" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":EN35_HOR_0" to="A3_HOR_MERG" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EN35_HOR_1" to="A3_HOR_MERG" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":EN35_HOR_1" to="A3_HOR_MERG" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":EN36_WAED_0" to="A3_WAED_MERG" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EN36_WAED_1" to="A3_WAED_MERG" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":EN36_WAED_1" to="A3_WAED_MERG" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":EX35_HOR_0" to="A35_HOR" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX35_HOR_1" to="A3_HOR_MID" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX35_HOR_1" to="A3_HOR_MID" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":EX35_THA_0" to="A34_THA" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX35_THA_1" to="A3_THA_MID" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX35_THA_1" to="A3_THA_MID" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":EX36_WAED_0" to="A36_WAED" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX36_WAED_1" to="A3_WAED_MID" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":EX36_WAED_1" to="A3_WAED_MID" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="1" toLane="0" dir="s" state="M"/>
-    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="2" toLane="1" dir="s" state="M"/>
-    <connection from=":RM_HOR_0" to="E35_HOR_ACC" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RM_THA_0" to="E34_THA_ACC" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RM_WAED_0" to="E36_WAED_ACC" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="1" toLane="0" dir="s" state="M"/>
-    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="2" toLane="1" dir="s" state="M"/>
-    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="1" toLane="0" dir="s" state="M"/>
-    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="2" toLane="1" dir="s" state="M"/>
-
+    <junction id="THA_End" type="dead_end" x="172.23" y="103.68" incLanes="A34_THA_0" intLanes="" shape="171.84,100.50 172.23,103.68" />
+    <junction id="THA_Merge" type="unregulated" x="-323.11" y="-2.95" incLanes="A3_THA_MERG_0 A3_THA_MERG_1 A3_THA_MERG_2" intLanes=":THA_Merge_0_0 :THA_Merge_0_1 :THA_Merge_0_2" shape="-319.57,6.81 -319.16,-2.78 -327.04,-3.20 -327.45,3.19 -324.45,4.21 -323.51,5.03 -322.58,5.85 -321.36,6.50" />
+    <junction id="THA_Start" type="dead_end" x="172.86" y="111.76" incLanes="" intLanes="" shape="172.86,111.76 172.49,114.94" />
+    <junction id="WAED_End" type="dead_end" x="3081.28" y="70.69" incLanes="A36_WAED_0" intLanes="" shape="3084.19,69.35 3081.28,70.69" />
+    <junction id="WAED_Merge" type="unregulated" x="2691.30" y="-2.31" incLanes="A3_WAED_MERG_0 A3_WAED_MERG_1 A3_WAED_MERG_2" intLanes=":WAED_Merge_0_0 :WAED_Merge_0_1 :WAED_Merge_0_2" shape="2696.78,6.53 2695.25,-2.95 2687.35,-1.67 2688.37,4.64 2691.49,4.98 2693.65,6.19 2694.97,6.58" />
+    <junction id="WAED_Start" type="dead_end" x="3070.38" y="73.87" incLanes="" intLanes="" shape="3070.38,73.87 3067.28,74.68" />
+    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="0" toLane="0" via=":HOR_Merge_0_0" dir="s" state="M" />
+    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="1" toLane="0" keepClear="0" via=":HOR_Merge_0_1" dir="s" state="M" />
+    <connection from="A3_HOR_MERG" to="A3_THA_S" fromLane="2" toLane="1" keepClear="0" via=":HOR_Merge_0_2" dir="s" state="M" />
+    <connection from="A3_HOR_MID" to="A3_HOR_MERG" fromLane="0" toLane="1" via=":EN35_HOR_1_0" dir="s" state="M" />
+    <connection from="A3_HOR_MID" to="A3_HOR_MERG" fromLane="1" toLane="2" via=":EN35_HOR_1_1" dir="s" state="M" />
+    <connection from="A3_HOR_S" to="A35_HOR" fromLane="0" toLane="0" via=":EX35_HOR_0_0" dir="s" state="M" />
+    <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="0" toLane="0" via=":EX35_HOR_1_0" dir="s" state="M" />
+    <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="1" toLane="1" via=":EX35_HOR_1_1" dir="s" state="M" />
+    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="0" toLane="0" via=":THA_Merge_0_0" dir="s" state="M" />
+    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="1" toLane="0" via=":THA_Merge_0_1" dir="s" state="M" />
+    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="2" toLane="1" via=":THA_Merge_0_2" dir="s" state="M" />
+    <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="0" toLane="1" via=":EN34_THA_1_0" dir="s" state="M" />
+    <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="1" toLane="2" via=":EN34_THA_1_1" dir="s" state="M" />
+    <connection from="A3_THA_S" to="A34_THA" fromLane="0" toLane="0" via=":EX35_THA_0_0" dir="s" state="M" />
+    <connection from="A3_THA_S" to="A3_THA_MID" fromLane="0" toLane="0" via=":EX35_THA_1_0" dir="s" state="M" />
+    <connection from="A3_THA_S" to="A3_THA_MID" fromLane="1" toLane="1" via=":EX35_THA_1_1" dir="s" state="M" />
+    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="0" toLane="0" via=":WAED_Merge_0_0" dir="s" state="M" />
+    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="1" toLane="0" via=":WAED_Merge_0_1" dir="s" state="M" />
+    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="2" toLane="1" via=":WAED_Merge_0_2" dir="s" state="M" />
+    <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="0" toLane="1" via=":EN36_WAED_1_0" dir="s" state="M" />
+    <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="1" toLane="2" via=":EN36_WAED_1_1" dir="s" state="M" />
+    <connection from="A3_WAED_S" to="A36_WAED" fromLane="0" toLane="0" via=":EX36_WAED_0_0" dir="s" state="M" />
+    <connection from="A3_WAED_S" to="A3_WAED_MID" fromLane="0" toLane="0" via=":EX36_WAED_1_0" dir="s" state="M" />
+    <connection from="A3_WAED_S" to="A3_WAED_MID" fromLane="1" toLane="1" via=":EX36_WAED_1_1" dir="s" state="M" />
+    <connection from="E34_THA" to="E34_THA_ACC" fromLane="0" toLane="0" via=":RM_THA_0_0" dir="s" state="M" />
+    <connection from="E34_THA_ACC" to="A3_THA_MERG" fromLane="0" toLane="0" via=":EN34_THA_0_0" dir="s" state="M" />
+    <connection from="E35_HOR" to="E35_HOR_ACC" fromLane="0" toLane="0" via=":RM_HOR_0_0" dir="s" state="M" />
+    <connection from="E35_HOR_ACC" to="A3_HOR_MERG" fromLane="0" toLane="0" via=":EN35_HOR_0_0" dir="s" state="M" />
+    <connection from="E36_WAED" to="E36_WAED_ACC" fromLane="0" toLane="0" via=":RM_WAED_0_0" dir="s" state="M" />
+    <connection from="E36_WAED_ACC" to="A3_WAED_MERG" fromLane="0" toLane="0" via=":EN36_WAED_0_0" dir="s" state="M" />
+    <connection from=":EN34_THA_0" to="A3_THA_MERG" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EN34_THA_1" to="A3_THA_MERG" fromLane="0" toLane="1" dir="s" state="M" />
+    <connection from=":EN34_THA_1" to="A3_THA_MERG" fromLane="1" toLane="2" dir="s" state="M" />
+    <connection from=":EN35_HOR_0" to="A3_HOR_MERG" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EN35_HOR_1" to="A3_HOR_MERG" fromLane="0" toLane="1" dir="s" state="M" />
+    <connection from=":EN35_HOR_1" to="A3_HOR_MERG" fromLane="1" toLane="2" dir="s" state="M" />
+    <connection from=":EN36_WAED_0" to="A3_WAED_MERG" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EN36_WAED_1" to="A3_WAED_MERG" fromLane="0" toLane="1" dir="s" state="M" />
+    <connection from=":EN36_WAED_1" to="A3_WAED_MERG" fromLane="1" toLane="2" dir="s" state="M" />
+    <connection from=":EX35_HOR_0" to="A35_HOR" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX35_HOR_1" to="A3_HOR_MID" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX35_HOR_1" to="A3_HOR_MID" fromLane="1" toLane="1" dir="s" state="M" />
+    <connection from=":EX35_THA_0" to="A34_THA" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX35_THA_1" to="A3_THA_MID" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX35_THA_1" to="A3_THA_MID" fromLane="1" toLane="1" dir="s" state="M" />
+    <connection from=":EX36_WAED_0" to="A36_WAED" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX36_WAED_1" to="A3_WAED_MID" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":EX36_WAED_1" to="A3_WAED_MID" fromLane="1" toLane="1" dir="s" state="M" />
+    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="1" toLane="0" dir="s" state="M" />
+    <connection from=":HOR_Merge_0" to="A3_THA_S" fromLane="2" toLane="1" dir="s" state="M" />
+    <connection from=":RM_HOR_0" to="E35_HOR_ACC" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":RM_THA_0" to="E34_THA_ACC" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":RM_WAED_0" to="E36_WAED_ACC" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="1" toLane="0" dir="s" state="M" />
+    <connection from=":THA_Merge_0" to="A3_THA_N" fromLane="2" toLane="1" dir="s" state="M" />
+    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="0" toLane="0" dir="s" state="M" />
+    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="1" toLane="0" dir="s" state="M" />
+    <connection from=":WAED_Merge_0" to="A3_HOR_S" fromLane="2" toLane="1" dir="s" state="M" />
 </net>
