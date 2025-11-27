@@ -2,8 +2,8 @@
 
 <!-- SUMO Configuration for A3 Highway Network -->
 <!-- Author: asarris -->
-<!-- Scenario 1: 2040-None (BASELINE - SUMO Defaults) -->
-<!-- Description: Neutral baseline behavior without custom behavioral parameters -->
+<!-- Scenario 2: 2040-Mixed (Current Setup) -->
+<!-- Description: Evenly distributed aggression - 20/20/20/20/20 split -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,14 +12,14 @@
         <net-file value="..\..\shared_simulation_files\Network.net.xml"/>
         <route-files value="..\..\shared_simulation_files\routes.rou.xml,Demand.rou.xml"/>
         <gui-settings-file value="..\..\shared_simulation_files\viewsettings_asarris_personal.xml"/>
-        <additional-files value="..\..\shared_simulation_files\vTypes_default.xml,..\..\shared_simulation_files\detectors.add.xml"/>
+        <additional-files value="..\..\shared_simulation_files\vTypes.xml,..\..\shared_simulation_files\detectors.add.xml"/>
     </input>
 
     <output>
-        <fcd-output value="..\..\simulation_output\scenario_1_2040-None\output_fcd.xml"/>
-        <emission-output value="..\..\simulation_output\scenario_1_2040-None\output_emissions.xml"/>
-        <summary-output value="..\..\simulation_output\scenario_1_2040-None\output_summary.xml"/>
-        <tripinfo-output value="..\..\simulation_output\scenario_1_2040-None\output_tripinfo.xml"/>
+        <fcd-output value="..\..\simulation_output\scenario_2_2040-Mixed_Sit0\output_fcd.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_2_2040-Mixed_Sit0\output_emissions.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_2_2040-Mixed_Sit0\output_summary.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_2_2040-Mixed_Sit0\output_tripinfo.xml"/>
     </output>
 
     <time>

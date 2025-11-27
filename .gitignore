@@ -1,11 +1,37 @@
-# Simulation outputs
+# Simulation Output Files
+simulation_output/**/*.xml
+simulation_output/**/*.log
 output_*.xml
 output_detectors/
 *_cache.pkl
+
+# Plot Files
+plots/**/*.png
+plots/**/*.jpg
+plots/**/*.pdf
+plots/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# SUMO Log Files
+sumo_messages.log
+sumo_errors.log
 *.log
 
-# Plots folder
-plots/
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Infrastructure data folder
 infrastructure_data/

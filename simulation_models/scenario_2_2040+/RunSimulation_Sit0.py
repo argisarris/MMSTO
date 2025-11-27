@@ -21,7 +21,7 @@ if 'SUMO_HOME' in os.environ:
 	sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 	print(os.environ["SUMO_HOME"])
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
-sumoConfigFile = r"Configuration.sumocfg"
+sumoConfigFile = r"C:\Users\ETH\Documents\GitHub\MMSTO\simulation_models\scenario_2_2040-Mixed\Configuration_Sit0.sumocfg"
 sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1",
            "--message-log", "sumo_messages.log", "--error-log", "sumo_errors.log", "-v"]
 traci.start(sumoCmd)

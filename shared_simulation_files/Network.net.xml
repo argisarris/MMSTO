@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.20" junctionCornerDetail="5" limitTurnSpeed="33.30" avoidOverlap="0" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="-479.63,-85.15,3449.49,111.76" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!" />
     <edge id=":EN34_THA_0" function="internal">
         <lane id=":EN34_THA_0_0" index="0" speed="33.33" length="9.14" shape="-42.42,10.69 -45.12,10.41 -46.97,10.37 -48.83,10.44 -51.54,10.50" />
@@ -196,16 +196,16 @@
     <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="0" toLane="0" via=":EX35_HOR_1_0" dir="s" state="M" />
     <connection from="A3_HOR_S" to="A3_HOR_MID" fromLane="1" toLane="1" via=":EX35_HOR_1_1" dir="s" state="M" />
     <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="0" toLane="0" via=":THA_Merge_0_0" dir="s" state="M" />
-    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="1" toLane="0" via=":THA_Merge_0_1" dir="s" state="M" />
-    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="2" toLane="1" via=":THA_Merge_0_2" dir="s" state="M" />
+    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="1" toLane="0" keepClear="0" via=":THA_Merge_0_1" dir="s" state="M" />
+    <connection from="A3_THA_MERG" to="A3_THA_N" fromLane="2" toLane="1" keepClear="0" via=":THA_Merge_0_2" dir="s" state="M" />
     <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="0" toLane="1" via=":EN34_THA_1_0" dir="s" state="M" />
     <connection from="A3_THA_MID" to="A3_THA_MERG" fromLane="1" toLane="2" via=":EN34_THA_1_1" dir="s" state="M" />
     <connection from="A3_THA_S" to="A34_THA" fromLane="0" toLane="0" via=":EX35_THA_0_0" dir="s" state="M" />
     <connection from="A3_THA_S" to="A3_THA_MID" fromLane="0" toLane="0" via=":EX35_THA_1_0" dir="s" state="M" />
     <connection from="A3_THA_S" to="A3_THA_MID" fromLane="1" toLane="1" via=":EX35_THA_1_1" dir="s" state="M" />
     <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="0" toLane="0" via=":WAED_Merge_0_0" dir="s" state="M" />
-    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="1" toLane="0" via=":WAED_Merge_0_1" dir="s" state="M" />
-    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="2" toLane="1" via=":WAED_Merge_0_2" dir="s" state="M" />
+    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="1" toLane="0" keepClear="0" via=":WAED_Merge_0_1" dir="s" state="M" />
+    <connection from="A3_WAED_MERG" to="A3_HOR_S" fromLane="2" toLane="1" keepClear="0" via=":WAED_Merge_0_2" dir="s" state="M" />
     <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="0" toLane="1" via=":EN36_WAED_1_0" dir="s" state="M" />
     <connection from="A3_WAED_MID" to="A3_WAED_MERG" fromLane="1" toLane="2" via=":EN36_WAED_1_1" dir="s" state="M" />
     <connection from="A3_WAED_S" to="A36_WAED" fromLane="0" toLane="0" via=":EX36_WAED_0_0" dir="s" state="M" />

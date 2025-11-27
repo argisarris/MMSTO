@@ -11,7 +11,7 @@ import math
 import matplotlib.pyplot as plt
 
 # Create plots directory if it doesn't exist
-os.makedirs('../../plots/scenario_1_2040-None', exist_ok=True)
+os.makedirs('../../plots/scenario_4_2040-Peace', exist_ok=True)
 
 #%%
 # ==========================
@@ -21,7 +21,7 @@ if 'SUMO_HOME' in os.environ:
 	sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 	print(os.environ["SUMO_HOME"])
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
-sumoConfigFile = r"Configuration.sumocfg"
+sumoConfigFile = r"simulation_models\scenario_4_2040-Peace\Configuration_Sit0.sumocfg"
 sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1",
            "--message-log", "sumo_messages.log", "--error-log", "sumo_errors.log", "-v"]
 traci.start(sumoCmd)
@@ -33,7 +33,7 @@ STEPS_PER_SECOND = 1  # steps/sec
 RECORDING_CONTROL_STATS_START_TIME = 240.0
 
 # ==========================
-# Simulation (Scenario 1: 2040-None - BASELINE)
+# Simulation (Scenario 4: 2040-Peace)
 # ==========================
 print("Simulation step length (DeltaT):", traci.simulation.getDeltaT(), "s")
 STEP_INTERVAL = 30  # update every 30 simulation steps
@@ -153,7 +153,7 @@ ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
 ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
-ax1.set_title('Ramp and Mainline Metrics - Thalwil (Scenario 1: 2040-None)')
+ax1.set_title('Ramp and Mainline Metrics - Thalwil (Scenario 4: 2040-Peace)')
 
 # Bottom plot: Speed on mainline and ramp
 ax2.plot(time_steps, speedPLOT_THA_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
@@ -167,7 +167,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_1_2040-None/THA_baseline.png')
+plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/THA_peace.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -196,7 +196,7 @@ ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
 ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
-ax1.set_title('Ramp and Mainline Metrics - Horgen (Scenario 1: 2040-None)')
+ax1.set_title('Ramp and Mainline Metrics - Horgen (Scenario 4: 2040-Peace)')
 
 # Bottom plot: Speed on mainline and ramp
 ax2.plot(time_steps, speedPLOT_HOR_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
@@ -210,7 +210,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_1_2040-None/HOR_baseline.png')
+plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/HOR_peace.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -239,7 +239,7 @@ ax1.set_xlabel('Time (seconds)')
 ax1.set_ylabel('Occupancy / Queue / Vehicles')
 ax1.legend(loc='upper left')
 ax1.grid(True, alpha=0.3)
-ax1.set_title('Ramp and Mainline Metrics - Wädenswil (Scenario 1: 2040-None)')
+ax1.set_title('Ramp and Mainline Metrics - Wädenswil (Scenario 4: 2040-Peace)')
 
 # Bottom plot: Speed on mainline and ramp
 ax2.plot(time_steps, speedPLOT_WAE_MAINLINE, label='Speed on Mainline (km/h)', color='green', linewidth=2)
@@ -253,7 +253,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_1_2040-None/WAE_baseline.png')
+plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/WAE_peace.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -265,7 +265,7 @@ plt.close()
 # SUMMARY STATISTICS
 # ==========================
 print("=" * 60)
-print("SCENARIO 1 SIMULATION SUMMARY (2040-None - BASELINE)")
+print("SCENARIO 4 SIMULATION SUMMARY (2040-Peace)")
 print("=" * 60)
 print(f"\nThalwil (THA):")
 print(f"  Average Occupancy (A3_THA_N - after THA merge): {np.mean(occPLOT_THA_BEFORE):.2f}%")
