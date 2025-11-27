@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Demand Model for Scenario 1: 2040-None (BASELINE) -->
+<!-- Author: asarris -->
+<!-- Description: SUMO default vehicle behaviors without custom aggression parameters -->
+<!-- Total Demand: 6,620 veh/h (6,430 cars + 190 trucks) -->
+<!-- Distribution: No aggression levels - uses default_car and default_truck types only -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <!-- ============================================ -->
+    <!-- HIGHWAY THROUGH-TRAFFIC FLOWS                -->
+    <!-- ============================================ -->
+
+    <!-- Route A3_full: Full highway traversal (A3_Start to A3_End) -->
+    <flow id="flow_A3_full_car" type="default_car" route="route_A3_full"
+          begin="0" end="4500" vehsPerHour="1360"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_A3_full_truck" type="default_truck" route="route_A3_full"
+          begin="0" end="4500" vehsPerHour="50"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- Route A3_to_WAED: Highway to WAED exit -->
+    <flow id="flow_A3_to_WAED_car" type="default_car" route="route_A3_to_WAED"
+          begin="0" end="4500" vehsPerHour="770"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_A3_to_WAED_truck" type="default_truck" route="route_A3_to_WAED"
+          begin="0" end="4500" vehsPerHour="20"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- Route A3_to_HOR: Highway to HOR exit -->
+    <flow id="flow_A3_to_HOR_car" type="default_car" route="route_A3_to_HOR"
+          begin="0" end="4500" vehsPerHour="730"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_A3_to_HOR_truck" type="default_truck" route="route_A3_to_HOR"
+          begin="0" end="4500" vehsPerHour="20"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- Route A3_to_THA: Highway to THA exit -->
+    <flow id="flow_A3_to_THA_car" type="default_car" route="route_A3_to_THA"
+          begin="0" end="4500" vehsPerHour="1100"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_A3_to_THA_truck" type="default_truck" route="route_A3_to_THA"
+          begin="0" end="4500" vehsPerHour="30"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- ============================================ -->
+    <!-- ENTRY RAMP FLOWS                             -->
+    <!-- ============================================ -->
+
+    <!-- Route WAED_to_A3: WAED entry ramp merging to highway -->
+    <flow id="flow_WAED_to_A3_car" type="default_car" route="route_WAED_to_A3"
+          begin="0" end="4500" vehsPerHour="780"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_WAED_to_A3_truck" type="default_truck" route="route_WAED_to_A3"
+          begin="0" end="4500" vehsPerHour="20"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- Route HOR_to_A3: HOR entry ramp merging to highway -->
+    <flow id="flow_HOR_to_A3_car" type="default_car" route="route_HOR_to_A3"
+          begin="0" end="4500" vehsPerHour="690"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_HOR_to_A3_truck" type="default_truck" route="route_HOR_to_A3"
+          begin="0" end="4500" vehsPerHour="20"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- Route THA_to_A3: THA entry ramp merging to highway -->
+    <flow id="flow_THA_to_A3_car" type="default_car" route="route_THA_to_A3"
+          begin="0" end="4500" vehsPerHour="1000"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <flow id="flow_THA_to_A3_truck" type="default_truck" route="route_THA_to_A3"
+          begin="0" end="4500" vehsPerHour="30"
+          departLane="best" departSpeed="speedLimit" insertionChecks="none"/>
+
+    <!-- ============================================ -->
+    <!-- DEMAND SUMMARY                               -->
+    <!-- ============================================ -->
+    <!-- Total Flows: 14 (7 routes × 2 vehicle types)-->
+    <!-- Total Cars: 6,430 veh/h                      -->
+    <!-- Total Trucks: 190 veh/h                      -->
+    <!-- GRAND TOTAL: 6,620 veh/h                     -->
+    <!-- ============================================ -->
+
+</routes>
