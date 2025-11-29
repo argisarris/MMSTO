@@ -146,13 +146,9 @@
     </vType>
 
     <!-- ========================================= -->
-    <!-- ENTRY RAMP VEHICLE TYPES (DEPRECATED)     -->
-    <!-- PRESERVED FOR FUTURE ANALYSIS             -->
+    <!-- ENTRY RAMP VEHICLE TYPES                  -->
     <!-- ========================================= -->
     <!--
-    NOTE: Ramp-specific vehicle types are currently commented out.
-    The base vehicle types (car_aggr1-5, truck_aggr1-5) now apply to ALL traffic.
-    These ramp definitions are preserved for potential future differentiated behavior analysis.
 
     Original design: Ramp vehicles had much more aggressive merging behavior with:
     - Lower tau values (0.4-2.0 vs 8.5-11.0)
@@ -163,10 +159,10 @@
     - Near-zero lcCooperative (0.00-0.05 vs 3.5-5.0)
     -->
 
-    <!--
-    Ramp Car - Aggressiveness Level 1 (Least Aggressive)
+  
+    <!-- Ramp Car - Aggressiveness Level 1 (Least Aggressive) -->
     <vType id="ramp_car_aggr1" vClass="passenger" length="5.0" minGap="2.5"
-           speedFactor="0.80" speedDev="0.08" tau="1.5" maxSpeed="46.0"
+           speedFactor="0.80" speedDev="0.08" tau="1.5" maxSpeed="33.0"
            accel="4.0" decel="3.0" sigma="0.5"
            impatience="2.0" lcImpatience="2.0"
            lcCooperative="0.03" lcStrategic="100.0" lcSpeedGain="7.0"
@@ -177,9 +173,9 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Car - Aggressiveness Level 2
+    <!-- Ramp Car - Aggressiveness Level 2 -->
     <vType id="ramp_car_aggr2" vClass="passenger" length="5.0" minGap="2.5"
-           speedFactor="0.85" speedDev="0.09" tau="0.9" maxSpeed="47.0"
+           speedFactor="0.85" speedDev="0.09" tau="0.9" maxSpeed="33.75"
            accel="4.3" decel="4.0" sigma="0.5"
            impatience="2.5" lcImpatience="2.5"
            lcCooperative="0.01" lcStrategic="100.0" lcSpeedGain="8.0"
@@ -190,9 +186,9 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Car - Aggressiveness Level 3 (Moderate)
+    <!-- Ramp Car - Aggressiveness Level 3 (Moderate) -->
     <vType id="ramp_car_aggr3" vClass="passenger" length="5.0" minGap="2.5"
-           speedFactor="0.90" speedDev="0.10" tau="0.8" maxSpeed="48.0"
+           speedFactor="0.90" speedDev="0.10" tau="0.8" maxSpeed="34.5"
            accel="4.6" decel="5.0" sigma="0.5"
            impatience="3.0" lcImpatience="2.0"
            lcCooperative="0.00" lcStrategic="100.0" lcSpeedGain="9.0"
@@ -203,9 +199,9 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Car - Aggressiveness Level 4
+    <!-- Ramp Car - Aggressiveness Level 4 -->
     <vType id="ramp_car_aggr4" vClass="passenger" length="5.0" minGap="2.5"
-           speedFactor="0.95" speedDev="0.12" tau="0.6" maxSpeed="49.0"
+           speedFactor="0.95" speedDev="0.12" tau="0.6" maxSpeed="35.25"
            accel="4.8" decel="6.0" sigma="0.5"
            impatience="3.5" lcImpatience="2.5"
            lcCooperative="0.00" lcStrategic="100.0" lcSpeedGain="10.0"
@@ -216,9 +212,9 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Car - Aggressiveness Level 5 (Most Aggressive)
+    <!-- Ramp Car - Aggressiveness Level 5 (Most Aggressive) -->
     <vType id="ramp_car_aggr5" vClass="passenger" length="5.0" minGap="2.5"
-           speedFactor="1.00" speedDev="0.15" tau="0.4" maxSpeed="50.0"
+           speedFactor="1.00" speedDev="0.15" tau="0.4" maxSpeed="36.0"
            accel="5.0" decel="8.0" sigma="0.5"
            impatience="4.0" lcImpatience="3.0"
            lcCooperative="0.00" lcStrategic="100.0" lcSpeedGain="11.0"
@@ -228,14 +224,13 @@
            color="1,0,0">
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
-    -->
 
-    <!--
-    =========================================
-    ENTRY RAMP TRUCK TYPES
-    =========================================
 
-    Ramp Truck - Aggressiveness Level 1
+    <!-- ========================================= -->
+    <!-- ENTRY RAMP TRUCK TYPES                    -->
+    <!-- ========================================= -->
+
+    <!-- Ramp Truck - Aggressiveness Level 1 -->
     <vType id="ramp_truck_aggr1" vClass="truck" length="12.0" minGap="2.5"
            speedFactor="0.75" speedDev="0.05" tau="2.0" maxSpeed="22.0"
            accel="2.5" decel="3.0" sigma="0.5"
@@ -248,7 +243,7 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Truck - Aggressiveness Level 2
+    <!-- Ramp Truck - Aggressiveness Level 2 -->
     <vType id="ramp_truck_aggr2" vClass="truck" length="12.0" minGap="2.5"
            speedFactor="0.80" speedDev="0.06" tau="1.5" maxSpeed="23.0"
            accel="2.8" decel="3.5" sigma="0.5"
@@ -261,7 +256,7 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Truck - Aggressiveness Level 3
+    <!-- Ramp Truck - Aggressiveness Level 3 -->
     <vType id="ramp_truck_aggr3" vClass="truck" length="12.0" minGap="2.5"
            speedFactor="0.85" speedDev="0.07" tau="1.2" maxSpeed="24.0"
            accel="3.0" decel="4.0" sigma="0.5"
@@ -274,7 +269,7 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Truck - Aggressiveness Level 4
+    <!-- Ramp Truck - Aggressiveness Level 4 -->
     <vType id="ramp_truck_aggr4" vClass="truck" length="12.0" minGap="2.5"
            speedFactor="0.90" speedDev="0.08" tau="1.0" maxSpeed="25.0"
            accel="3.2" decel="4.5" sigma="0.5"
@@ -287,7 +282,7 @@
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
-    Ramp Truck - Aggressiveness Level 5
+    <!-- Ramp Truck - Aggressiveness Level 5 -->
     <vType id="ramp_truck_aggr5" vClass="truck" length="12.0" minGap="2.5"
            speedFactor="0.95" speedDev="0.10" tau="0.8" maxSpeed="25.0"
            accel="3.5" decel="5.0" sigma="0.5"
@@ -299,6 +294,5 @@
            color="0.1,0.3,1">
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
-    -->
 
 </additional>

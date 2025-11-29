@@ -10,16 +10,18 @@
 
     <input>
         <net-file value="..\..\shared_simulation_files\Network.net.xml"/>
-        <route-files value="..\..\shared_simulation_files\routes.rou.xml,Demand.rou.xml"/>
+        <route-files value="..\..\shared_simulation_files\routes.rou.xml,Demand_2025.rou.xml"/>
         <gui-settings-file value="..\..\shared_simulation_files\viewsettings_asarris_personal.xml"/>
         <additional-files value="..\..\shared_simulation_files\vTypes.xml,..\..\shared_simulation_files\detectors.add.xml"/>
     </input>
 
     <output>
-        <fcd-output value="..\..\simulation_output\scenario_4_2040-Peace_Sit0\output_fcd.xml"/>
-        <emission-output value="..\..\simulation_output\scenario_4_2040-Peace_Sit0\output_emissions.xml"/>
-        <summary-output value="..\..\simulation_output\scenario_4_2040-Peace_Sit0\output_summary.xml"/>
-        <tripinfo-output value="..\..\simulation_output\scenario_4_2040-Peace_Sit0\output_tripinfo.xml"/>
+        <fcd-output value="..\..\simulation_output\scenario_0_2025\output_fcd.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_0_2025\output_emissions.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_0_2025\output_summary.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_0_2025\output_tripinfo.xml"/>
+        <error-log value="..\..\simulation_output\scenario_0_2025\sumo_errors.log"/>
+        <message-log value="..\..\simulation_output\scenario_0_2025\sumo_messages.log"/>
     </output>
 
     <time>

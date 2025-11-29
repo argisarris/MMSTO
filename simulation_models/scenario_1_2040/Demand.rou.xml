@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SUMO Traffic Demand/Flow Definitions for A3 Highway Network -->
 <!-- Time Period: Morning Peak Hour (07:00 - 08:00) -->
-<!-- Duration: 3600 seconds (1 hour) -->
+<!-- Duration: 4500 seconds (1 hour) -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 

@@ -10,8 +10,12 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-# Create plots directory if it doesn't exist
-os.makedirs('../../plots/scenario_4_2040-Peace', exist_ok=True)
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Define output directory relative to script location
+output_dir = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025')
+os.makedirs(output_dir, exist_ok=True)
 
 #%%
 # ==========================
@@ -21,9 +25,9 @@ if 'SUMO_HOME' in os.environ:
 	sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 	print(os.environ["SUMO_HOME"])
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
-sumoConfigFile = r"simulation_models\scenario_4_2040-Peace\Configuration_Sit0.sumocfg"
-sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1",
-           "--message-log", "sumo_messages.log", "--error-log", "sumo_errors.log", "-v"]
+# Use relative path to config file in same directory as script
+sumoConfigFile = os.path.join(script_dir, "Configuration_Sit0.sumocfg")
+sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end"]
 traci.start(sumoCmd)
 
 # ==========================
@@ -167,7 +171,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/THA_peace.png')
+plot_path = os.path.join(output_dir, 'THA_2025.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -210,7 +214,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/HOR_peace.png')
+plot_path = os.path.join(output_dir, 'HOR_2025.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -253,7 +257,7 @@ ax2.grid(True, alpha=0.3)
 ax2.set_title('Speed Comparison: Mainline vs Ramp')
 
 plt.tight_layout()
-plot_path = os.path.abspath('../../plots/scenario_4_2040-Peace/WAE_peace.png')
+plot_path = os.path.join(output_dir, 'WAE_2025.png')
 if os.path.exists(plot_path):
     os.remove(plot_path)
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
@@ -265,7 +269,7 @@ plt.close()
 # SUMMARY STATISTICS
 # ==========================
 print("=" * 60)
-print("SCENARIO 4 SIMULATION SUMMARY (2040-Peace)")
+print("SCENARIO 0 SIMULATION SUMMARY (2025)")
 print("=" * 60)
 print(f"\nThalwil (THA):")
 print(f"  Average Occupancy (A3_THA_N - after THA merge): {np.mean(occPLOT_THA_BEFORE):.2f}%")

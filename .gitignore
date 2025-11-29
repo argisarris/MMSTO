@@ -38,3 +38,6 @@ infrastructure_data/
 
 # Simulation Leif folder
 Simulation_Leif/
+
+# Simulation outputs
+simulation_output/

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SUMO Traffic Demand/Flow Definitions for A3 Highway Network -->
+<!-- Time Period: Morning Peak Hour (07:00 - 08:00) -->
+<!-- Duration: 4500 seconds (1 hour) -->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <!-- ========================================= -->
+    <!-- FLOW DEFINITIONS                          -->
+    <!-- Format: vehsPerHour (vehicles/hour)       -->
+    <!-- Time: begin="0" end="4500" (75 minutes)   -->
+    <!-- Distributed across 5 aggression levels    -->
+    <!-- ========================================= -->
+
+    <!-- ============================================== -->
+    <!-- HIGHWAY THROUGH-TRAFFIC FLOWS                  -->
+    <!-- Each flow split into 5 aggression levels      -->
+    <!-- 20% per aggression level (vehsPerHour / 5)    -->
+    <!-- ============================================== -->
+
+    <!-- Route 1: A3_Start to A3_End (Full highway) - CARS: 1031 veh/h total = 206.2 per aggression level -->
+    <flow id="flow_A3_full_car_aggr1" type="car_aggr1" route="route_A3_full" begin="0" end="4500" vehsPerHour="206" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_car_aggr2" type="car_aggr2" route="route_A3_full" begin="0" end="4500" vehsPerHour="206" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_car_aggr3" type="car_aggr3" route="route_A3_full" begin="0" end="4500" vehsPerHour="206" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_car_aggr4" type="car_aggr4" route="route_A3_full" begin="0" end="4500" vehsPerHour="206" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_car_aggr5" type="car_aggr5" route="route_A3_full" begin="0" end="4500" vehsPerHour="207" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 1: A3_Start to A3_End (Full highway) - TRUCKS: 30 veh/h total = 6 per aggression level -->
+    <flow id="flow_A3_full_truck_aggr1" type="truck_aggr1" route="route_A3_full" begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_truck_aggr2" type="truck_aggr2" route="route_A3_full" begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_truck_aggr3" type="truck_aggr3" route="route_A3_full" begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_truck_aggr4" type="truck_aggr4" route="route_A3_full" begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_full_truck_aggr5" type="truck_aggr5" route="route_A3_full" begin="0" end="4500" vehsPerHour="6" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 2: A3_Start to WAED exit - CARS: 518 veh/h total = 103.6 per aggression level -->
+    <flow id="flow_A3_to_WAED_car_aggr1" type="car_aggr1" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="104" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_car_aggr2" type="car_aggr2" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="104" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_car_aggr3" type="car_aggr3" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="103" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_car_aggr4" type="car_aggr4" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="104" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_car_aggr5" type="car_aggr5" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="103" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 2: A3_Start to WAED exit - TRUCKS: 18 veh/h total = 3.6 per aggression level -->
+    <flow id="flow_A3_to_WAED_truck_aggr1" type="truck_aggr1" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_truck_aggr2" type="truck_aggr2" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_truck_aggr3" type="truck_aggr3" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_truck_aggr4" type="truck_aggr4" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_WAED_truck_aggr5" type="truck_aggr5" route="route_A3_to_WAED" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 3: A3_Start to HOR exit - CARS: 471 veh/h total = 94.2 per aggression level -->
+    <flow id="flow_A3_to_HOR_car_aggr1" type="car_aggr1" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="94" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_car_aggr2" type="car_aggr2" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="94" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_car_aggr3" type="car_aggr3" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="94" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_car_aggr4" type="car_aggr4" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="95" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_car_aggr5" type="car_aggr5" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="94" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 3: A3_Start to HOR exit - TRUCKS: 10 veh/h total = 2 per aggression level -->
+    <flow id="flow_A3_to_HOR_truck_aggr1" type="truck_aggr1" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_truck_aggr2" type="truck_aggr2" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_truck_aggr3" type="truck_aggr3" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_truck_aggr4" type="truck_aggr4" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_HOR_truck_aggr5" type="truck_aggr5" route="route_A3_to_HOR" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 4: A3_Start to THA exit - CARS: 628 veh/h total = 125.6 per aggression level -->
+    <flow id="flow_A3_to_THA_car_aggr1" type="car_aggr1" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="126" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_car_aggr2" type="car_aggr2" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="126" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_car_aggr3" type="car_aggr3" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="125" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_car_aggr4" type="car_aggr4" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="126" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_car_aggr5" type="car_aggr5" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="125" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 4: A3_Start to THA exit - TRUCKS: 16 veh/h total = 3.2 per aggression level -->
+    <flow id="flow_A3_to_THA_truck_aggr1" type="truck_aggr1" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_truck_aggr2" type="truck_aggr2" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_truck_aggr3" type="truck_aggr3" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_truck_aggr4" type="truck_aggr4" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_A3_to_THA_truck_aggr5" type="truck_aggr5" route="route_A3_to_THA" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- ============================================== -->
+    <!-- ENTRY RAMP FLOWS                               -->
+    <!-- Using ramp_car_aggrX and ramp_truck_aggrX types -->
+    <!-- ============================================== -->
+
+    <!-- Route 5: WAED entry to A3_End - CARS: 584 veh/h total = 116.8 per aggression level -->
+    <flow id="flow_WAED_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="117" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="117" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="117" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="117" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="116" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 5: WAED entry to A3_End - TRUCKS: 20 veh/h total = 4 per aggression level -->
+    <flow id="flow_WAED_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_WAED_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_WAED_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 6: HOR entry to A3_End - CARS: 389 veh/h total = 77.8 per aggression level -->
+    <flow id="flow_HOR_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="78" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="78" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="78" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="78" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="77" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 6: HOR entry to A3_End - TRUCKS: 13 veh/h total = 2.6 per aggression level -->
+    <flow id="flow_HOR_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_HOR_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_HOR_to_A3" begin="0" end="4500" vehsPerHour="2" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 7: THA entry to A3_End - CARS: 572 veh/h total = 114.4 per aggression level -->
+    <flow id="flow_THA_to_A3_car_aggr1" type="ramp_car_aggr1" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="114" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_car_aggr2" type="ramp_car_aggr2" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="114" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_car_aggr3" type="ramp_car_aggr3" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="115" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_car_aggr4" type="ramp_car_aggr4" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="115" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_car_aggr5" type="ramp_car_aggr5" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="114" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- Route 7: THA entry to A3_End - TRUCKS: 17 veh/h total = 3.4 per aggression level -->
+    <flow id="flow_THA_to_A3_truck_aggr1" type="ramp_truck_aggr1" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_truck_aggr2" type="ramp_truck_aggr2" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_truck_aggr3" type="ramp_truck_aggr3" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_truck_aggr4" type="ramp_truck_aggr4" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="4" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+    <flow id="flow_THA_to_A3_truck_aggr5" type="ramp_truck_aggr5" route="route_THA_to_A3" begin="0" end="4500" vehsPerHour="3" departLane="best" departSpeed="speedLimit" insertionChecks="collision followerGap speedLimit"/>
+
+    <!-- ============================================== -->
+    <!-- DEMAND SUMMARY - ACTUAL DATA                   -->
+    <!-- ============================================== -->
+    <!--
+    Total vehicles per hour 2025 (Morning Peak 07:00-08:00):
+
+    HIGHWAY THROUGH-TRAFFIC:
+    - A3_full:      1031 cars +  30 trucks = 1061 veh/h
+    - A3_to_WAED:    518 cars +  18 trucks =  536 veh/h
+    - A3_to_HOR:     471 cars +  10 trucks =  481 veh/h
+    - A3_to_THA:     628 cars +  16 trucks =  644 veh/h
+
+    ENTRY RAMPS:
+    - WAED_to_A3:    584 cars +  20 trucks =  604 veh/h
+    - HOR_to_A3:     389 cars +  13 trucks =  402 veh/h
+    - THA_to_A3:     572 cars +  17 trucks =  589 veh/h
+
+    GRAND TOTAL:    4193 cars + 124 trucks = 4317 veh/h
+    -->
+
+</routes>
