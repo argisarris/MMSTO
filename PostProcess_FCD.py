@@ -15,29 +15,36 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2"
+SITUATION = "sit0"  # Options: "sit0", "sit1", "sit2"
+
+# TIME RANGE FOR ANALYSIS (exclude warm-up period)
+TIME_START = 900  # seconds
+TIME_END = 4500   # seconds
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Define paths based on situation
 if SITUATION == "sit0":
-    fcd_file = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', 'output_fcd_sit0.xml')
+    fcd_file = os.path.join(script_dir, 'simulation_output', 'scenario_0_Base', 'output_fcd_sit0.xml')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_0_Base', f'plots_{SITUATION}')
     situation_name = "Situation 0 (No Control)"
 elif SITUATION == "sit1":
-    fcd_file = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', 'output_fcd_sit1.xml')
+    fcd_file = os.path.join(script_dir, 'simulation_output', 'scenario_1_ALINEA', 'output_fcd_sit1.xml')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_1_ALINEA', f'plots_{SITUATION}')
     situation_name = "Situation 1 (ALINEA)"
 elif SITUATION == "sit2":
-    fcd_file = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', 'output_fcd_sit2.xml')
+    fcd_file = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', 'output_fcd_sit2.xml')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', f'plots_{SITUATION}')
     situation_name = "Situation 2 (HERO)"
 else:
     print(f"ERROR: Unknown situation '{SITUATION}'")
     sys.exit(1)
 
-output_dir = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', f'plots_{SITUATION}')
 os.makedirs(output_dir, exist_ok=True)
 
 print(f"Processing: {situation_name}")
+print(f"Time range: {TIME_START}-{TIME_END} seconds (excluding {TIME_START}s warm-up)")
 print(f"Reading FCD data from: {fcd_file}")
 print(f"Saving plots to: {output_dir}")
 
@@ -61,23 +68,25 @@ for event, elem in context:
     if event == 'end' and elem.tag == 'timestep':
         time = float(elem.get('time'))
         
-        for vehicle in elem.findall('vehicle'):
-            veh_id = vehicle.get('id')
-            speed = float(vehicle.get('speed', 0))
-            x = float(vehicle.get('x', 0))
-            y = float(vehicle.get('y', 0))
-            lane = vehicle.get('lane', '')
-            
-            # Store vehicle trajectory data
-            vehicle_data[veh_id]['time'].append(time)
-            vehicle_data[veh_id]['speed'].append(speed * 3.6)  # Convert m/s to km/h
-            vehicle_data[veh_id]['x'].append(x)
-            vehicle_data[veh_id]['y'].append(y)
-            vehicle_data[veh_id]['lane'].append(lane)
-            
-            # Store aggregate time-based data
-            time_data[time]['speeds'].append(speed * 3.6)
-            time_data[time]['count'] += 1
+        # Only process data within the specified time range
+        if TIME_START <= time <= TIME_END:
+            for vehicle in elem.findall('vehicle'):
+                veh_id = vehicle.get('id')
+                speed = float(vehicle.get('speed', 0))
+                x = float(vehicle.get('x', 0))
+                y = float(vehicle.get('y', 0))
+                lane = vehicle.get('lane', '')
+                
+                # Store vehicle trajectory data
+                vehicle_data[veh_id]['time'].append(time)
+                vehicle_data[veh_id]['speed'].append(speed * 3.6)  # Convert m/s to km/h
+                vehicle_data[veh_id]['x'].append(x)
+                vehicle_data[veh_id]['y'].append(y)
+                vehicle_data[veh_id]['lane'].append(lane)
+                
+                # Store aggregate time-based data
+                time_data[time]['speeds'].append(speed * 3.6)
+                time_data[time]['count'] += 1
         
         timestep_count += 1
         if timestep_count % 100 == 0:
@@ -87,7 +96,7 @@ for event, elem in context:
         elem.clear()
         root.clear()
 
-print(f"Parsing complete. Found {len(vehicle_data)} vehicles over {timestep_count} timesteps.")
+print(f"Parsing complete. Found {len(vehicle_data)} vehicles over {len(time_data)} timesteps in analysis period.")
 
 #%%
 # ==========================
@@ -139,7 +148,7 @@ ax.set_ylabel('Speed (km/h)', fontsize=12)
 ax.set_title(f'Network-Wide Average Speed Over Time - {situation_name}', fontsize=14, fontweight='bold')
 ax.legend(loc='best')
 ax.grid(True, alpha=0.3)
-ax.set_xlim([0, max(times)])
+ax.set_xlim([TIME_START, TIME_END])
 ax.set_ylim([0, 120])
 
 plt.tight_layout()
@@ -162,7 +171,7 @@ ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Number of Vehicles', fontsize=12)
 ax.set_title(f'Number of Vehicles in Network Over Time - {situation_name}', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3)
-ax.set_xlim([0, max(times)])
+ax.set_xlim([TIME_START, TIME_END])
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, '02_vehicle_count_timeseries.png'), dpi=300, bbox_inches='tight')
@@ -203,7 +212,7 @@ print(f"  Saved: 03_speed_distribution.png")
 print("\nGenerating Plot 4: Speed heatmap...")
 
 # Create 2D histogram
-time_bins = np.linspace(0, max(times), 100)
+time_bins = np.linspace(TIME_START, TIME_END, 100)
 speed_bins = np.linspace(0, 120, 60)
 
 # Collect all time-speed pairs
@@ -232,72 +241,64 @@ print(f"  Saved: 04_speed_heatmap.png")
 
 #%%
 # ==========================
-# PLOT 5: INDIVIDUAL VEHICLE TRAJECTORIES (SAMPLE)
+# PLOT 5: SPATIAL SPEED MAP (X-Y PLOT) - 5 TIME PERIODS
 # ==========================
-print("\nGenerating Plot 5: Sample vehicle trajectories...")
+print("\nGenerating Plot 5: Spatial speed map across 5 time periods...")
 
-# Select random sample of vehicles
-sample_size = min(20, len(vehicle_data))
-sample_vehicles = np.random.choice(list(vehicle_data.keys()), sample_size, replace=False)
+# Define 5 time periods (each 720 seconds = 12 minutes)
+period_duration = (TIME_END - TIME_START) / 5
+time_periods = [
+    (TIME_START + i * period_duration, TIME_START + (i + 1) * period_duration, f"Period {i+1} ({int(TIME_START + i * period_duration)}-{int(TIME_START + (i + 1) * period_duration)}s)")
+    for i in range(5)
+]
 
-fig, ax = plt.subplots(figsize=(14, 6))
+fig, axes = plt.subplots(5, 1, figsize=(16, 20))
 
-for veh_id in sample_vehicles:
-    times_veh = vehicle_data[veh_id]['time']
-    speeds_veh = vehicle_data[veh_id]['speed']
-    ax.plot(times_veh, speeds_veh, alpha=0.6, linewidth=1)
+for idx, (t_start, t_end, label) in enumerate(time_periods):
+    ax = axes[idx]
+    
+    # Collect position-speed data for this time period
+    x_coords = []
+    y_coords = []
+    speeds_spatial = []
+    
+    for veh_id in vehicle_data:
+        for t, x, y, s in zip(vehicle_data[veh_id]['time'], 
+                               vehicle_data[veh_id]['x'],
+                               vehicle_data[veh_id]['y'],
+                               vehicle_data[veh_id]['speed']):
+            if t_start <= t < t_end:
+                x_coords.append(x)
+                y_coords.append(y)
+                speeds_spatial.append(s)
+    
+    if x_coords:  # Only plot if there's data
+        scatter = ax.scatter(x_coords, y_coords, c=speeds_spatial, cmap='RdYlGn', 
+                           s=0.5, alpha=0.5, vmin=0, vmax=100)
+        ax.set_title(label, fontsize=11, fontweight='bold', pad=10)
+        ax.set_xlabel('X Position (m)', fontsize=10)
+        ax.set_ylabel('Y Position (m)', fontsize=10)
+        ax.set_aspect('equal', adjustable='box')
+    else:
+        ax.text(0.5, 0.5, 'No data', ha='center', va='center', transform=ax.transAxes)
 
-ax.set_xlabel('Time (seconds)', fontsize=12)
-ax.set_ylabel('Speed (km/h)', fontsize=12)
-ax.set_title(f'Individual Vehicle Speed Trajectories (Sample of {sample_size} vehicles) - {situation_name}', 
-             fontsize=14, fontweight='bold')
-ax.grid(True, alpha=0.3)
-ax.set_xlim([0, max(times)])
-ax.set_ylim([0, 120])
+# Add a single colorbar for all subplots
+fig.subplots_adjust(right=0.88)
+cbar_ax = fig.add_axes([0.90, 0.15, 0.02, 0.7])
+cbar = fig.colorbar(scatter, cax=cbar_ax)
+cbar.set_label('Speed (km/h)', fontsize=11)
 
-plt.tight_layout()
-plt.savefig(os.path.join(output_dir, '05_vehicle_trajectories_sample.png'), dpi=300, bbox_inches='tight')
+fig.suptitle(f'Spatial Speed Distribution Over Time - {situation_name}', fontsize=14, fontweight='bold', y=0.995)
+
+plt.savefig(os.path.join(output_dir, '05_spatial_speed_map_periods.png'), dpi=300, bbox_inches='tight')
 plt.close()
-print(f"  Saved: 05_vehicle_trajectories_sample.png")
+print(f"  Saved: 05_spatial_speed_map_periods.png")
 
 #%%
 # ==========================
-# PLOT 6: SPATIAL SPEED MAP (X-Y PLOT)
+# PLOT 6: CONGESTION ANALYSIS
 # ==========================
-print("\nGenerating Plot 6: Spatial speed map...")
-
-# Collect all position-speed data
-x_coords = []
-y_coords = []
-speeds_spatial = []
-
-for veh_id in vehicle_data:
-    x_coords.extend(vehicle_data[veh_id]['x'])
-    y_coords.extend(vehicle_data[veh_id]['y'])
-    speeds_spatial.extend(vehicle_data[veh_id]['speed'])
-
-fig, ax = plt.subplots(figsize=(16, 8))
-
-scatter = ax.scatter(x_coords, y_coords, c=speeds_spatial, cmap='RdYlGn', 
-                     s=1, alpha=0.5, vmin=0, vmax=100)
-cbar = plt.colorbar(scatter, ax=ax)
-cbar.set_label('Speed (km/h)', fontsize=12)
-
-ax.set_xlabel('X Position (m)', fontsize=12)
-ax.set_ylabel('Y Position (m)', fontsize=12)
-ax.set_title(f'Spatial Speed Distribution - {situation_name}', fontsize=14, fontweight='bold')
-ax.set_aspect('equal', adjustable='box')
-
-plt.tight_layout()
-plt.savefig(os.path.join(output_dir, '06_spatial_speed_map.png'), dpi=300, bbox_inches='tight')
-plt.close()
-print(f"  Saved: 06_spatial_speed_map.png")
-
-#%%
-# ==========================
-# PLOT 7: CONGESTION ANALYSIS
-# ==========================
-print("\nGenerating Plot 7: Congestion analysis...")
+print("\nGenerating Plot 6: Congestion analysis...")
 
 # Define congestion thresholds
 free_flow_threshold = 80  # km/h
@@ -340,13 +341,13 @@ ax.set_ylabel('Percentage of Vehicles (%)', fontsize=12)
 ax.set_title(f'Traffic Congestion Levels Over Time - {situation_name}', fontsize=14, fontweight='bold')
 ax.legend(loc='best')
 ax.grid(True, alpha=0.3, axis='y')
-ax.set_xlim([0, max(times)])
+ax.set_xlim([TIME_START, TIME_END])
 ax.set_ylim([0, 100])
 
 plt.tight_layout()
-plt.savefig(os.path.join(output_dir, '07_congestion_analysis.png'), dpi=300, bbox_inches='tight')
+plt.savefig(os.path.join(output_dir, '06_congestion_analysis.png'), dpi=300, bbox_inches='tight')
 plt.close()
-print(f"  Saved: 07_congestion_analysis.png")
+print(f"  Saved: 06_congestion_analysis.png")
 
 #%%
 # ==========================
@@ -356,9 +357,10 @@ print("\n" + "="*60)
 print(f"SUMMARY STATISTICS - {situation_name.upper()}")
 print("="*60)
 
+print(f"\nAnalysis Period: {TIME_START}-{TIME_END} seconds ({(TIME_END-TIME_START)/60:.1f} minutes)")
 print(f"\nOverall Statistics:")
-print(f"  Total vehicles simulated: {len(vehicle_data)}")
-print(f"  Simulation duration: {max(times):.0f} seconds ({max(times)/60:.1f} minutes)")
+print(f"  Total vehicles analyzed: {len(vehicle_data)}")
+print(f"  Analysis duration: {TIME_END-TIME_START:.0f} seconds ({(TIME_END-TIME_START)/60:.1f} minutes)")
 print(f"  Average speed (network-wide): {np.nanmean(avg_speeds):.2f} km/h")
 print(f"  Median speed (network-wide): {np.nanmedian(avg_speeds):.2f} km/h")
 print(f"  Speed std deviation: {np.nanmean(speed_std):.2f} km/h")

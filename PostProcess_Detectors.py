@@ -15,28 +15,36 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2"
+SITUATION = "sit0"  # Options: "sit0", "sit1", "sit2"
+
+# TIME RANGE FOR ANALYSIS (exclude warm-up period)
+TIME_START = 900  # seconds
+TIME_END = 4500   # seconds
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Define paths based on situation - NOW SITUATION-SPECIFIC
-detector_path = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', f'output_detectors_{SITUATION}')
-
+# Define paths based on situation
 if SITUATION == "sit0":
+    detector_path = os.path.join(script_dir, 'simulation_output', 'scenario_0_Base', 'output_detectors')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_0_Base', f'plots_{SITUATION}')
     situation_name = "Situation 0 (No Control)"
 elif SITUATION == "sit1":
+    detector_path = os.path.join(script_dir, 'simulation_output', 'scenario_1_ALINEA', 'output_detectors')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_1_ALINEA', f'plots_{SITUATION}')
     situation_name = "Situation 1 (ALINEA)"
 elif SITUATION == "sit2":
+    detector_path = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', 'output_detectors')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', f'plots_{SITUATION}')
     situation_name = "Situation 2 (HERO)"
 else:
     print(f"ERROR: Unknown situation '{SITUATION}'")
     sys.exit(1)
 
-output_dir = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', f'plots_{SITUATION}')
 os.makedirs(output_dir, exist_ok=True)
 
 print(f"Processing: {situation_name}")
+print(f"Time range: {TIME_START}-{TIME_END} seconds (excluding {TIME_START}s warm-up)")
 
 # Check if it's a directory and find all XML files inside
 detector_files = []
@@ -96,24 +104,26 @@ for detector_file in detector_files:
             time_end = float(interval.get('end', 0))
             time_mid = (time_begin + time_end) / 2
             
-            # Get metrics from interval attributes
-            speed = float(interval.get('speed', -1))
-            occupancy = float(interval.get('occupancy', 0))
-            nVehContrib = int(interval.get('nVehContrib', 0))
-            flow = float(interval.get('flow', 0))  # Flow is already calculated by SUMO
-            
-            # Store data
-            detector_data[det_id]['time'].append(time_mid)
-            detector_data[det_id]['speed'].append(speed * 3.6 if speed >= 0 else np.nan)  # Convert m/s to km/h
-            detector_data[det_id]['occupancy'].append(occupancy)
-            detector_data[det_id]['nVehContrib'].append(nVehContrib)
-            detector_data[det_id]['flow'].append(flow)
+            # Only process data within the specified time range
+            if TIME_START <= time_mid <= TIME_END:
+                # Get metrics from interval attributes
+                speed = float(interval.get('speed', -1))
+                occupancy = float(interval.get('occupancy', 0))
+                nVehContrib = int(interval.get('nVehContrib', 0))
+                flow = float(interval.get('flow', 0))  # Flow is already calculated by SUMO
+                
+                # Store data
+                detector_data[det_id]['time'].append(time_mid)
+                detector_data[det_id]['speed'].append(speed * 3.6 if speed >= 0 else np.nan)  # Convert m/s to km/h
+                detector_data[det_id]['occupancy'].append(occupancy)
+                detector_data[det_id]['nVehContrib'].append(nVehContrib)
+                detector_data[det_id]['flow'].append(flow)
         
     except Exception as e:
         print(f"    Warning: Could not parse {os.path.basename(detector_file)}: {e}")
         continue
 
-print(f"\nParsing complete. Found {len(detector_data)} detectors.")
+print(f"\nParsing complete. Found {len(detector_data)} detectors with data in analysis period.")
 
 if len(detector_data) == 0:
     print("\nERROR: No detector data found in any of the XML files.")
@@ -186,6 +196,7 @@ if all(det in detector_data for det in tha_mainline_detectors):
     ax1.legend(loc='upper left')
     ax1_twin.legend(loc='upper right')
     ax1.grid(True, alpha=0.3)
+    ax1.set_xlim([TIME_START, TIME_END])
     
     # Bottom plot: Speed comparison
     ax2.plot(times, tha_mainline_speed, label='Speed Before Merge (km/h)', color='green', linewidth=2)
@@ -203,6 +214,7 @@ if all(det in detector_data for det in tha_mainline_detectors):
     ax2.legend(loc='best')
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim([0, 120])
+    ax2.set_xlim([TIME_START, TIME_END])
     
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '08_THA_detector_analysis.png'), dpi=300, bbox_inches='tight')
@@ -267,6 +279,7 @@ if all(det in detector_data for det in hor_mainline_detectors):
     ax1.legend(loc='upper left')
     ax1_twin.legend(loc='upper right')
     ax1.grid(True, alpha=0.3)
+    ax1.set_xlim([TIME_START, TIME_END])
     
     ax2.plot(times, hor_mainline_speed, label='Speed Before Merge (km/h)', color='green', linewidth=2)
     ax2.plot(times, hor_after_speed, label='Speed After Merge (km/h)', color='darkgreen', linewidth=2)
@@ -283,6 +296,7 @@ if all(det in detector_data for det in hor_mainline_detectors):
     ax2.legend(loc='best')
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim([0, 120])
+    ax2.set_xlim([TIME_START, TIME_END])
     
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '09_HOR_detector_analysis.png'), dpi=300, bbox_inches='tight')
@@ -346,6 +360,7 @@ if all(det in detector_data for det in wae_mainline_detectors):
     ax1.legend(loc='upper left')
     ax1_twin.legend(loc='upper right')
     ax1.grid(True, alpha=0.3)
+    ax1.set_xlim([TIME_START, TIME_END])
     
     ax2.plot(times, wae_mainline_speed, label='Speed Before Merge (km/h)', color='green', linewidth=2)
     ax2.plot(times, wae_after_speed, label='Speed After Merge (km/h)', color='darkgreen', linewidth=2)
@@ -362,6 +377,7 @@ if all(det in detector_data for det in wae_mainline_detectors):
     ax2.legend(loc='best')
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim([0, 120])
+    ax2.set_xlim([TIME_START, TIME_END])
     
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '10_WAE_detector_analysis.png'), dpi=300, bbox_inches='tight')
@@ -376,6 +392,7 @@ print("\n" + "="*60)
 print(f"DETECTOR-BASED SUMMARY STATISTICS - {situation_name.upper()}")
 print("="*60)
 
+print(f"\nAnalysis Period: {TIME_START}-{TIME_END} seconds ({(TIME_END-TIME_START)/60:.1f} minutes)")
 print("\nAvailable detectors:")
 for det_id in sorted(detector_data.keys()):
     print(f"  - {det_id}")

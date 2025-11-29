@@ -21,10 +21,15 @@ if 'SUMO_HOME' in os.environ:
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
+# ==========================
+# TRAFFIC SCALING PARAMETER
+# ==========================
+TRAFFIC_SCALE = 0.75  # Scale traffic adjust between 0.0 and 1.0)
+
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 # Use relative path to config file in same directory as script
 sumoConfigFile = os.path.join(script_dir, "Configuration_Sit2.sumocfg")
-sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1"]
+sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1", "--scale", str(TRAFFIC_SCALE)]
 traci.start(sumoCmd)
 
 # ==========================
