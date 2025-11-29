@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- SUMO Configuration for A3 Highway Network -->
-<!-- Scenario 0: 2025 - Situation 0 -->
-<!-- Description: No ramp metering control (baseline) -->
+<!-- Scenario 0: 2025 - Situation 2 -->
+<!-- Description: HERO coordinated ramp metering control -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="..\..\shared_simulation_files\Network.net.xml"/>
+        <net-file value="..\..\shared_simulation_files\Network_TL.net.xml"/>
         <route-files value="..\..\shared_simulation_files\routes.rou.xml,Demand_2025.rou.xml"/>
         <gui-settings-file value="..\..\shared_simulation_files\viewsettings_asarris_personal.xml"/>
         <additional-files value="..\..\shared_simulation_files\vTypes.xml,..\..\shared_simulation_files\detectors.add.xml"/>
     </input>
 
     <output>
-        <fcd-output value="..\..\simulation_output\scenario_0_2025\output_fcd_sit0.xml"/>
-        <emission-output value="..\..\simulation_output\scenario_0_2025\output_emissions_sit0.xml"/>
-        <summary-output value="..\..\simulation_output\scenario_0_2025\output_summary_sit0.xml"/>
-        <tripinfo-output value="..\..\simulation_output\scenario_0_2025\output_tripinfo_sit0.xml"/>
-        <error-log value="..\..\simulation_output\scenario_0_2025\sumo_errors_sit0.log"/>
-        <message-log value="..\..\simulation_output\scenario_0_2025\sumo_messages_sit0.log"/>
+        <fcd-output value="..\..\simulation_output\scenario_0_2025\output_fcd_sit2.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_0_2025\output_emissions_sit2.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_0_2025\output_summary_sit2.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_0_2025\output_tripinfo_sit2.xml"/>
+        <error-log value="..\..\simulation_output\scenario_0_2025\sumo_errors_sit2.log"/>
+        <message-log value="..\..\simulation_output\scenario_0_2025\sumo_messages_sit2.log"/>
     </output>
 
     <time>
