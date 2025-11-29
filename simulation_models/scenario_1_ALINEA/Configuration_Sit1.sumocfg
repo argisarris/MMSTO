@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SUMO Configuration for A3 Highway Network -->
+<!-- Scenario 1: ALINEA - Situation 1 -->
+<!-- Description: ALINEA ramp metering control -->
+
+<!-- generated on 2025-11-19 09:41:43 by Eclipse SUMO GUI Version 1.24.0
+-->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Network_TL.net.xml"/>
+        <route-files value="routes.rou.xml,Demand_2040.rou.xml"/>
+        <gui-settings-file value="viewsettings_asarris_personal.xml"/>
+        <additional-files value="vTypes.xml,detectors.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="..\..\simulation_output\scenario_1_ALINEA\output_fcd_sit1.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_1_ALINEA\output_emissions_sit1.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_1_ALINEA\output_summary_sit1.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_1_ALINEA\output_tripinfo_sit1.xml"/>
+        <error-log value="..\..\simulation_output\scenario_1_ALINEA\sumo_errors_sit1.log"/>
+        <message-log value="..\..\simulation_output\scenario_1_ALINEA\sumo_messages_sit1.log"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="4500"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+</sumoConfiguration>

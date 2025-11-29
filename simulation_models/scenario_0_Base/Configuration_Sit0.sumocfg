@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SUMO Configuration for A3 Highway Network -->
+<!-- Scenario 0: Base - Situation 0 -->
+<!-- Description: No ramp metering control (baseline) -->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Network.net.xml"/>
+        <route-files value="routes.rou.xml,Demand_2040.rou.xml"/>
+        <gui-settings-file value="viewsettings_asarris_personal.xml"/>
+        <additional-files value="vTypes.xml,detectors.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="..\..\simulation_output\scenario_0_Base\output_fcd_sit0.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_0_Base\output_emissions_sit0.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_0_Base\output_summary_sit0.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_0_Base\output_tripinfo_sit0.xml"/>
+        <error-log value="..\..\simulation_output\scenario_0_Base\sumo_errors_sit0.log"/>
+        <message-log value="..\..\simulation_output\scenario_0_Base\sumo_messages_sit0.log"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="4500"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+</sumoConfiguration>

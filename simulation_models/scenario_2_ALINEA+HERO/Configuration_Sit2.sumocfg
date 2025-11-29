@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- SUMO Configuration for A3 Highway Network -->
+<!-- Scenario 2: ALINEA+HERO - Situation 2 -->
+<!-- Description: HERO coordinated ramp metering control -->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Network_TL.net.xml"/>
+        <route-files value="routes.rou.xml,Demand_2040.rou.xml"/>
+        <gui-settings-file value="viewsettings_asarris_personal.xml"/>
+        <additional-files value="vTypes.xml,detectors.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="..\..\simulation_output\scenario_2_ALINEA+HERO\output_fcd_sit2.xml"/>
+        <emission-output value="..\..\simulation_output\scenario_2_ALINEA+HERO\output_emissions_sit2.xml"/>
+        <summary-output value="..\..\simulation_output\scenario_2_ALINEA+HERO\output_summary_sit2.xml"/>
+        <tripinfo-output value="..\..\simulation_output\scenario_2_ALINEA+HERO\output_tripinfo_sit2.xml"/>
+        <error-log value="..\..\simulation_output\scenario_2_ALINEA+HERO\sumo_errors_sit2.log"/>
+        <message-log value="..\..\simulation_output\scenario_2_ALINEA+HERO\sumo_messages_sit2.log"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="4500"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+</sumoConfiguration>

@@ -25,7 +25,7 @@ sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time
 traci.start(sumoCmd)
 
 # ==========================
-# Simulation (Scenario 0: 2025)
+# Simulation (Scenario 0: No RM)
 # ==========================
 print("Simulation step length (DeltaT):", traci.simulation.getDeltaT(), "s")
 for step in range(4500):
