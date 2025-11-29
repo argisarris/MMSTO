@@ -15,13 +15,13 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit0"  # Options: "sit0", "sit1", "sit2"
+SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2"
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Define paths based on situation - detectors output is shared across situations
-detector_path = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', 'output_detectors')
+# Define paths based on situation - NOW SITUATION-SPECIFIC
+detector_path = os.path.join(script_dir, '..', '..', 'simulation_output', 'scenario_0_2025', f'output_detectors_{SITUATION}')
 
 if SITUATION == "sit0":
     situation_name = "Situation 0 (No Control)"

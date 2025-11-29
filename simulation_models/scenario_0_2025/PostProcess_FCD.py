@@ -15,7 +15,7 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit0"  # Options: "sit0", "sit1", "sit2"
+SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2"
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))

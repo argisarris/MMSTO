@@ -323,7 +323,7 @@ for step in range(4500):
 		traci.trafficlight.setProgramLogic(traffic_light_WAE, traffic_light_logic_WAE)
 		traci.trafficlight.setPhase(traffic_light_WAE, 0)
 
-	time.sleep(0.1)
+	time.sleep(0)
 	
 traci.close()
 #print(f"Collected Occupancies on main line: ", occupancy_main1)
