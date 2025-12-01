@@ -95,7 +95,7 @@ def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE
 	metering_rate = min(1.0, math.floor(metering_rate * 10) / 10)  # discretize
 	if queuelength < 15:
 		FLUSH = 0
-	elif queuelength > 50:
+	elif queuelength > 80:
 		# Ramp queue too long, increase green 
 		FLUSH = 1
 		metering_rate = 1

@@ -15,11 +15,18 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2", "sit3"
+SITUATION = "sit3"  # Options: "sit0", "sit1", "sit2", "sit3"
 
 # TIME RANGE FOR ANALYSIS (exclude warm-up period)
 TIME_START = 900  # seconds
 TIME_END = 4500   # seconds
+
+# RAMP EDGES TO EXCLUDE FROM SPEED CALCULATIONS
+# These are the ramp edges - exclude vehicles on these from network speed stats
+RAMP_EDGES = [
+    'A36_WAED', 'E35_HOR', 'A35_HOR',
+    'E34_THA', 'A34_THA', 'E36_WAED'
+]
 
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -57,10 +64,11 @@ print(f"Saving plots to: {output_dir}")
 # PARSE FCD DATA
 # ==========================
 print("\nParsing FCD XML file...")
+print(f"  Excluding vehicles on ramp edges: {RAMP_EDGES}")
 
 # Data storage
-vehicle_data = defaultdict(lambda: {'time': [], 'speed': [], 'x': [], 'y': [], 'lane': []})
-time_data = defaultdict(lambda: {'speeds': [], 'count': 0})
+vehicle_data = defaultdict(lambda: {'time': [], 'speed': [], 'speed_mainline': [], 'x': [], 'y': [], 'lane': [], 'edge': []})
+time_data = defaultdict(lambda: {'speeds': [], 'speeds_mainline': [], 'count': 0, 'count_mainline': 0})
 
 # Parse XML incrementally to handle large files
 context = ET.iterparse(fcd_file, events=('start', 'end'))
@@ -81,16 +89,31 @@ for event, elem in context:
                 y = float(vehicle.get('y', 0))
                 lane = vehicle.get('lane', '')
                 
+                # Extract edge from lane (format: edgeID_laneIndex)
+                edge = lane.rsplit('_', 1)[0] if '_' in lane else lane
+                
+                speed_kmh = speed * 3.6  # Convert m/s to km/h
+                
                 # Store vehicle trajectory data
                 vehicle_data[veh_id]['time'].append(time)
-                vehicle_data[veh_id]['speed'].append(speed * 3.6)  # Convert m/s to km/h
+                vehicle_data[veh_id]['speed'].append(speed_kmh)
                 vehicle_data[veh_id]['x'].append(x)
                 vehicle_data[veh_id]['y'].append(y)
                 vehicle_data[veh_id]['lane'].append(lane)
+                vehicle_data[veh_id]['edge'].append(edge)
+                
+                # Store mainline speed data (excluding ramp edges)
+                if edge not in RAMP_EDGES:
+                    vehicle_data[veh_id]['speed_mainline'].append(speed_kmh)
                 
                 # Store aggregate time-based data
-                time_data[time]['speeds'].append(speed * 3.6)
+                time_data[time]['speeds'].append(speed_kmh)
                 time_data[time]['count'] += 1
+                
+                # Store mainline data (excluding ramp edges)
+                if edge not in RAMP_EDGES:
+                    time_data[time]['speeds_mainline'].append(speed_kmh)
+                    time_data[time]['count_mainline'] += 1
         
         timestep_count += 1
         if timestep_count % 100 == 0:
@@ -108,26 +131,29 @@ print(f"Parsing complete. Found {len(vehicle_data)} vehicles over {len(time_data
 # ==========================
 print("\nComputing aggregate statistics...")
 
-# Time series data
+# Time series data (using mainline data for speed metrics)
 times = sorted(time_data.keys())
 avg_speeds = []
 vehicle_counts = []
+vehicle_counts_mainline = []
 speed_std = []
 
 for t in times:
-    speeds = time_data[t]['speeds']
-    if speeds:
-        avg_speeds.append(np.mean(speeds))
-        speed_std.append(np.std(speeds))
+    speeds_mainline = time_data[t]['speeds_mainline']
+    if speeds_mainline:
+        avg_speeds.append(np.mean(speeds_mainline))
+        speed_std.append(np.std(speeds_mainline))
     else:
         avg_speeds.append(np.nan)
         speed_std.append(np.nan)
     vehicle_counts.append(time_data[t]['count'])
+    vehicle_counts_mainline.append(time_data[t]['count_mainline'])
 
 times = np.array(times)
 avg_speeds = np.array(avg_speeds)
 speed_std = np.array(speed_std)
 vehicle_counts = np.array(vehicle_counts)
+vehicle_counts_mainline = np.array(vehicle_counts_mainline)
 
 #%%
 # ==========================
@@ -137,7 +163,7 @@ print("\nGenerating Plot 1: Network-wide speed over time...")
 
 fig, ax = plt.subplots(figsize=(14, 6))
 
-ax.plot(times, avg_speeds, label='Average Speed', color='blue', linewidth=2)
+ax.plot(times, avg_speeds, label='Average Speed (Mainline)', color='blue', linewidth=2)
 ax.fill_between(times, 
                  avg_speeds - speed_std, 
                  avg_speeds + speed_std, 
@@ -149,7 +175,7 @@ ax.axhline(y=30, color='red', linestyle='--', linewidth=1, alpha=0.7, label='30 
 
 ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Speed (km/h)', fontsize=12)
-ax.set_title(f'Network-Wide Average Speed Over Time - {situation_name}', fontsize=14, fontweight='bold')
+ax.set_title(f'Network-Wide Average Speed Over Time (Mainline Only) - {situation_name}', fontsize=14, fontweight='bold')
 ax.legend(loc='best')
 ax.grid(True, alpha=0.3)
 ax.set_xlim([TIME_START, TIME_END])
@@ -168,12 +194,13 @@ print("\nGenerating Plot 2: Vehicle count over time...")
 
 fig, ax = plt.subplots(figsize=(14, 6))
 
-ax.plot(times, vehicle_counts, color='purple', linewidth=2)
-ax.fill_between(times, vehicle_counts, alpha=0.3, color='purple')
+ax.plot(times, vehicle_counts_mainline, color='purple', linewidth=2, label='Mainline')
+ax.fill_between(times, vehicle_counts_mainline, alpha=0.3, color='purple')
 
 ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Number of Vehicles', fontsize=12)
-ax.set_title(f'Number of Vehicles in Network Over Time - {situation_name}', fontsize=14, fontweight='bold')
+ax.set_title(f'Number of Vehicles in Network Over Time (Mainline Only) - {situation_name}', fontsize=14, fontweight='bold')
+ax.legend(loc='best')
 ax.grid(True, alpha=0.3)
 ax.set_xlim([TIME_START, TIME_END])
 
@@ -188,19 +215,20 @@ print(f"  Saved: 02_vehicle_count_timeseries.png")
 # ==========================
 print("\nGenerating Plot 3: Speed distribution histogram...")
 
-all_speeds = []
+# Collect all mainline speeds only
+all_speeds_mainline = []
 for veh_id in vehicle_data:
-    all_speeds.extend(vehicle_data[veh_id]['speed'])
+    all_speeds_mainline.extend(vehicle_data[veh_id]['speed_mainline'])
 
 fig, ax = plt.subplots(figsize=(12, 6))
 
-ax.hist(all_speeds, bins=50, color='steelblue', edgecolor='black', alpha=0.7)
-ax.axvline(x=np.mean(all_speeds), color='red', linestyle='--', linewidth=2, label=f'Mean: {np.mean(all_speeds):.1f} km/h')
-ax.axvline(x=np.median(all_speeds), color='green', linestyle='--', linewidth=2, label=f'Median: {np.median(all_speeds):.1f} km/h')
+ax.hist(all_speeds_mainline, bins=50, color='steelblue', edgecolor='black', alpha=0.7)
+ax.axvline(x=np.mean(all_speeds_mainline), color='red', linestyle='--', linewidth=2, label=f'Mean: {np.mean(all_speeds_mainline):.1f} km/h')
+ax.axvline(x=np.median(all_speeds_mainline), color='green', linestyle='--', linewidth=2, label=f'Median: {np.median(all_speeds_mainline):.1f} km/h')
 
 ax.set_xlabel('Speed (km/h)', fontsize=12)
 ax.set_ylabel('Frequency', fontsize=12)
-ax.set_title(f'Speed Distribution - {situation_name}', fontsize=14, fontweight='bold')
+ax.set_title(f'Speed Distribution (Mainline Only) - {situation_name}', fontsize=14, fontweight='bold')
 ax.legend(loc='best')
 ax.grid(True, alpha=0.3, axis='y')
 
@@ -219,11 +247,12 @@ print("\nGenerating Plot 4: Speed heatmap...")
 time_bins = np.linspace(TIME_START, TIME_END, 100)
 speed_bins = np.linspace(0, 120, 60)
 
-# Collect all time-speed pairs
+# Collect all time-speed pairs (mainline only)
 all_time_speed_pairs = []
 for veh_id in vehicle_data:
-    for t, s in zip(vehicle_data[veh_id]['time'], vehicle_data[veh_id]['speed']):
-        all_time_speed_pairs.append((t, s))
+    for t, edge, s in zip(vehicle_data[veh_id]['time'], vehicle_data[veh_id]['edge'], vehicle_data[veh_id]['speed']):
+        if edge not in RAMP_EDGES:
+            all_time_speed_pairs.append((t, s))
 
 times_flat = [pair[0] for pair in all_time_speed_pairs]
 speeds_flat = [pair[1] for pair in all_time_speed_pairs]
@@ -236,7 +265,7 @@ cbar.set_label('Vehicle Count', fontsize=12)
 
 ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Speed (km/h)', fontsize=12)
-ax.set_title(f'Speed Distribution Over Time (Heatmap) - {situation_name}', fontsize=14, fontweight='bold')
+ax.set_title(f'Speed Distribution Over Time - Heatmap (Mainline Only) - {situation_name}', fontsize=14, fontweight='bold')
 
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, '04_speed_heatmap.png'), dpi=300, bbox_inches='tight')
@@ -309,20 +338,20 @@ free_flow_threshold = 80  # km/h
 moderate_threshold = 50
 congestion_threshold = 30
 
-# Calculate percentage of vehicles in each state over time
+# Calculate percentage of vehicles in each state over time (mainline only)
 free_flow_pct = []
 moderate_pct = []
 congested_pct = []
 severe_pct = []
 
 for t in times:
-    speeds = time_data[t]['speeds']
-    if speeds:
-        total = len(speeds)
-        free_flow_pct.append(100 * sum(s >= free_flow_threshold for s in speeds) / total)
-        moderate_pct.append(100 * sum(moderate_threshold <= s < free_flow_threshold for s in speeds) / total)
-        congested_pct.append(100 * sum(congestion_threshold <= s < moderate_threshold for s in speeds) / total)
-        severe_pct.append(100 * sum(s < congestion_threshold for s in speeds) / total)
+    speeds_mainline = time_data[t]['speeds_mainline']
+    if speeds_mainline:
+        total = len(speeds_mainline)
+        free_flow_pct.append(100 * sum(s >= free_flow_threshold for s in speeds_mainline) / total)
+        moderate_pct.append(100 * sum(moderate_threshold <= s < free_flow_threshold for s in speeds_mainline) / total)
+        congested_pct.append(100 * sum(congestion_threshold <= s < moderate_threshold for s in speeds_mainline) / total)
+        severe_pct.append(100 * sum(s < congestion_threshold for s in speeds_mainline) / total)
     else:
         free_flow_pct.append(0)
         moderate_pct.append(0)
@@ -342,7 +371,7 @@ ax.fill_between(times, [s+c+m for s,c,m in zip(severe_pct, congested_pct, modera
 
 ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Percentage of Vehicles (%)', fontsize=12)
-ax.set_title(f'Traffic Congestion Levels Over Time - {situation_name}', fontsize=14, fontweight='bold')
+ax.set_title(f'Traffic Congestion Levels Over Time (Mainline Only) - {situation_name}', fontsize=14, fontweight='bold')
 ax.legend(loc='best')
 ax.grid(True, alpha=0.3, axis='y')
 ax.set_xlim([TIME_START, TIME_END])
@@ -358,20 +387,22 @@ print(f"  Saved: 06_congestion_analysis.png")
 # SUMMARY STATISTICS
 # ==========================
 print("\n" + "="*60)
-print(f"SUMMARY STATISTICS - {situation_name.upper()}")
+print(f"SUMMARY STATISTICS (MAINLINE ONLY) - {situation_name.upper()}")
 print("="*60)
 
 print(f"\nAnalysis Period: {TIME_START}-{TIME_END} seconds ({(TIME_END-TIME_START)/60:.1f} minutes)")
 print(f"\nOverall Statistics:")
 print(f"  Total vehicles analyzed: {len(vehicle_data)}")
 print(f"  Analysis duration: {TIME_END-TIME_START:.0f} seconds ({(TIME_END-TIME_START)/60:.1f} minutes)")
-print(f"  Average speed (network-wide): {np.nanmean(avg_speeds):.2f} km/h")
-print(f"  Median speed (network-wide): {np.nanmedian(avg_speeds):.2f} km/h")
-print(f"  Speed std deviation: {np.nanmean(speed_std):.2f} km/h")
-print(f"  Peak vehicle count: {max(vehicle_counts)} vehicles")
-print(f"  Average vehicle count: {np.mean(vehicle_counts):.1f} vehicles")
+print(f"  Average speed (mainline): {np.nanmean(avg_speeds):.2f} km/h")
+print(f"  Median speed (mainline): {np.nanmedian(avg_speeds):.2f} km/h")
+print(f"  Speed std deviation (mainline): {np.nanmean(speed_std):.2f} km/h")
+print(f"  Peak vehicle count (all): {max(vehicle_counts)} vehicles")
+print(f"  Peak vehicle count (mainline): {max(vehicle_counts_mainline)} vehicles")
+print(f"  Average vehicle count (all): {np.mean(vehicle_counts):.1f} vehicles")
+print(f"  Average vehicle count (mainline): {np.mean(vehicle_counts_mainline):.1f} vehicles")
 
-print(f"\nCongestion Metrics:")
+print(f"\nCongestion Metrics (Mainline Only):")
 avg_free_flow = np.mean(free_flow_pct)
 avg_moderate = np.mean(moderate_pct)
 avg_congested = np.mean(congested_pct)
@@ -382,12 +413,12 @@ print(f"  Moderate (50-80 km/h): {avg_moderate:.1f}% of time")
 print(f"  Congested (30-50 km/h): {avg_congested:.1f}% of time")
 print(f"  Severe (<30 km/h): {avg_severe:.1f}% of time")
 
-print(f"\nSpeed Statistics (all measurements):")
-print(f"  Min speed: {min(all_speeds):.2f} km/h")
-print(f"  Max speed: {max(all_speeds):.2f} km/h")
-print(f"  Mean speed: {np.mean(all_speeds):.2f} km/h")
-print(f"  Median speed: {np.median(all_speeds):.2f} km/h")
-print(f"  Std deviation: {np.std(all_speeds):.2f} km/h")
+print(f"\nSpeed Statistics (all mainline measurements):")
+print(f"  Min speed: {min(all_speeds_mainline):.2f} km/h")
+print(f"  Max speed: {max(all_speeds_mainline):.2f} km/h")
+print(f"  Mean speed: {np.mean(all_speeds_mainline):.2f} km/h")
+print(f"  Median speed: {np.median(all_speeds_mainline):.2f} km/h")
+print(f"  Std deviation: {np.std(all_speeds_mainline):.2f} km/h")
 
 print("\n" + "="*60)
 print(f"All plots saved to: {output_dir}")

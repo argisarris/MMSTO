@@ -12,7 +12,7 @@
     <!-- ========================================= -->
 
     <!-- Base Car - Aggressiveness Level 1 (Least Aggressive) -->
-    <vType id="car_aggr1" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="car_aggr1" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.80" speedDev="0.08" tau="10.0" maxSpeed="33.0"
            accel="0.5" decel="3.5" sigma="0.5"
            impatience="2.0" lcImpatience="1.0"
@@ -25,7 +25,7 @@
     </vType>
 
     <!-- Base Car - Aggressiveness Level 2 -->
-    <vType id="car_aggr2" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="car_aggr2" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.85" speedDev="0.09" tau="9.8" maxSpeed="33.75"
            accel="0.7" decel="4.0" sigma="0.5"
            impatience="2.5" lcImpatience="1.5"
@@ -38,7 +38,7 @@
     </vType>
 
     <!-- Base Car - Aggressiveness Level 3 (Moderate) -->
-    <vType id="car_aggr3" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="car_aggr3" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.90" speedDev="0.10" tau="9.3" maxSpeed="34.5"
            accel="0.8" decel="4.5" sigma="0.5"
            impatience="3.0" lcImpatience="2.0"
@@ -51,7 +51,7 @@
     </vType>
 
     <!-- Base Car - Aggressiveness Level 4 -->
-    <vType id="car_aggr4" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="car_aggr4" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.95" speedDev="0.12" tau="8.8" maxSpeed="35.25"
            accel="1.0" decel="5.0" sigma="0.5"
            impatience="3.5" lcImpatience="2.5"
@@ -64,7 +64,7 @@
     </vType>
 
     <!-- Base Car - Aggressiveness Level 5 (Most Aggressive) -->
-    <vType id="car_aggr5" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="car_aggr5" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="1.00" speedDev="0.15" tau="8.5" maxSpeed="36.0"
            accel="1.1" decel="5.5" sigma="0.5"
            impatience="4.0" lcImpatience="3.0"
@@ -81,7 +81,7 @@
     <!-- ========================================= -->
 
     <!-- Base Truck - Aggressiveness Level 1 -->
-    <vType id="truck_aggr1" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="truck_aggr1" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.75" speedDev="0.05" tau="11.0" maxSpeed="22.0"
            accel="0.3" decel="3.5" sigma="0.5"
            impatience="1.5" lcImpatience="0.8"
@@ -94,7 +94,7 @@
     </vType>
 
     <!-- Base Truck - Aggressiveness Level 2 -->
-    <vType id="truck_aggr2" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="truck_aggr2" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.80" speedDev="0.06" tau="10.5" maxSpeed="23.0"
            accel="0.4" decel="3.8" sigma="0.5"
            impatience="2.0" lcImpatience="1.0"
@@ -107,7 +107,7 @@
     </vType>
 
     <!-- Base Truck - Aggressiveness Level 3 -->
-    <vType id="truck_aggr3" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="truck_aggr3" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.85" speedDev="0.07" tau="10.0" maxSpeed="24.0"
            accel="0.5" decel="4.0" sigma="0.5"
            impatience="2.5" lcImpatience="1.2"
@@ -120,7 +120,7 @@
     </vType>
 
     <!-- Base Truck - Aggressiveness Level 4 -->
-    <vType id="truck_aggr4" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="truck_aggr4" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.90" speedDev="0.08" tau="9.5" maxSpeed="25.0"
            accel="0.6" decel="4.2" sigma="0.5"
            impatience="3.0" lcImpatience="1.5"
@@ -133,7 +133,7 @@
     </vType>
 
     <!-- Base Truck - Aggressiveness Level 5 -->
-    <vType id="truck_aggr5" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="truck_aggr5" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.95" speedDev="0.10" tau="9.0" maxSpeed="25.0"
            accel="0.7" decel="4.5" sigma="0.5"
            impatience="3.5" lcImpatience="2.0"
@@ -161,7 +161,7 @@
 
   
     <!-- Ramp Car - Aggressiveness Level 1 (Least Aggressive) -->
-    <vType id="ramp_car_aggr1" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="ramp_car_aggr1" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.80" speedDev="0.08" tau="1.5" maxSpeed="33.0"
            accel="4.0" decel="3.0" sigma="0.5"
            impatience="2.0" lcImpatience="2.0"
@@ -174,7 +174,7 @@
     </vType>
 
     <!-- Ramp Car - Aggressiveness Level 2 -->
-    <vType id="ramp_car_aggr2" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="ramp_car_aggr2" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.85" speedDev="0.09" tau="0.9" maxSpeed="33.75"
            accel="4.3" decel="4.0" sigma="0.5"
            impatience="2.5" lcImpatience="2.5"
@@ -187,7 +187,7 @@
     </vType>
 
     <!-- Ramp Car - Aggressiveness Level 3 (Moderate) -->
-    <vType id="ramp_car_aggr3" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="ramp_car_aggr3" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.90" speedDev="0.10" tau="0.8" maxSpeed="34.5"
            accel="4.6" decel="5.0" sigma="0.5"
            impatience="3.0" lcImpatience="2.0"
@@ -200,27 +200,27 @@
     </vType>
 
     <!-- Ramp Car - Aggressiveness Level 4 -->
-    <vType id="ramp_car_aggr4" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="ramp_car_aggr4" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="0.95" speedDev="0.12" tau="0.6" maxSpeed="35.25"
            accel="4.8" decel="6.0" sigma="0.5"
            impatience="3.5" lcImpatience="2.5"
            lcCooperative="0.00" lcStrategic="100.0" lcSpeedGain="10.0"
            lcKeepRight="0.0" lcPushy="5.8" lcSublane="5.0" lcAssertive="11.3"
            lcTimeToImpatience="5.0" lcSigma="1.0" minGapLat="0.06" lcOvertakeRight="0.0"
-           jmDriveAfterYellowTime="1.8" jmIgnoreFoeProb="0.30" jmIgnoreFoeSpeed="18.0"
+           jmDriveAfterYellowTime="1.8" jmIgnoreFoeProb="0.25" jmIgnoreFoeSpeed="15.0"
            color="1,0.6,0">
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
 
     <!-- Ramp Car - Aggressiveness Level 5 (Most Aggressive) -->
-    <vType id="ramp_car_aggr5" vClass="passenger" length="5.0" minGap="2.5"
+    <vType id="ramp_car_aggr5" vClass="passenger" length="5.0" minGap="0.1"
            speedFactor="1.00" speedDev="0.15" tau="0.4" maxSpeed="36.0"
            accel="5.0" decel="8.0" sigma="0.5"
            impatience="4.0" lcImpatience="3.0"
            lcCooperative="0.00" lcStrategic="100.0" lcSpeedGain="11.0"
            lcKeepRight="0.0" lcPushy="6.3" lcSublane="6.0" lcAssertive="12.0"
            lcTimeToImpatience="3.0" lcSigma="1.2" minGapLat="0.02" lcOvertakeRight="0.0"
-           jmDriveAfterYellowTime="2.0" jmIgnoreFoeProb="0.35" jmIgnoreFoeSpeed="20.0"
+           jmDriveAfterYellowTime="2.0" jmIgnoreFoeProb="0.25" jmIgnoreFoeSpeed="15.0"
            color="1,0,0">
         <param key="laneChangeModel" value="SL2015"/>
     </vType>
@@ -231,7 +231,7 @@
     <!-- ========================================= -->
 
     <!-- Ramp Truck - Aggressiveness Level 1 -->
-    <vType id="ramp_truck_aggr1" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="ramp_truck_aggr1" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.75" speedDev="0.05" tau="2.0" maxSpeed="22.0"
            accel="2.5" decel="3.0" sigma="0.5"
            impatience="1.5" lcImpatience="1.5"
@@ -244,7 +244,7 @@
     </vType>
 
     <!-- Ramp Truck - Aggressiveness Level 2 -->
-    <vType id="ramp_truck_aggr2" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="ramp_truck_aggr2" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.80" speedDev="0.06" tau="1.5" maxSpeed="23.0"
            accel="2.8" decel="3.5" sigma="0.5"
            impatience="2.0" lcImpatience="2.0"
@@ -257,7 +257,7 @@
     </vType>
 
     <!-- Ramp Truck - Aggressiveness Level 3 -->
-    <vType id="ramp_truck_aggr3" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="ramp_truck_aggr3" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.85" speedDev="0.07" tau="1.2" maxSpeed="24.0"
            accel="3.0" decel="4.0" sigma="0.5"
            impatience="2.5" lcImpatience="2.5"
@@ -270,7 +270,7 @@
     </vType>
 
     <!-- Ramp Truck - Aggressiveness Level 4 -->
-    <vType id="ramp_truck_aggr4" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="ramp_truck_aggr4" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.90" speedDev="0.08" tau="1.0" maxSpeed="25.0"
            accel="3.2" decel="4.5" sigma="0.5"
            impatience="3.0" lcImpatience="3.0"
@@ -283,7 +283,7 @@
     </vType>
 
     <!-- Ramp Truck - Aggressiveness Level 5 -->
-    <vType id="ramp_truck_aggr5" vClass="truck" length="12.0" minGap="2.5"
+    <vType id="ramp_truck_aggr5" vClass="truck" length="12.0" minGap="0.1"
            speedFactor="0.95" speedDev="0.10" tau="0.8" maxSpeed="25.0"
            accel="3.5" decel="5.0" sigma="0.5"
            impatience="3.5" lcImpatience="3.5"
