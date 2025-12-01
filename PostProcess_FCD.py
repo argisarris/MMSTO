@@ -15,7 +15,7 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit0"  # Options: "sit0", "sit1", "sit2"
+SITUATION = "sit2"  # Options: "sit0", "sit1", "sit2", "sit3"
 
 # TIME RANGE FOR ANALYSIS (exclude warm-up period)
 TIME_START = 900  # seconds
@@ -37,6 +37,10 @@ elif SITUATION == "sit2":
     fcd_file = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', 'output_fcd_sit2.xml')
     output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', f'plots_{SITUATION}')
     situation_name = "Situation 2 (HERO)"
+elif SITUATION == "sit3":
+    fcd_file = os.path.join(script_dir, 'simulation_output', 'scenario_3_ALINEA_long', 'output_fcd_sit3.xml')
+    output_dir = os.path.join(script_dir, 'simulation_output', 'scenario_3_ALINEA_long', f'plots_{SITUATION}')
+    situation_name = "Situation 3 (ALINEA_long)"
 else:
     print(f"ERROR: Unknown situation '{SITUATION}'")
     sys.exit(1)

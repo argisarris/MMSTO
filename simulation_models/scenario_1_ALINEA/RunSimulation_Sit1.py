@@ -24,7 +24,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # ==========================
 # TRAFFIC SCALING PARAMETER
 # ==========================
-TRAFFIC_SCALE = 1  # Scale traffic (adjust between 0.0 and 1.0)
+TRAFFIC_SCALE = 1.0  # Scale traffic (adjust between 0.0 and 1.0)
 
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 # Use relative path to config file in same directory as script
@@ -95,7 +95,7 @@ def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE
 	metering_rate = min(1.0, math.floor(metering_rate * 10) / 10)  # discretize
 	if queuelength < 15:
 		FLUSH = 0
-	elif queuelength > 50:
+	elif queuelength > 80:
 		# Ramp queue too long, increase green 
 		FLUSH = 1
 		metering_rate = 1
@@ -123,7 +123,7 @@ QUEUEList_THA, QUEUEList_HOR, QUEUEList_WAE = [], [], []
 meteringrateList_THA, meteringrateList_HOR, meteringrateList_WAE = [], [], []
 reddurationList_THA, reddurationList_HOR, reddurationList_WAE = [], [], []
 QUEUEoccList_THA, QUEUEoccList_HOR, QUEUEoccList_WAE = [], [], []
-for step in range(6000):            
+for step in range(4500):            
 	traci.simulationStep()
 	
 	if step > RECORDING_CONTROL_STATS_START_TIME and step % STEP_INTERVAL == 0:

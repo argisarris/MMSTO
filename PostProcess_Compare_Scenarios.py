@@ -18,6 +18,14 @@ from collections import defaultdict
 TIME_START = 900  # seconds
 TIME_END = 4500   # seconds
 
+# RAMP EDGES TO EXCLUDE FROM SPEED CALCULATIONS
+# These are the ramp edges - exclude vehicles on these from network speed stats
+RAMP_EDGES = [
+    'A36_WAED', 'E35_HOR', 'A35_HOR',
+    'E34_THA', 'A34_THA', 'E36_WAED', 
+    'E36_WAED_ACC', 'E35_HOR_ACC', 'E34_THA_ACC'
+]
+
 # Get the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -40,6 +48,12 @@ scenarios = {
         'fcd_file': os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', 'output_fcd_sit2.xml'),
         'detector_path': os.path.join(script_dir, 'simulation_output', 'scenario_2_ALINEA+HERO', 'output_detectors'),
         'color': 'green'
+    },
+    'sit3': {
+        'name': 'ALINEA_long',
+        'fcd_file': os.path.join(script_dir, 'simulation_output', 'scenario_3_ALINEA_long', 'output_fcd_sit3.xml'),
+        'detector_path': os.path.join(script_dir, 'simulation_output', 'scenario_3_ALINEA_long', 'output_detectors'),
+        'color': 'purple'
     }
 }
 
@@ -57,13 +71,14 @@ print(f"Output directory: {output_dir}\n")
 # PARSE FCD DATA FOR ALL SCENARIOS
 # ==========================
 print("Parsing FCD data for all scenarios...")
+print(f"  Excluding vehicles on ramp edges: {RAMP_EDGES}")
 
 fcd_data = {}
 
 for sit_id, sit_info in scenarios.items():
     print(f"\n  Processing {sit_info['name']}...")
     
-    time_data = defaultdict(lambda: {'speeds': [], 'count': 0})
+    time_data = defaultdict(lambda: {'speeds': [], 'speeds_mainline': [], 'count': 0, 'count_mainline': 0})
     
     if not os.path.exists(sit_info['fcd_file']):
         print(f"    WARNING: FCD file not found: {sit_info['fcd_file']}")
@@ -80,37 +95,52 @@ for sit_id, sit_info in scenarios.items():
             if TIME_START <= time <= TIME_END:
                 for vehicle in elem.findall('vehicle'):
                     speed = float(vehicle.get('speed', 0))
-                    time_data[time]['speeds'].append(speed * 3.6)
+                    lane = vehicle.get('lane', '')
+                    
+                    # Extract edge from lane (format: edgeID_laneIndex)
+                    edge = lane.rsplit('_', 1)[0] if '_' in lane else lane
+                    
+                    speed_kmh = speed * 3.6
+                    time_data[time]['speeds'].append(speed_kmh)
                     time_data[time]['count'] += 1
+                    
+                    # Only add to mainline data if not on a ramp edge
+                    if edge not in RAMP_EDGES:
+                        time_data[time]['speeds_mainline'].append(speed_kmh)
+                        time_data[time]['count_mainline'] += 1
             
             elem.clear()
             root.clear()
     
-    # Compute aggregate statistics
+    # Compute aggregate statistics (using mainline data for speed metrics)
     times = sorted(time_data.keys())
     avg_speeds = []
     vehicle_counts = []
     speed_std = []
+    vehicle_counts_mainline = []
     
     for t in times:
-        speeds = time_data[t]['speeds']
-        if speeds:
-            avg_speeds.append(np.mean(speeds))
-            speed_std.append(np.std(speeds))
+        speeds_mainline = time_data[t]['speeds_mainline']
+        if speeds_mainline:
+            avg_speeds.append(np.mean(speeds_mainline))
+            speed_std.append(np.std(speeds_mainline))
         else:
             avg_speeds.append(np.nan)
             speed_std.append(np.nan)
         vehicle_counts.append(time_data[t]['count'])
+        vehicle_counts_mainline.append(time_data[t]['count_mainline'])
     
     fcd_data[sit_id] = {
         'times': np.array(times),
         'avg_speeds': np.array(avg_speeds),
         'speed_std': np.array(speed_std),
         'vehicle_counts': np.array(vehicle_counts),
+        'vehicle_counts_mainline': np.array(vehicle_counts_mainline),
         'time_data': time_data
     }
     
     print(f"    Found data for {len(times)} timesteps")
+    print(f"    Average mainline vehicles per timestep: {np.mean(vehicle_counts_mainline):.1f}")
 
 #%%
 # ==========================
@@ -200,12 +230,12 @@ fig, ax = plt.subplots(figsize=(16, 6))
 
 for sit_id, data in fcd_data.items():
     sit_info = scenarios[sit_id]
-    ax.plot(data['times'], data['vehicle_counts'], 
-            label=sit_info['name'], color=sit_info['color'], linewidth=2, alpha=0.8)
+    ax.plot(data['times'], data['vehicle_counts_mainline'], 
+            label=f"{sit_info['name']} (Mainline)", color=sit_info['color'], linewidth=2, alpha=0.8)
 
 ax.set_xlabel('Time (seconds)', fontsize=12)
 ax.set_ylabel('Number of Vehicles', fontsize=12)
-ax.set_title('Vehicle Count in Network Comparison', fontsize=14, fontweight='bold')
+ax.set_title('Mainline Vehicle Count in Network Comparison', fontsize=14, fontweight='bold')
 ax.legend(loc='best', fontsize=11)
 ax.grid(True, alpha=0.3)
 ax.set_xlim([TIME_START, TIME_END])
@@ -375,47 +405,47 @@ print("\nGenerating Plot 6: Summary statistics comparison...")
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
 
-scenario_names = [scenarios[sit]['name'] for sit in ['sit0', 'sit1', 'sit2']]
-colors = [scenarios[sit]['color'] for sit in ['sit0', 'sit1', 'sit2']]
+scenario_names = [scenarios[sit]['name'] for sit in ['sit0', 'sit1', 'sit2', 'sit3']]
+colors = [scenarios[sit]['color'] for sit in ['sit0', 'sit1', 'sit2', 'sit3']]
 
-# Average speed
-avg_speeds_summary = [np.nanmean(fcd_data[sit]['avg_speeds']) for sit in ['sit0', 'sit1', 'sit2'] if sit in fcd_data]
+# Average speed (mainline only)
+avg_speeds_summary = [np.nanmean(fcd_data[sit]['avg_speeds']) for sit in ['sit0', 'sit1', 'sit2', 'sit3'] if sit in fcd_data]
 ax1.bar(scenario_names[:len(avg_speeds_summary)], avg_speeds_summary, color=colors[:len(avg_speeds_summary)], alpha=0.7)
 ax1.set_ylabel('Average Speed (km/h)', fontsize=11)
-ax1.set_title('Network Average Speed', fontsize=12, fontweight='bold')
+ax1.set_title('Network Average Speed (Mainline Only)', fontsize=12, fontweight='bold')
 ax1.grid(True, alpha=0.3, axis='y')
 
-# Average vehicle count
-avg_counts = [np.mean(fcd_data[sit]['vehicle_counts']) for sit in ['sit0', 'sit1', 'sit2'] if sit in fcd_data]
+# Average vehicle count (mainline)
+avg_counts = [np.mean(fcd_data[sit]['vehicle_counts_mainline']) for sit in ['sit0', 'sit1', 'sit2', 'sit3'] if sit in fcd_data]
 ax2.bar(scenario_names[:len(avg_counts)], avg_counts, color=colors[:len(avg_counts)], alpha=0.7)
 ax2.set_ylabel('Average Vehicle Count', fontsize=11)
-ax2.set_title('Average Vehicles in Network', fontsize=12, fontweight='bold')
+ax2.set_title('Average Vehicles in Network (Mainline)', fontsize=12, fontweight='bold')
 ax2.grid(True, alpha=0.3, axis='y')
 
-# Speed standard deviation
-speed_std_summary = [np.nanmean(fcd_data[sit]['speed_std']) for sit in ['sit0', 'sit1', 'sit2'] if sit in fcd_data]
+# Speed standard deviation (mainline only)
+speed_std_summary = [np.nanmean(fcd_data[sit]['speed_std']) for sit in ['sit0', 'sit1', 'sit2', 'sit3'] if sit in fcd_data]
 ax3.bar(scenario_names[:len(speed_std_summary)], speed_std_summary, color=colors[:len(speed_std_summary)], alpha=0.7)
 ax3.set_ylabel('Speed Std Dev (km/h)', fontsize=11)
-ax3.set_title('Speed Variability', fontsize=12, fontweight='bold')
+ax3.set_title('Speed Variability (Mainline Only)', fontsize=12, fontweight='bold')
 ax3.grid(True, alpha=0.3, axis='y')
 
-# Congestion percentage (speed < 50 km/h)
+# Congestion percentage (speed < 50 km/h, mainline only)
 congestion_pct = []
-for sit in ['sit0', 'sit1', 'sit2']:
+for sit in ['sit0', 'sit1', 'sit2', 'sit3']:
     if sit in fcd_data:
-        all_speeds = []
+        all_speeds_mainline = []
         for t in fcd_data[sit]['time_data'].values():
-            all_speeds.extend(t['speeds'])
-        if all_speeds:
-            pct = 100 * sum(s < 50 for s in all_speeds) / len(all_speeds)
+            all_speeds_mainline.extend(t['speeds_mainline'])
+        if all_speeds_mainline:
+            pct = 100 * sum(s < 50 for s in all_speeds_mainline) / len(all_speeds_mainline)
             congestion_pct.append(pct)
 
 ax4.bar(scenario_names[:len(congestion_pct)], congestion_pct, color=colors[:len(congestion_pct)], alpha=0.7)
 ax4.set_ylabel('Congestion (%)', fontsize=11)
-ax4.set_title('Percentage of Speeds < 50 km/h', fontsize=12, fontweight='bold')
+ax4.set_title('Percentage of Speeds < 50 km/h (Mainline Only)', fontsize=12, fontweight='bold')
 ax4.grid(True, alpha=0.3, axis='y')
 
-plt.suptitle('Scenario Comparison - Summary Statistics', fontsize=14, fontweight='bold', y=0.995)
+plt.suptitle('Scenario Comparison - Summary Statistics (Mainline Only)', fontsize=14, fontweight='bold', y=0.995)
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, '06_summary_comparison.png'), dpi=300, bbox_inches='tight')
 plt.close()
@@ -426,10 +456,10 @@ print("  Saved: 06_summary_comparison.png")
 # PRINT SUMMARY STATISTICS
 # ==========================
 print("\n" + "="*60)
-print("COMPARATIVE SUMMARY STATISTICS")
+print("COMPARATIVE SUMMARY STATISTICS (MAINLINE ONLY)")
 print("="*60)
 
-for sit_id in ['sit0', 'sit1', 'sit2']:
+for sit_id in ['sit0', 'sit1', 'sit2', 'sit3']:
     if sit_id not in fcd_data:
         continue
     
@@ -437,17 +467,18 @@ for sit_id in ['sit0', 'sit1', 'sit2']:
     data = fcd_data[sit_id]
     
     print(f"\n{sit_info['name']}:")
-    print(f"  Average speed: {np.nanmean(data['avg_speeds']):.2f} km/h")
-    print(f"  Average vehicle count: {np.mean(data['vehicle_counts']):.1f} vehicles")
-    print(f"  Speed std deviation: {np.nanmean(data['speed_std']):.2f} km/h")
+    print(f"  Average speed (mainline): {np.nanmean(data['avg_speeds']):.2f} km/h")
+    print(f"  Average vehicle count (all): {np.mean(data['vehicle_counts']):.1f} vehicles")
+    print(f"  Average vehicle count (mainline): {np.mean(data['vehicle_counts_mainline']):.1f} vehicles")
+    print(f"  Speed std deviation (mainline): {np.nanmean(data['speed_std']):.2f} km/h")
     
-    all_speeds = []
+    all_speeds_mainline = []
     for t in data['time_data'].values():
-        all_speeds.extend(t['speeds'])
+        all_speeds_mainline.extend(t['speeds_mainline'])
     
-    if all_speeds:
-        print(f"  % Free flow (≥80 km/h): {100 * sum(s >= 80 for s in all_speeds) / len(all_speeds):.1f}%")
-        print(f"  % Congested (<50 km/h): {100 * sum(s < 50 for s in all_speeds) / len(all_speeds):.1f}%")
+    if all_speeds_mainline:
+        print(f"  % Free flow (≥80 km/h, mainline): {100 * sum(s >= 80 for s in all_speeds_mainline) / len(all_speeds_mainline):.1f}%")
+        print(f"  % Congested (<50 km/h, mainline): {100 * sum(s < 50 for s in all_speeds_mainline) / len(all_speeds_mainline):.1f}%")
 
 print("\n" + "="*60)
 print(f"All comparison plots saved to: {output_dir}")

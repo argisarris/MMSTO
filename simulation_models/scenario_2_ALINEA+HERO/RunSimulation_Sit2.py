@@ -24,7 +24,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # ==========================
 # TRAFFIC SCALING PARAMETER
 # ==========================
-TRAFFIC_SCALE = 1  # Scale traffic adjust between 0.0 and 1.0)
+TRAFFIC_SCALE = 1.0  # Scale traffic adjust between 0.0 and 1.0)
 
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 # Use relative path to config file in same directory as script
@@ -35,8 +35,8 @@ traci.start(sumoCmd)
 # ==========================
 # TIME-RELEVANT PARAMETERS (keep unchanged)
 # ==========================
-STEPS_PER_SECOND = 1  # steps/sec
-SIGNAL_CYCLE_DURATION = 30  # sec #fictive number
+STEPS_PER_SECOND = 0.25  # steps/sec
+SIGNAL_CYCLE_DURATION = 30  # sec
 VEHICLE_AV_ACC_TIME = 2.0  # sec/veh
 RECORDING_CONTROL_STATS_START_TIME = 240.0
 Q_MIN = 0       # veh/h
@@ -45,34 +45,37 @@ Q_MAX = 1800    # veh/h
 # ==========================
 # CONTROL PARAMETERS
 # ==========================
-K_R = 5/60 # veh/sec
+K_R = 10 # veh/h/%
 OCCUPANCY_TARGET = 20.0  # %
-QUEUE_MAX_LENGTH_RAMP_THA = 20 # veh 
-QUEUE_MAX_LENGTH_RAMP_HOR = 30 # veh 
-QUEUE_MAX_LENGTH_RAMP_WAE = 10 # veh 	
+QUEUE_MAX_LENGTH_RAMP_THA = 23 # veh 
+QUEUE_MAX_LENGTH_RAMP_HOR = 35 # veh 
+QUEUE_MAX_LENGTH_RAMP_WAE = 22 # veh 
+FLUSH_THA = 0
+FLUSH_HOR = 0
+FLUSH_WAE = 0		
 
 # ==========================
 # HERO CONTROL PARAMETERS (simple, tunable)
 # ==========================
-HERO_QUEUE_THRESHOLD1 = 10   # vehicles: l_i > threshold1 -> activate ramp i-1 as slave
-HERO_QUEUE_THRESHOLD2 = 20   # vehicles: l_i + l_{i-1} > threshold2 -> activate ramp i-2 as slave
+HERO_QUEUE_occ_THRESHOLD1 = 30   # vehicles: l_i > threshold1 -> activate ramp i-1 as slave
+HERO_QUEUE_occ_THRESHOLD2 = 30   # vehicles: l_i + l_{i-1} > threshold2 -> activate ramp i-2 as slave
 HERO_MIN_RATE = 0.2          # minimum metering rate (0..1) applied to slave ramps
 
 # ==========================
 # RAMP ALINEA CONTROL PARAMETERS
 # ==========================
-ramp_THA = "0" 									#What is this needed for???
+ramp_THA = "Thalwil" 									
 traffic_light_THA = "RM_THA"
-ramp_HOR = "0"									#What is this needed for???
+ramp_HOR = "Horgen"									
 traffic_light_HOR = "RM_HOR"
-ramp_WAE = "0"									#What is this needed for???
+ramp_WAE = "Waedenswil"									
 traffic_light_WAE = "RM_WAED"
 
 
 # ==========================
 # RAMP ALINEA CONTROL FUNCTION
 # ==========================
-def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE_MAX_LENGTH_RAMP):
+def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE_MAX_LENGTH_RAMP, FLUSH):
 	"""
 	ALINEA control logic for a single ramp.
 
@@ -90,48 +93,18 @@ def control_ALINEA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE
 	# Bound flow rate
 	q_bounded = min(Q_MAX, max(q_rate, Q_MIN))
 	# Compute metering rate as fraction of signal cycle
-	metering_rate = (q_bounded * VEHICLE_AV_ACC_TIME) / SIGNAL_CYCLE_DURATION
+	metering_rate = (q_bounded * VEHICLE_AV_ACC_TIME) / 3600
 	metering_rate = min(1.0, math.floor(metering_rate * 10) / 10)  # discretize
 
-	if queuelength > QUEUE_MAX_LENGTH_RAMP:
+	if queuelength < 15:
+		FLUSH = 0
+	elif queuelength > 80:
 		# Ramp queue too long, increase green 
-		metering_rate = 1.0
-	
-	return q_rate, metering_rate
-
-
-
-# ==========================
-# RAMP ASTRA CONTROL FUNCTION
-# ==========================
-def control_ASTRA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE_MAX_LENGTH_RAMP):
-	"""
-	ASTRA control logic for a single ramp.
-
-	Parameters:
-	- ramp: The ramp ID.
-	- q_previous_rate: Previous ramp flow rate (veh/h).
-	- occupancy_measured: Measured occupancy (%).
-
-	Returns:
-	- q_rate: Updated flow rate (veh/h)
-	- metering_rate: Green share for ramp (0..1)
-	"""
-	# Compute new flow rate (ALINEA formula)
-	if queuelength > QUEUE_MAX_LENGTH_RAMP:
-		# Ramp queue too long, increase green 
-		metering = 14
-	else:
-		q_rate = q_previous_rate + K_R * (OCCUPANCY_TARGET - occupancy_measured)
-	
-	# Bound flow rate
-	q_bounded = min(Q_MAX, max(q_rate, Q_MIN))
-	
-	# Compute metering rate as fraction of signal cycle
-	metering_rate = (q_bounded * VEHICLE_AV_ACC_TIME) / SIGNAL_CYCLE_DURATION
-	metering_rate = min(1.0, math.floor(metering_rate * 10) / 10)  # discretize
-	
-	return q_rate, metering_rate
+		FLUSH = 1
+		metering_rate = 1
+	elif FLUSH == 1:
+		metering_rate = 1
+	return q_bounded, metering_rate, FLUSH
 
 
 # ==========================
@@ -140,11 +113,14 @@ def control_ASTRA(ramp, q_previous_rate, occupancy_measured, queuelength, QUEUE_
 def apply_HERO(
 	occ_bottleneck,
 	metering_rate_THA,
-	QUEUEstep_THA,
+	QUEUEocc_step_THA,
 	metering_rate_HOR,
-	QUEUEstep_HOR,
+	QUEUEocc_step_HOR,
 	metering_rate_WAE,
-	QUEUEstep_WAE
+	QUEUEocc_step_WAE,
+	THA_flush,
+	HOR_flush,
+	WAE_flush
 ):
 	"""
 	HERO coordination — respecting flush-out condition:
@@ -160,51 +136,54 @@ def apply_HERO(
 	# ---------------------------------------------------
 	# 1) Flush-out protection — DO NOT override metering=1.0
 	# ---------------------------------------------------
-	THA_flush = QUEUEstep_THA > QUEUE_MAX_LENGTH_RAMP_THA
-	HOR_flush = QUEUEstep_HOR > QUEUE_MAX_LENGTH_RAMP_HOR
-	WAE_flush = QUEUEstep_WAE > QUEUE_MAX_LENGTH_RAMP_WAE
-
-	if THA_flush:
+	if THA_flush == 1:
+		print("THA_FLUSH")
 		metering_rate_THA = 1.0
-	if HOR_flush:
+	if HOR_flush == 1:
+		print("HOR_FLUSH")
 		metering_rate_HOR = 1.0
-	if WAE_flush:
+	if WAE_flush == 1:
+		print("WAE_FLUSH")
 		metering_rate_WAE = 1.0
 
+	
 	# ---------------------------------------------------
 	# 2) If THA queue → too large → HOR becomes slave
 	# ---------------------------------------------------
-	if (QUEUEstep_THA > HERO_QUEUE_THRESHOLD1) and not HOR_flush:
+	if (QUEUEocc_step_WAE > HERO_QUEUE_occ_THRESHOLD1) and HOR_flush!= 1:
 		metering_rate_HOR = min(metering_rate_HOR, HERO_MIN_RATE)
+		print("HOR: HERO")
 
 	# ---------------------------------------------------
 	# 3) If THA + HOR queues too large → WAE becomes slave
 	# ---------------------------------------------------
-	if ((QUEUEstep_THA + QUEUEstep_HOR) > HERO_QUEUE_THRESHOLD2) and not WAE_flush:
-		metering_rate_WAE = min(metering_rate_WAE, HERO_MIN_RATE)
+	if (QUEUEocc_step_WAE > HERO_QUEUE_occ_THRESHOLD1) and (QUEUEocc_step_HOR > HERO_QUEUE_occ_THRESHOLD2) and THA_flush != 1:
+		metering_rate_THA = min(metering_rate_THA, HERO_MIN_RATE)
+		print("THA: HERO")
 
 	return metering_rate_THA, metering_rate_HOR, metering_rate_WAE
 
-
+ 
 
 # ==========================
 # Simulation
 # ==========================
 print("Simulation step length (DeltaT):", traci.simulation.getDeltaT(), "s")
 STEP_INTERVAL = 30  # update every 30 simulation steps
-q_rate_prev_THA, q_rate_prev_HOR, q_rate_prev_WAE = 0, 0, 0 # Previous flow rate for individual ramps
+q_rate_prev_THA, q_rate_prev_HOR, q_rate_prev_WAE = 1800, 1800, 1800 # Previous flow rate for individual ramps
 occList_THA, occList_HOR, occList_WAE = [], [], []
 numVEHList_THA, numVEHList_HOR, numVEHList_WAE = [], [], []
 QUEUEList_THA, QUEUEList_HOR, QUEUEList_WAE = [], [], []
 meteringrateList_THA, meteringrateList_HOR, meteringrateList_WAE = [], [], []
 reddurationList_THA, reddurationList_HOR, reddurationList_WAE = [], [], []
+QUEUEoccList_THA, QUEUEoccList_HOR, QUEUEoccList_WAE = [], [], []
 
-standingqueue_ramp1   = [], [], [], [], []
 for step in range(4500):            
 	traci.simulationStep()
 	
-	
 	if step > RECORDING_CONTROL_STATS_START_TIME and step % STEP_INTERVAL == 0:
+		print(f"Step:{step}")
+		print("------------------")
 		# get occupancies for ALINEA and append to list
 		occ_THA_0 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID0")
 		occ_THA_1 = traci.inductionloop.getLastIntervalOccupancy("SENS_A3_THA_MID1")
@@ -237,18 +216,25 @@ for step in range(4500):
 		QUEUEList_THA.append(QUEUEstep_THA)
 		QUEUEList_HOR.append(QUEUEstep_HOR)
 		QUEUEList_WAE.append(QUEUEstep_WAE)
+		# get occupancy on ramp
+		QUEUE_occ_THA = traci.lanearea.getLastIntervalOccupancy("SENS_E_THA")
+		QUEUE_occ_HOR = traci.lanearea.getLastIntervalOccupancy("SENS_E_HOR")
+		QUEUE_occ_WAE = traci.lanearea.getLastIntervalOccupancy("SENS_E_WAE")
+		QUEUEoccList_THA.append(QUEUE_occ_THA)
+		QUEUEoccList_HOR.append(QUEUE_occ_HOR)
+		QUEUEoccList_WAE.append(QUEUE_occ_WAE)
 		
 		# ==============================
 		# Apply ALINEA control (local) for each ramp
 		# ==============================
-		q_rate_prev_THA, metering_rate_THA = control_ALINEA(
-			ramp_THA, q_rate_prev_THA, occ_THA, QUEUEstep_THA, QUEUE_MAX_LENGTH_RAMP_THA
+		q_rate_prev_THA, metering_rate_THA, FLUSH_THA = control_ALINEA(
+			ramp_THA, q_rate_prev_THA, occ_THA, QUEUE_occ_THA, QUEUE_MAX_LENGTH_RAMP_THA, FLUSH_THA
 		)
-		q_rate_prev_HOR, metering_rate_HOR = control_ALINEA(
-			ramp_HOR, q_rate_prev_HOR, occ_HOR, QUEUEstep_HOR, QUEUE_MAX_LENGTH_RAMP_HOR
+		q_rate_prev_HOR, metering_rate_HOR, FLUSH_HOR = control_ALINEA(
+			ramp_HOR, q_rate_prev_HOR, occ_HOR, QUEUE_occ_HOR, QUEUE_MAX_LENGTH_RAMP_HOR, FLUSH_HOR
 		)
-		q_rate_prev_WAE, metering_rate_WAE = control_ALINEA(
-			ramp_WAE, q_rate_prev_WAE, occ_WAE, QUEUEstep_WAE, QUEUE_MAX_LENGTH_RAMP_WAE
+		q_rate_prev_WAE, metering_rate_WAE, FLUSH_WAE = control_ALINEA(
+			ramp_WAE, q_rate_prev_WAE, occ_WAE, QUEUE_occ_WAE, QUEUE_MAX_LENGTH_RAMP_WAE, FLUSH_WAE
 		)
 
 		# ==============================
@@ -258,13 +244,16 @@ for step in range(4500):
 		(metering_rate_THA,
 		 metering_rate_HOR,
 		 metering_rate_WAE) = apply_HERO(
-			occ_bottleneck=occ_THA,
+			occ_bottleneck=occ_WAE,
 			metering_rate_THA=metering_rate_THA,
-			QUEUEstep_THA=QUEUEstep_THA,
+			QUEUEocc_step_THA=QUEUE_occ_THA,
 			metering_rate_HOR=metering_rate_HOR,
-			QUEUEstep_HOR=QUEUEstep_HOR,
+			QUEUEocc_step_HOR=QUEUE_occ_HOR,
 			metering_rate_WAE=metering_rate_WAE,
-			QUEUEstep_WAE=QUEUEstep_WAE
+			QUEUEocc_step_WAE=QUEUE_occ_WAE,
+			THA_flush=FLUSH_THA,
+			HOR_flush=FLUSH_HOR,
+			WAE_flush=FLUSH_WAE
 		)
 
 		# store final metering rates (after HERO)
@@ -309,7 +298,6 @@ for step in range(4500):
 				traffic_light_logic_HOR.phases[ph_id].duration = red_duration_HOR
 		traci.trafficlight.setProgramLogic(traffic_light_HOR, traffic_light_logic_HOR)
 		traci.trafficlight.setPhase(traffic_light_HOR, 0)
-		print(metering_rate_HOR)  # print final HOR rate (after HERO)
 
 		# --- WAE ---
 		green_duration_WAE = int(metering_rate_WAE * SIGNAL_CYCLE_DURATION)
