@@ -17,7 +17,7 @@
     <inductionLoop id="SENS_A3_WAE_MID1" lane="A3_WAED_MID_1" pos="-10.00" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_A3_WAE_MID1.xml"/>
     <inductionLoop id="SENS_A3_WAE_N0" lane="A3_HOR_S_0" pos="10.00" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_A3_WAE_N0.xml"/>
     <inductionLoop id="SENS_A3_WAE_N1" lane="A3_HOR_S_1" pos="10.00" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_A3_WAE_N1.xml"/>
-    <laneAreaDetector id="SENS_E_WAE" lane="E36_WAED_0" pos="0.00" length="165" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_E_WAE.xml" friendlyPos="1"/>
+    <laneAreaDetector id="SENS_E_WAE" lane="E36_WAED_0" pos="0.00" length="440" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_E_WAE.xml" friendlyPos="1"/>
     <laneAreaDetector id="SENS_E_HOR" lane="E35_HOR_0" pos="0.00" length="255" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_E_HOR.xml" friendlyPos="1"/>
-    <laneAreaDetector id="SENS_E_THA" lane="E34_THA_0" pos="0.00" length="175" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_E_THA.xml" friendlyPos="1"/>
+    <laneAreaDetector id="SENS_E_THA" lane="E34_THA_0" pos="0.00" length="480" period="30.00" file="..\..\simulation_output\scenario_1_ALINEA\output_detectors\SENS_E_THA.xml" friendlyPos="1"/>
 </additional>

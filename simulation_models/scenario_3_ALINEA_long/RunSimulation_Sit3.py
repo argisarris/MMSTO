@@ -28,7 +28,7 @@ TRAFFIC_SCALE = 1  # Scale traffic (adjust between 0.0 and 1.0)
 
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 # Use relative path to config file in same directory as script
-sumoConfigFile = os.path.join(script_dir, "Configuration_Sit1.sumocfg")
+sumoConfigFile = os.path.join(script_dir, "Configuration_Sit3.sumocfg")
 sumoCmd = [sumoBinary, "-c", sumoConfigFile, "--start", "--quit-on-end", "--time-to-teleport", "-1", "--scale", str(TRAFFIC_SCALE)]
 traci.start(sumoCmd)
 
