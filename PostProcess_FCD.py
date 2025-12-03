@@ -15,7 +15,7 @@ from collections import defaultdict
 # CONFIGURATION
 # ==========================
 # CONFIGURE WHICH SITUATION TO PROCESS
-SITUATION = "sit3"  # Options: "sit0", "sit1", "sit2", "sit3"
+SITUATION = "sit1"  # Options: "sit0", "sit1", "sit2", "sit3"
 
 # TIME RANGE FOR ANALYSIS (exclude warm-up period)
 TIME_START = 900  # seconds

@@ -28,6 +28,7 @@ sumo_errors.log
 *.swp
 *.swo
 *~
+*.tex
 
 # OS
 .DS_Store

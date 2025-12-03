@@ -24,7 +24,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # ==========================
 # TRAFFIC SCALING PARAMETER
 # ==========================
-TRAFFIC_SCALE = 0.5  # Scale traffic adjust between 0.0 and 1.0)
+TRAFFIC_SCALE = 1  # Scale traffic adjust between 0.0 and 1.0)
 
 sumoBinary = r"C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe"
 # Use relative path to config file in same directory as script

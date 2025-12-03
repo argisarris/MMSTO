@@ -1,0 +1,101 @@
+============================================================
+COMPARATIVE SUMMARY STATISTICS (MAINLINE ONLY) 50% of demand
+============================================================
+No Control:
+  Average speed (mainline): 19.10 km/h
+  Average vehicle count (all): 548.6 vehicles
+  Average vehicle count (mainline): 478.9 vehicles
+  Speed std deviation (mainline): 16.88 km/h
+  % Free flow (≥80 km/h, mainline): 0.4%
+  % Congested (<50 km/h, mainline): 94.7%
+
+ALINEA:
+  Average speed (mainline): 18.18 km/h
+  Average vehicle count (all): 569.9 vehicles
+  Average vehicle count (mainline): 501.1 vehicles
+  Speed std deviation (mainline): 14.90 km/h
+  % Free flow (≥80 km/h, mainline): 0.4%
+  % Congested (<50 km/h, mainline): 96.1%
+
+ALINEA+HERO:
+  Average speed (mainline): 20.68 km/h
+  Average vehicle count (all): 509.5 vehicles
+  Average vehicle count (mainline): 427.9 vehicles
+  Speed std deviation (mainline): 19.01 km/h
+  % Free flow (≥80 km/h, mainline): 0.7%
+  % Congested (<50 km/h, mainline): 90.9%
+
+ALINEA_long:
+  Average speed (mainline): 19.74 km/h
+  Average vehicle count (all): 552.8 vehicles
+  Average vehicle count (mainline): 448.5 vehicles
+  Speed std deviation (mainline): 18.57 km/h
+  % Free flow (≥80 km/h, mainline): 0.5%
+  % Congested (<50 km/h, mainline): 91.4%
+No Control:
+  Average speed (mainline): 12.58 km/h
+  Average vehicle count (all): 804.9 vehicles
+  Average vehicle count (mainline): 719.3 vehicles
+  Speed std deviation (mainline): 12.27 km/h
+  % Free flow (≥80 km/h, mainline): 0.2%
+  % Congested (<50 km/h, mainline): 98.0%
+
+ALINEA:
+  Average speed (mainline): 11.42 km/h
+  Average vehicle count (all): 881.2 vehicles
+  Average vehicle count (mainline): 787.9 vehicles
+  Speed std deviation (mainline): 12.36 km/h
+  % Free flow (≥80 km/h, mainline): 0.2%
+  % Congested (<50 km/h, mainline): 97.6%
+
+ALINEA+HERO:
+  Average speed (mainline): 11.39 km/h
+  Average vehicle count (all): 891.3 vehicles
+  Average vehicle count (mainline): 782.7 vehicles
+  Speed std deviation (mainline): 11.13 km/h
+  % Free flow (≥80 km/h, mainline): 0.2%
+  % Congested (<50 km/h, mainline): 98.2%
+
+ALINEA_long:
+  Average speed (mainline): 13.87 km/h
+  Average vehicle count (all): 783.6 vehicles
+  Average vehicle count (mainline): 644.8 vehicles
+  Speed std deviation (mainline): 13.69 km/h
+  % Free flow (≥80 km/h, mainline): 0.2%
+  % Congested (<50 km/h, mainline): 96.8%
+
+============================================================
+COMPARATIVE SUMMARY STATISTICS (MAINLINE ONLY) 100%
+============================================================
+
+No Control:
+  Average speed (mainline): 15.77 km/h
+  Average vehicle count (all): 665.3 vehicles
+  Average vehicle count (mainline): 581.2 vehicles
+  Speed std deviation (mainline): 14.16 km/h
+  % Free flow (≥80 km/h, mainline): 0.3%
+  % Congested (<50 km/h, mainline): 96.2%
+
+ALINEA:
+  Average speed (mainline): 16.59 km/h
+  Average vehicle count (all): 629.6 vehicles
+  Average vehicle count (mainline): 545.3 vehicles
+  Speed std deviation (mainline): 15.25 km/h
+  % Free flow (≥80 km/h, mainline): 0.3%
+  % Congested (<50 km/h, mainline): 95.8%
+
+ALINEA+HERO:
+  Average speed (mainline): 17.90 km/h
+  Average vehicle count (all): 588.2 vehicles
+  Average vehicle count (mainline): 498.0 vehicles
+  Speed std deviation (mainline): 16.09 km/h
+  % Free flow (≥80 km/h, mainline): 0.4%
+  % Congested (<50 km/h, mainline): 95.0%
+
+ALINEA_long:
+  Average speed (mainline): 16.67 km/h
+  Average vehicle count (all): 656.0 vehicles
+  Average vehicle count (mainline): 529.0 vehicles
+  Speed std deviation (mainline): 15.81 km/h
+  % Free flow (≥80 km/h, mainline): 0.3%
+  % Congested (<50 km/h, mainline): 95.4%
